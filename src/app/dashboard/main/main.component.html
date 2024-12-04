@@ -1,0 +1,540 @@
+<section class="content">
+  <div class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="container-fluid">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [codigoInforme]="''" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Widgets -->
+    <div class="row">
+      <div [class]="idEmployee !== 80 && idEmployee !== 96 ? 'col-md-3 col-sm-6' : 'col-md-6 col-sm-12'">
+        <button (click)="redirigir()" class="w-100 border-0 info-box7 order-info-box7" style="background-color: #3A9413;">
+          <div class="info-box7-block">
+            <h4 class="m-b-20 text-start">Tareas Pendientes</h4>
+            <h2 class="text-end"><i class="fa-solid fa-list-check float-start"></i><span>{{numPendingTask}}</span></h2>
+            <p class="m-b-0">{{pendingTaskStr}}</p>
+          </div>
+        </button>
+      </div>
+      <div class="col-md-3 col-sm-6" *ngIf="idEmployee !== 80 && idEmployee !== 96">
+        <button  (click)="produccionDiaria()" class="w-100 border-0 info-box7 order-info-box7" style="background-color: #229cf7;">
+          <div class="info-box7-block">
+            <h4 class="m-b-20">Producción Diaria</h4>
+            <h2 class="text-end"><i class="fas fa-clipboard-check float-start"></i><span>{{dailyProduction}}</span></h2>
+            <p class="m-b-0">{{dailyProduction}}</p>
+          </div>
+        </button>
+      </div>
+      <div class="col-md-3 col-sm-6" *ngIf="idEmployee !== 80 && idEmployee !== 96">
+        <button (click)="produccionMensual()" class="w-100 border-0 info-box7 bg-c-yellow order-info-box7">
+          <div class="info-box7-block">
+            <h4 class="m-b-20">Producción Mensual</h4>
+            <h2 class="text-end"><i class="fa-solid fa-calendar-days float-start"></i><span>{{monthlyProduction}}</span></h2>
+            <p class="m-b-0">{{monthlyProduction}}</p>
+          </div>
+        </button>
+      </div>
+      <div  [class]="idEmployee !== 80 && idEmployee !== 96 ? 'col-md-3 col-sm-6' : 'col-md-6 col-sm-12'">
+        <button (click)="cuponesObservados()" class="w-100 border-0 info-box7  bg-c-pink order-info-box7">
+          <div class="info-box7-block">
+            <h4 class="m-b-20">Cupones Observados</h4>
+            <h2 class="text-end"><i class="fa-solid fa-eye float-start"></i><span>{{observedTickets.length}}</span></h2>
+            <p class="m-b-0">{{observedTicketsStr === null || observedTicketsStr === '' ? '0' : observedTicketsStr}}</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="col-md-6 col-sm-6" *ngIf="idUser === '31'">
+        <a href="#/informes/empresa/lista">
+          <div class="info-box7 bg-c-cyan order-info-box7">
+            <div class="info-box7-block d-flex justify-content-between  ">
+              <h1 class="m-b-20">Empresas</h1>
+              <i style="font-size: 60px;" class="fa-solid fa-building"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-sm-6" *ngIf="idUser === '31'">
+        <a href="#/informes/persona/lista">
+          <div class="info-box7 bg-c-cyan order-info-box7">
+            <div class="info-box7-block d-flex justify-content-between  ">
+              <h1 class="m-b-20">Personas</h1>
+              <i style="font-size: 60px;" class="fa-solid fa-user-tie"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+    <!-- #END# Widgets -->
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Resumen de Informes por País</h2>
+
+          </div>
+          <div class="body">
+           <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>País</mat-label>
+                  <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
+                  <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
+                  <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
+                    <span class="fi fi-{{iconoSeleccionado}}" style="font-size: 20px;"></span>
+                  </button>
+                  <mat-autocomplete #auto6="matAutocomplete" [displayWith]="displayPais" >
+                    <mat-option *ngFor="let pais of filterPais | async" [value]="pais">
+                      <span class="fi fi-{{pais.bandera}}"></span>
+                      {{pais.valor}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+
+           </div>
+           <div class="row" style="padding-top: 3px;">
+
+            <div class="col-md-6">
+              <div class="card">
+                <div class="body">
+                  <div class="list-group">
+                    <a href="#" onClick="return false;" class="list-group-item">
+                      <span class="badge bg-pink">{{this.empresasConInformes}}</span> Empresas Con Informes
+                      <div class="card">
+                        <div class="body">
+                          <div class="list-group">
+                            <a href="#" onClick="return false;" class="list-group-item">
+                              <span style="background-color: #3A9413;" class="badge">{{this.empresasCalidadA}}</span> Calidad A
+                            </a>
+                            <a href="#" onClick="return false;" class="list-group-item">
+                              <span style="background-color: #3A9413;" class="badge">{{this.empresasCalidadB}}</span>Calidad B
+                            </a>
+                            <a href="#" onClick="return false;" class="list-group-item">
+                              <span style="background-color: #3A9413;" class="badge">{{this.empresasCalidadC}}</span>Calidad C
+                            </a>
+                            <a href="#" onClick="return false;" class="list-group-item">
+                              <span style="background-color: #3A9413;" class="badge">{{this.empresasCalidadD}}</span>Calidad D
+                            </a>
+                            <a href="#" onClick="return false;" class="list-group-item">
+                              <span style="background-color: #3A9413;" class="badge">{{this.empresasSinCalidad}}</span>Sin Calidad
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" onClick="return false;" class="list-group-item">
+                      <span class="badge bg-orange">{{this.empresasSinInformes}}</span> Empresas Sin Informes
+                    </a>
+                    <a href="#" onClick="return false;" class="list-group-item">
+                      <span style="background-color: #229cf7;" class="badge ">{{this.empresasEliminadas}}</span> Empresas Inhabilitadas/Eliminadas
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+          </div>
+            <div class="col-md-6">
+              <div class="body">
+                <div echarts [options]="pie_chart" class="echart-height"></div>
+              </div>
+
+            </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Cupones Atendidos en el Mes Actual</h2>
+
+           </div>
+          <div class="body">
+            <apx-chart [series]="barChartOptions.series!" [chart]="barChartOptions.chart!"
+              [dataLabels]="barChartOptions.dataLabels!" [plotOptions]="barChartOptions.plotOptions!"
+              [colors]="barChartOptions.colors!" [xaxis]="barChartOptions.xaxis!" [stroke]="barChartOptions.stroke!"
+              [fill]="barChartOptions.fill!" [yaxis]="barChartOptions.yaxis!" [title]="barChartOptions.title!"
+              [tooltip]="barChartOptions.tooltip!" [legend]="barChartOptions.legend!" [grid]="barChartOptions.grid!">
+            </apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix card card-body" *ngIf="pendingTaskSupervisor.length > 0">
+      <div class="row m-0 p-0">
+        <div class="col-md-4">
+          <h5>Informes Pendientes por Atender</h5>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4" *ngIf="pendingTaskSupervisor.length > 1">
+          <mat-form-field class="w-100">
+            <mat-label>Supervisor</mat-label>
+            <mat-select matInput [(ngModel)]="supervisorSeleccionado"  (ngModelChange)="selectSupervisor(supervisorSeleccionado,tipo)">
+              <mat-option [value]="item.code" *ngFor="let item of pendingTaskSupervisor">{{item.code}} - {{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4" *ngIf="pendingTaskSupervisor.length === 1"></div>
+        <div class="col-md-2 m-0 p-0">
+          <mat-form-field class="w-100">
+            <mat-label>Tipo</mat-label>
+            <mat-select matInput [(ngModel)]="tipo" placeholder="">
+              <mat-option [value]="'RP'" *ngIf="pendingTaskReporter.length > 0">Reporteros</mat-option>
+              <mat-option [value]="'RF'" *ngIf="pendingTaskReferences.length > 0">Referencistas</mat-option>
+              <mat-option [value]="'AG'" *ngIf="pendingTaskAgent.length > 0">Agentes</mat-option>
+              <mat-option [value]="'DI'" *ngIf="pendingTaskTypist.length > 0">Digitador</mat-option>
+              <mat-option [value]="'TR'" *ngIf="pendingTaskTranslator.length > 0">Traductora</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="tipo === 'RP'">
+        <mat-sidenav-container class="task-container">
+          <mat-sidenav #sidenav1  position="end">
+            <div class="header">
+              <button mat-icon-button (click)="closeSlider(sidenav1)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div class="body">
+              <table mat-table [dataSource]="dataSource1" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+                <ng-container matColumnDef="number" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+                <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 100px;"> {{order.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requestedName" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre Solicitado </th>
+                <td mat-cell *matCellDef="let order" class="text-left" style="white-space: nowrap;width: 25%;"> {{order.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="country" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 120px;"> <span class="fi fi-{{order.flagCountry}}" style="font-size: 24px;"></span>{{order.country}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Pedido </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    {{order.orderDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expireDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" >
+
+                    <div class="input-container">
+                      <div class="circle-0" *ngIf="order.flag === 0"></div>
+                      <div class="circle-1" *ngIf="order.flag === 1"></div>
+                      <div class="circle-2" *ngIf="order.flag === 2"></div>
+                      <div>{{order.expireDate}}</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();enviarAlerta(order.id)" matTooltip="Enviar Alerta">
+                      <app-feather-icons [icon]="'bell'" style="color: rgb(189, 189, 97);"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                  <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay1;"
+                    class=""></tr>
+              </table>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>
+            <ng-scrollbar style="height: 400px" visibility="hover">
+              <div cdkDropList class="task-list" >
+                <div class="task-box" *ngFor="let task of pendingTaskReporter" (click)="task.details.length > 0 ? taskClick(task, sidenav1) : null" >
+                  <div >
+                    <span class="fi fi-{{task.flagCountry}}" style="font-size: 24px;"></span>{{task.country}} ||<b  style="font-size: 18px;">{{task.asignedTo}}</b> - {{task.name}} ||  <b style="color:green; font-size: 20px;">({{task.details.length}})</b>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+            <h5>Informes Pendientes Totales : {{sumPedidos(pendingTaskReporter)}}</h5>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+      <div class="col-md-12" *ngIf="tipo === 'RF'">
+        <mat-sidenav-container class="task-container">
+          <mat-sidenav #sidenav4  position="end">
+            <div class="header">
+              <button mat-icon-button (click)="closeSlider(sidenav4)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div class="body">
+              <table mat-table [dataSource]="dataSource5" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+                <ng-container matColumnDef="number" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+                <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 100px;"> {{order.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requestedName" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre Solicitado </th>
+                <td mat-cell *matCellDef="let order" class="text-left" style="white-space: nowrap;width: 25%;"> {{order.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="country" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 120px;"> <span class="fi fi-{{order.flagCountry}}" style="font-size: 24px;"></span>{{order.country}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Pedido </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    {{order.orderDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expireDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" >
+
+                    <div class="input-container">
+                      <div class="circle-0" *ngIf="order.flag === 0"></div>
+                      <div class="circle-1" *ngIf="order.flag === 1"></div>
+                      <div class="circle-2" *ngIf="order.flag === 2"></div>
+                      <div>{{order.expireDate}}</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();enviarAlerta(order.id)" matTooltip="Enviar Alerta">
+                      <app-feather-icons [icon]="'bell'" style="color: rgb(189, 189, 97);"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                  <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay1;"
+                    class=""></tr>
+              </table>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>
+            <ng-scrollbar style="height: 400px" visibility="hover">
+              <div cdkDropList class="task-list" >
+                <div class="task-box" *ngFor="let task of pendingTaskReferences" (click)="task.details.length > 0 ? taskClick(task, sidenav4) : null" >
+                  <div >
+                    <span class="fi fi-{{task.flagCountry}}" style="font-size: 24px;"></span>{{task.country}} ||<b  style="font-size: 18px;">{{task.asignedTo}}</b> - {{task.name}} ||  <b style="color:green; font-size: 20px;">({{task.details.length}})</b>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+            <h5>Informes Pendientes Totales : {{sumPedidos(pendingTaskReferences)}}</h5>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+      <div class="col-md-12" *ngIf="tipo === 'AG'">
+        <mat-sidenav-container class="task-container">
+          <mat-sidenav #sidenav2  position="end">
+            <div class="header">
+              <button mat-icon-button (click)="closeSlider(sidenav2)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div class="body">
+              <table mat-table [dataSource]="dataSource2" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+                <ng-container matColumnDef="number" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+                <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 100px;"> {{order.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requestedName" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre Solicitado </th>
+                <td mat-cell *matCellDef="let order" class="text-left" style="white-space: nowrap;width: 25%;"> {{order.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="country" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 120px;"> <span class="fi fi-{{order.flagCountry}}" style="font-size: 24px;"></span>{{order.country}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Pedido </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    {{order.orderDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expireDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" >
+                    <div class="input-container">
+                      <div class="circle-0" *ngIf="order.flag === 0"></div>
+                      <div class="circle-1" *ngIf="order.flag === 1"></div>
+                      <div class="circle-2" *ngIf="order.flag === 2"></div>
+                      <div>{{order.expireDate}}</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();enviarAlerta(order.id)" matTooltip="Enviar Alerta">
+                      <app-feather-icons [icon]="'bell'" style="color: rgb(189, 189, 97);"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                  <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay1;"
+                    class=""></tr>
+                </table>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>
+            <ng-scrollbar style="height: 400px" visibility="hover">
+              <div cdkDropList class="task-list" >
+                <div class="task-box" *ngFor="let task of pendingTaskAgent" (click)="task.details.length > 0 ? taskClick(task, sidenav2) : null" >
+                  <div  >
+                    <span class="fi fi-{{task.flagCountry}}" style="font-size: 24px;"></span>{{task.country}} ||<b style="font-size: 18px;">{{task.asignedTo}}</b> - {{task.name}} || <b style="color:green; font-size: 20px;">({{task.details.length}})</b>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+            <h5>Informes Pendientes Totales : {{sumPedidos(pendingTaskAgent)}}</h5>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+      <div class="col-md-12" *ngIf="tipo === 'DI'">
+        <mat-sidenav-container class="task-container">
+          <mat-sidenav #sidenav3  position="end">
+            <div class="header">
+              <button mat-icon-button (click)="closeSlider(sidenav3)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div class="body">
+              <table mat-table [dataSource]="dataSource3" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+                <ng-container matColumnDef="number" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+                <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 100px;"> {{order.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requestedName" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre Solicitado </th>
+                <td mat-cell *matCellDef="let order" class="text-left" style="white-space: nowrap;width: 25%;"> {{order.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="country" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 120px;"> <span class="fi fi-{{order.flagCountry}}" style="font-size: 24px;"></span>{{order.country}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Pedido </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    {{order.orderDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expireDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" >
+                    <div class="input-container">
+                      <div class="circle-0" *ngIf="order.flag === 0"></div>
+                      <div class="circle-1" *ngIf="order.flag === 1"></div>
+                      <div class="circle-2" *ngIf="order.flag === 2"></div>
+                      <div>{{order.expireDate}}</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();enviarAlerta(order.id)" matTooltip="Enviar Alerta">
+                      <app-feather-icons [icon]="'bell'" style="color: rgb(189, 189, 97);"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                  <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay1;"
+                    class=""></tr>
+                </table>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>
+            <ng-scrollbar style="height: 400px" visibility="hover">
+              <div cdkDropList class="task-list" >
+                <div class="task-box" *ngFor="let task of pendingTaskTypist" (click)="task.details.length > 0 ? taskClick(task, sidenav3) : null" >
+                  <div  >
+                    <span class="fi fi-{{task.flagCountry}}" style="font-size: 24px;"></span>{{task.country}} ||<b style="font-size: 18px;">{{task.asignedTo}}</b> - {{task.name}} || <b style="color:green; font-size: 20px;">({{task.details.length}})</b>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+            <h5>Informes Pendientes Totales : {{sumPedidos(pendingTaskTypist)}}</h5>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+      <div class="col-md-12" *ngIf="tipo === 'TR'">
+        <mat-sidenav-container class="task-container">
+          <mat-sidenav #sidenav4  position="end">
+            <div class="header">
+              <button mat-icon-button (click)="closeSlider(sidenav4)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div class="body">
+              <table mat-table [dataSource]="dataSource4" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+                <ng-container matColumnDef="number" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+                <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 100px;"> {{order.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="requestedName" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre Solicitado </th>
+                <td mat-cell *matCellDef="let order" class="text-left" style="white-space: nowrap;width: 25%;"> {{order.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="country" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap; width: 120px;"> <span class="fi fi-{{order.flagCountry}}" style="font-size: 24px;"></span>{{order.country}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Pedido </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    {{order.orderDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expireDate" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" >
+                    <div class="input-container">
+                      <div class="circle-0" *ngIf="order.flag === 0"></div>
+                      <div class="circle-1" *ngIf="order.flag === 1"></div>
+                      <div class="circle-2" *ngIf="order.flag === 2"></div>
+                      <div>{{order.expireDate}}</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones" >
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
+                  <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
+                    <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();enviarAlerta(order.id)" matTooltip="Enviar Alerta">
+                      <app-feather-icons [icon]="'bell'" style="color: rgb(189, 189, 97);"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                  <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay1;"
+                    class=""></tr>
+                </table>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>
+            <ng-scrollbar style="height: 400px" visibility="hover">
+              <div cdkDropList class="task-list" >
+                <div class="task-box" *ngFor="let task of pendingTaskTranslator" (click)="task.details.length > 0 ? taskClick(task, sidenav4) : null" >
+                  <div  >
+                    <span class="fi fi-{{task.flagCountry}}" style="font-size: 24px;"></span>{{task.country}} ||<b style="font-size: 18px;">{{task.asignedTo}}</b> - {{task.name}} || <b style="color:green; font-size: 20px;">({{task.details.length}})</b>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+            <h5>Informes Pendientes Totales : {{sumPedidos(pendingTaskTranslator)}}</h5>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,95 @@
+<div class="settingSidebar" [ngClass]="isOpenSidebar ? 'showSettingPanel' : ''">
+  <a href="javascript:void(0)" class="settingPanelToggle" (click)="toggleRightSidebar()">
+    <app-feather-icons [icon]="'search'" [class]="'setting-sidebar-icon'"></app-feather-icons>
+  </a>
+  <ng-scrollbar [style.height]="maxHeight + 'px'" visibility="hover">
+    <div class="settingSidebar-body ps-container ps-theme-default">
+      <div class=" fade show active">
+        <div class="setting-panel-header">Búsqueda
+        </div>
+        <div class="p-10 border-bottom pb-0">
+          <div class="flex flex-wrap hiddenradio">
+            <div class="row m-0">
+              <div class="col-md-12 m-0 mb-5">
+                <h5>Enlaces Importantes</h5>
+                <div class="row  m-0">
+                  <div class="col-md-4 m-0">
+                    <a href="https://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/FrameCriterioBusquedaWeb.jsp" class="d-flex" target="_blank" style="margin: .5rem .5rem .5rem .5rem; background-color: white;">
+                      <img src="https://imagenpng.com/wp-content/uploads/2015/03/Logotipo-SUNAT-png-1.png" width="50px" height="50px" alt="">
+                      Consulta RUC
+                    </a>
+                  </div>
+                  <div class="col-md-4 m-0" >
+                    <a href="https://opencorporates.com/" class="d-flex" target="_blank" style="margin: .5rem .5rem .5rem .5rem; background-color: white;" >
+                      <img src="https://avatars.githubusercontent.com/u/439097?s=280&v=4" width="50px" height="50px" alt="">
+                      Open Corporates
+                    </a>
+                  </div>
+                  <div class="col-md-4 m-0">
+                    <a href="https://www.veritradecorp.com/es/" class="d-flex" target="_blank" style="margin: .5rem .5rem .5rem .5rem; background-color: white;">
+                      <img src="https://brandgeeks.pe/wp-content/uploads/2023/09/6.png"  width="50px" height="50px" alt="">
+                      Veritrade Corp.
+                    </a>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-md-8 m-0">
+                <mat-form-field class="w-100">
+                  <mat-label>Buscar</mat-label>
+                  <input id="buscador" matInput [(ngModel)]="search">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <button mat-mini-fab [class]="'bg-blue'"  style="margin: .5rem .5rem .5rem .5rem;" matTooltip="Buscar" (click)="consultar()">
+                  <mat-icon class="col-white">search</mat-icon>
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button mat-mini-fab [class]="'bg-red'"  style="margin: .5rem .5rem .5rem .5rem;" matTooltip="Limpiar" (click)="search = ''; copilot=[]">
+                  <mat-icon class="col-white">cleaning_services</mat-icon>
+                </button>
+              </div>
+
+             </div>
+             <div class="row">
+              <div *ngIf="loading" class="col-md-12 d-flex justify-content-center align-items-center">
+                <div class="loader"></div>
+              </div>
+              <div id="showResponse" class="col-md-12" *ngIf="!loading">
+                <div class="w-100 h-100" *ngIf="copilot[0]?.webPages?.value">
+
+                        <div class="card card-body" *ngFor="let item of copilot[0].webPages.value">
+                          <div class="row">
+                            <div class="col-md-2" *ngIf="item.thumbnailUrl !== null && item.thumbnailUrl !== ''">
+                              <img [src]="item.thumbnailUrl" alt="">
+                            </div>
+                            <div [class]="item.thumbnailUrl !== null && item.thumbnailUrl !== undefined ? 'col-md-10' : 'col-md-12'">
+                              <a style="color: rgb(38, 38, 161); text-decoration: underline;" [href]="item.url"  [target]="'_blank'" matListItemTitle><h4>{{ item.name }}</h4></a>
+                            </div>
+                          </div>
+                          <span>{{ item.snippet }}</span>
+                          <div *ngFor="let itemrf of item.richFacts" class="mt-2">
+                            <h5>{{itemrf.label.text}}</h5>
+                            <ul>
+                              <li *ngFor="let itemrfs of itemrf.items">  {{itemrfs.text}}</li>
+                            </ul>
+                          </div>
+                        </div>
+
+
+                </div>
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ng-scrollbar>
+</div>

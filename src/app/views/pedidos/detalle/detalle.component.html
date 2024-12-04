@@ -1,0 +1,488 @@
+<section class="content">
+  <div id="loader-detalle-cupon" class="d-flex justify-content-center align-items-center loader-container"
+    [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="container-fluid">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [codigoInforme]="''"
+        [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- DATOS DEL ABONADO -->
+        <div class="row counter-box p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4>Datos del Abonado</h4>
+
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+              <div class=" bg-c-green order-info-box7 w-100 shadow"
+                style="border-radius: .5rem; padding: .5rem; margin-bottom: .8rem; ">
+                <div class="d-flex justify-content-between">
+                  <h3 class=" text-end m-b-5 " style="margin-top: .5rem;"><i class="fas fa-ticket-alt float-start"
+                      style="margin-top: .2rem; margin-right: .5rem;"> </i> Nro. del Cupón</h3>
+                  <h2 class="text-end" style="margin-top: .5rem;">{{ cupon }}</h2>
+                </div>
+              </div>
+            </div>
+
+                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                  <ul>
+                    <li *ngIf="this.tipoFacturacion==='FM'" style="color : red; font-size: 16px;"><b>FACTURACIÓN
+                        MENSUAL</b></li>
+                    <li *ngIf="this.tipoFacturacion==='CC'" style="color : red; font-size: 16px;"><b>FACTURACIÓN CON
+                        CUPONES</b></li>
+                    <li *ngIf="this.tipoFacturacion==='CC' && this.remainingCoupons<50"
+                      style="color : red; font-size: 14px;"><b>Cupones Restantes : {{this.remainingCoupons}}</b></li>
+                    <li *ngIf="this.tipoFacturacion==='CC' && this.remainingCoupons>=50 && this.remainingCoupons<100"
+                      style="color : orange; font-size: 14px;"><b>Cupones Restantes : {{this.remainingCoupons}}</b></li>
+                    <li *ngIf="this.tipoFacturacion==='CC' && this.remainingCoupons>=100"
+                      style="color : rgb(9, 194, 9); font-size: 14px;"><b>Cupones Restantes :
+                        {{this.remainingCoupons}}</b></li>
+                    <li *ngIf="this.tipoFacturacion==='CC' && this.remainingCoupons<50"
+                      style="color : red; font-size: 14px;"><b>¡¡Avisar a ADMINISTRACIÓN!!</b></li>
+                  </ul>
+                </div>
+                <div>
+                <button mat-mini-fab color="warn"  #tooltip="matTooltip"
+                  matTooltip="Volver" (click)="volver()">
+                  <mat-icon class="col-white">arrow_back</mat-icon>
+                </button>
+                <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow"
+               (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar"
+                  [class]="idSubscriber === 0 || language === '' && idContinent === 0 || idCountry === 0 || procedureType === '' || reportType === ''|| requestedName === '' ? 'bg-grey' : ''"
+                  [disabled]="idSubscriber === 0 || language === '' || idContinent === 0 || idCountry === 0 || procedureType === '' || reportType === '' || requestedName === ''  ? true : false">
+                  <mat-icon class="col-white">save</mat-icon>
+                </button>
+              </div>
+            </div>
+
+
+          <hr>
+          <div class="col-md-3 d-flex align-items-center ">
+            <mat-form-field class="w-100 input-readonly" style="margin-right: 1rem;">
+              <mat-label>Abonado</mat-label>
+              <input matInput placeholder="" value="" [(ngModel)]="codAbonado" (keypress)="filtrar($event);">
+              <button class="btn-traduccion" matSuffix mat-icon-button (click)="buscarAbonado()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              <mat-hint *ngIf="idSubscriber === 0" style="color: red;"><i class="fa-solid fa-circle-exclamation"></i> No
+                hay abonado</mat-hint>
+              <mat-hint *ngIf="idSubscriber !== 0" style="color: green;"><i
+                  class="fa-solid fa-circle-check"></i>&nbsp;Abonado Seleccionado</mat-hint>
+            </mat-form-field>
+
+            <mat-slide-toggle [(ngModel)]="revealName" class="mb-3" (click)="revelarNombre()"
+              style="width:10rem; margin-left: 1rem;">Revelar Nombre: {{nombre_abonado}}</mat-slide-toggle>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="w-100">
+              <mat-label>Nombre del Cliente</mat-label>
+              <input matInput placeholder="" [(ngModel)]="nameRevealed" [readonly]="!revealName">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="w-100">
+              <mat-label>Nro. Referencia</mat-label>
+              <input matInput placeholder="" [(ngModel)]="referenceNumber" value="">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class="w-100 d-flex">
+              <mat-label>Estado</mat-label>
+              <div class="input-container">
+                <input matInput placeholder="" *ngIf="estado === true" value="ACTIVO" readonly>
+                <input matInput placeholder="" *ngIf="estado === false" value="INACTIVO" readonly>
+                <div class="circle-inactive" *ngIf="estado === false"></div>
+                <div class="circle-active" *ngIf="estado === true"></div>
+              </div>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Idioma</mat-label>
+              <mat-select [(ngModel)]="language">
+                <mat-option [value]="'E'">
+                  <span class="fi fi-es"></span>
+                  ESPAÑOL
+                </mat-option>
+                <mat-option [value]="'I'">
+                  <span class="fi fi-us"></span>
+                  INGLÉS
+                </mat-option>
+              </mat-select>
+              <a class="btn-traduccion" style="margin: 0 .3rem 0 .3rem;" matSuffix>
+                <span class="fi fi-es" style="font-size: 20px" *ngIf="language === 'E'"></span>
+                <span class="fi fi-us" style="font-size: 20px" *ngIf="language  === 'I'"></span>
+                <span class="fi fi-us"
+                  style="background-image: url(./../../../../../../assets/images/us-es.png); font-size: 20px;"
+                  *ngIf="language === 'A'"></span>
+              </a>
+              <mat-hint *ngIf="language === ''" style="color: red;"><i class="fa-solid fa-circle-exclamation"></i>
+                &nbsp;Seleccione un idioma</mat-hint>
+              <mat-hint *ngIf="language !== ''" style="color: green;"><i
+                  class="fa-solid fa-circle-check"></i>&nbsp;Idioma Seleccionado</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>Crédito Consultado</mat-label>
+                  <input matInput placeholder="" value="" [(ngModel)]="queryCredit">
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>Plazos</mat-label>
+                  <input matInput placeholder="" value="" [(ngModel)]="timeLimit">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>Indicaciones del Abonado</mat-label>
+                  <textarea matInput placeholder="" style="min-height: 7rem;"
+                    [(ngModel)]="indicacionesAbonado"></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>Comentarios del Cupón</mat-label>
+                  <textarea matInput placeholder="" style="min-height: 7rem;" [(ngModel)]="aditionalData"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DATOS GENERALES Y DE LA EMPRESA -->
+        <div class="row">
+          <!-- DATOS GENERALES -->
+
+          <!-- DATOS DE LA EMPRESA/PERSONA -->
+          <div class="col-md-7 mt-3">
+            <div class="counter-box shadow m-0" style=" padding: 1rem 1rem 0 1rem;">
+              <!-- FORMULARIO DE EMPRESA -->
+              <div>
+                <h4 *ngIf="about === 'E'">Datos de la Empresa a Investigar</h4>
+                <h4 *ngIf="about === 'P'">Datos de la Persona a Investigar</h4>
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                      <mat-label>Informe de</mat-label>
+                      <mat-select [(ngModel)]="about"
+                      (ngModelChange)="busineesName = ''; requestedName = ''; idContinent = 0; idCountry = 0; city = '';
+                      taxType = ''; taxCode = '';email = ''; telephone = ''; address = ''; ">
+                        <mat-option [value]="'E'">Empresa</mat-option>
+                        <mat-option [value]="'P'">Persona</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-7" *ngIf="about === 'E'">
+                    <mat-form-field class="w-100">
+                      <mat-label>Razón Social</mat-label>
+                      <input matInput [(ngModel)]="busineesName">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1" *ngIf="about === 'E'">
+                    <button class="btn-traduccion  mt-2" [ngClass]="idSubscriber === 0 ? 'bg-gray' : 'bg-blue'" matSuffix mat-mini-fab (click)="buscarEmpresa()" [disabled]="idSubscriber === 0">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                  </div>
+                  <div class="col-md-7" *ngIf="about === 'P'">
+                    <mat-form-field class="w-100">
+                      <mat-label>Nombres y Apellidos</mat-label>
+                      <input matInput [(ngModel)]="busineesName">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1" *ngIf="about === 'P'">
+                    <button class="btn-traduccion  mt-2" [ngClass]="idSubscriber === 0 ? 'bg-gray' : 'bg-blue'" matSuffix mat-mini-fab (click)="buscarPersona()" [disabled]="idSubscriber === 0">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Tal Cual fue Solicitado (*)</mat-label>
+                    <input matInput [(ngModel)]="requestedName">
+                  </mat-form-field>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                      <mat-label>Continente</mat-label>
+                      <mat-select [(ngModel)]="idContinent" (selectionChange)="selectContinente()">
+                        <mat-option [value]="continente.id"
+                          *ngFor="let continente of continentes">{{continente.valor}}</mat-option>
+                      </mat-select>
+                      <mat-hint *ngIf="idContinent === 0" style="color: red;"><i
+                          class="fa-solid fa-circle-exclamation"></i> Seleccione un Continente</mat-hint>
+                      <mat-hint *ngIf="idContinent !== 0" style="color: green;"><i
+                          class="fa-solid fa-circle-check"></i>Continente Seleccionado</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                      <mat-label>País</mat-label>
+                      <mat-select [(ngModel)]="idCountry" (selectionChange)="mostrarBandera()">
+                        <mat-option *ngFor="let item of paisesAbonado" [value]="item.id">
+                          <span class="fi fi-{{item.bandera}}"></span>{{item.valor}}
+                        </mat-option>
+                      </mat-select>
+                      <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
+                        <span class="fi fi-{{iconoSeleccionado}}" style="font-size: 20px;"></span>
+                      </button>
+                      <mat-hint *ngIf="idCountry === 0" style="color: red;"><i class="fa-solid fa-circle-exclamation"></i>
+                        &nbsp;Seleccione un País</mat-hint>
+                      <mat-hint *ngIf="idCountry !== 0" style="color: green;"><i
+                          class="fa-solid fa-circle-check"></i>&nbsp;País Seleccionado</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                      <mat-label>Ciudad</mat-label>
+                      <input matInput placeholder="" [(ngModel)]="city">
+                      <button matSuffix *ngIf="city !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="city = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="" style="width: 35%;">
+                      <mat-label>Tipo Reg. Trib.</mat-label>
+                      <input matInput placeholder="" [(ngModel)]="taxType">
+                      <button matSuffix *ngIf="taxType !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="taxType = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                    <mat-form-field class="" style="width: 65%;">
+                      <mat-label>Código Reg. Trib.</mat-label>
+                      <input matInput [(ngModel)]="taxCode">
+                      <button matSuffix *ngIf="taxCode !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="taxCode = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>Email</mat-label>
+                      <input matInput [(ngModel)]="email">
+                      <button matSuffix *ngIf="email !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="email = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput placeholder="" [(ngModel)]="telephone">
+                      <button matSuffix *ngIf="telephone !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="telephone = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-8">
+                    <mat-form-field class="w-100">
+                      <mat-label>Dirección</mat-label>
+                      <input matInput placeholder="" [(ngModel)]="address">
+                      <button matSuffix *ngIf="address !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="address = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12" >
+                    <mat-form-field class="w-100">
+                      <mat-label>Pagina Web</mat-label>
+                      <input matInput placeholder="" [(ngModel)]="webPage">
+                      <button matSuffix *ngIf="webPage !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="webPage = ''" #tooltip="matTooltip" matTooltip="Limpiar">
+                        <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <!--div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>Riesgo Crediticio</mat-label>
+                      <mat-select [(ngModel)]="idCreditRisk">
+                        <mat-option *ngFor="let cCrediticia of calificacionCrediticia" [value]="cCrediticia.id">
+                          {{cCrediticia.valor}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </!--div-->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mt-3">
+            <div class="counter-box shadow m-1">
+              <div class="row">
+                <h4>Datos Generales</h4>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <mat-label>Tipo de Trámite </mat-label>
+                    <mat-select [(ngModel)]="procedureType" (selectionChange)="tipotramite()">
+                      <mat-option *ngFor="let precio of listaPrecio" [value]="precio.name">{{precio.name}}</mat-option>
+                    </mat-select>
+                    <button class="btn-traduccion" matSuffix mat-icon-button (click)="procedureType = ''; precio = 0">
+                      <i class="fa-solid fa-x"></i>
+                    </button>
+                    <mat-hint *ngIf="procedureType === ''" style="color: red;"><i
+                        class="fa-solid fa-circle-exclamation"></i>Seleccione un T. de Trámite</mat-hint>
+                    <mat-hint *ngIf="procedureType !== ''" style="color: green;"><i
+                        class="fa-solid fa-circle-check"></i>Trámite Seleccionado</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  <mat-form-field color="primary" style="width: 100%;">
+                    <mat-label>Fecha del Pedido</mat-label>
+                    <input matInput [matDatepicker]="fecha_pedido" [(ngModel)]="orderDateD"
+                      (dateChange)="selectFecha1($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="fecha_pedido"></mat-datepicker-toggle>
+                    <mat-datepicker #fecha_pedido color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  <mat-form-field color="primary" style="width: 100%;">
+                    <mat-label>Fecha de Vencimiento</mat-label>
+                    <input matInput [matDatepicker]="fecha_vencimiento" [(ngModel)]="expireDateD"
+                      (dateChange)="selectFecha2($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="fecha_vencimiento"></mat-datepicker-toggle>
+                    <mat-datepicker #fecha_vencimiento color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  <mat-form-field color="primary" style="width: 100%;">
+                    <mat-label>Fecha de Venc. Real</mat-label>
+                    <input matInput [matDatepicker]="fecha_vencimiento_real" [(ngModel)]="realExpireDateD"
+                      (dateChange)="selectFecha3($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="fecha_vencimiento_real"></mat-datepicker-toggle>
+                    <mat-datepicker #fecha_vencimiento_real color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-2">
+                  <mat-form-field class="w-100">
+                    <mat-label>Tipo </mat-label>
+                    <input matInput type="text" [(ngModel)]="reportType">
+                  </mat-form-field>
+
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                  <mat-form-field color="primary" style="width: 100%;">
+                    <mat-label>A la Fecha</mat-label>
+                    <input matInput [matDatepicker]="fecha_informe" [(ngModel)]="fechaInformeDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="fecha_informe"></mat-datepicker-toggle>
+                    <mat-datepicker #fecha_informe color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="counter-box shadow m-1">
+              <div class="row">
+                <h4>Comentarios</h4>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Comentario </mat-label>
+                    <textarea matInput type="text" [(ngModel)]="commentary" style="min-height: 6rem;"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OTROS ABONADOS PIDIERON ESTE INFORME -->
+        <div class="row m-0 p-0">
+          <div class="col-md-12">
+            <div class="counter-box shadow" style="overflow-x: auto;">
+              <h4>Abonados que Pidieron este Informe</h4>
+              <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 w-100" matSort
+                class="mat-elevation-z8 w-100">
+                <ng-container matColumnDef="tipo">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Tipo </th>
+                  <td mat-cell *matCellDef="let report" class="text-center">
+                    <div *ngIf="report.typeReport === 'OR'">
+                      <div class="badge badge-solid-orange" style="font-size: 16px;">OR</div>
+                    </div>
+                    <div *ngIf="report.typeReport === 'RV'">
+                      <div class="badge badge-solid-green" style="font-size: 16px;">RV</div>
+                    </div>
+                    <div *ngIf="report.typeReport === 'EF'">
+                      <div class="badge badge-solid-cyan" style="font-size: 16px;">EF</div>
+                    </div>
+                    <div *ngIf="report.typeReport === 'DF'">
+                      <div class="badge badge-solid-blue" style="font-size: 16px;">DF</div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cupon">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Cupón </th>
+                  <td mat-cell *matCellDef="let report" class="text-center"> {{report.ticketNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreSolicitado">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Nombre Solicitado </th>
+                  <td mat-cell *matCellDef="let report" class="text-center"> {{report.requestedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreDespachado">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;">
+                    Nombre Despachado </th>
+                  <td mat-cell *matCellDef="let report" class="text-center"> {{report.dispatch}} </td>
+                </ng-container>
+                <ng-container matColumnDef="despacho">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Despacho </th>
+                  <td mat-cell *matCellDef="let report" class="text-center"> {{report.dispatchtDateString}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="abonado">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Abonado </th>
+                  <td mat-cell *matCellDef="let report" class="text-center"> {{report.subscriber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tramite">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;">
+                    Trámite </th>
+                  <td mat-cell *matCellDef="let report" class="text-center">
+                    <div *ngIf="report.procedure === 'T1'">
+                      <div class="badge badge-solid-blue">T1</div>
+                    </div>
+                    <div *ngIf="report.procedure === 'T2'">
+                      <div class="badge badge-solid-purple">T2</div>
+                    </div>
+                    <div *ngIf="report.procedure === 'T3'">
+                      <div class="badge badge-solid-cyan">T3</div>
+                    </div>
+                    <div *ngIf="report.procedure === 'BC'">
+                      <div class="badge badge-solid-brown">BC</div>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[10,20,30]" aria-label="Seleccionar página"
+                class="w-100"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

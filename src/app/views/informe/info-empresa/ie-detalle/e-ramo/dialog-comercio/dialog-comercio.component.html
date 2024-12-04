@@ -1,0 +1,62 @@
+<div class="container" style="max-width: 30rem;" >
+  <div class="row ">
+    <div class="card">
+      <div class="materialTableHeader mt-3" >
+        <div class="left">
+          <ul class="header-buttons-left ms-0">
+            <li class="tbl-title">
+              <h2>{{titulo}}</h2>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul class="tbl-export-btn">
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-red" style="margin: 0 .5rem .5rem .5rem;"  matTooltip="Salir" (click)="cerrar()">
+                  <mat-icon class="col-white">logout</mat-icon>
+                </button>
+              </div>
+            </li>
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+                  <mat-icon class="col-white">save</mat-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Porcentaje</mat-label>
+        <input matInput mask="separator.2" thousandSeparator="," [(ngModel)]="porcentaje">
+        <span matSuffix style="margin-right: .5rem; color:gray;">
+          <i class="fa-solid fa-percent"></i>
+        </span>
+      </mat-form-field>
+    </div>
+    <h4>Comentario</h4>
+    <hr>
+    <div class="col-md-12 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>(Español)</mat-label>
+        <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="comentario"></textarea>
+        <button class="btn-traduccion" matSuffix mat-icon-button>
+          <span class="fi fi-es" style="font-size: 24px; "></span>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>(Inglés)</mat-label>
+        <textarea matInput placeholder=""  style="min-height: 8rem;" [(ngModel)]="comentarioEng"></textarea>
+        <button class="btn-traduccion" matSuffix mat-icon-button>
+          <span class="fi fi-us" style="font-size: 24px;"></span>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

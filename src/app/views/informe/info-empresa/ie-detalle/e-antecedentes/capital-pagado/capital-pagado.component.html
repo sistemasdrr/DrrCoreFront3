@@ -1,0 +1,79 @@
+<div class="container" style="max-width: 45rem;" >
+  <div class="row ">
+    <div class="card">
+      <div class="materialTableHeader mt-3" >
+        <div class="left">
+          <ul class="header-buttons-left ms-0">
+            <li class="tbl-title">
+              <h2>Capital Pagado Actual</h2>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul class="tbl-export-btn">
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-red" style="margin: 0 .5rem .5rem .5rem;"  matTooltip="Salir" (click)="cerrarDialog()">
+                  <mat-icon class="col-white">logout</mat-icon>
+                </button>
+              </div>
+            </li>
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="realizarEnvioCodigo()">
+                  <mat-icon class="col-white">save</mat-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Moneda del País</mat-label>
+        <span matSuffix style="margin-right: .5rem; color:gray;">
+          <i class="fa-solid fa-coins"></i>
+        </span>
+        <input type="text" matInput [formControl]="ctrlMoneda"  [matAutocomplete]="auto2" [(ngModel)]="currentPaidCapitalCurrencyInforme" (ngModelChange)="selectMoneda(currentPaidCapitalCurrencyInforme)">
+
+        <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" (click)="limpiarSeleccion()" #tooltip="matTooltip" matTooltip="Limpiar">
+          <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+        </button>
+        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let situacionRUC of filteredMoneda | async" [value]="situacionRUC">
+            {{situacionRUC.valor}}
+          </mat-option>
+        </mat-autocomplete>
+        <!-- <mat-select [(ngModel)]="idCurrency">
+            <mat-option [value]="item.id" *ngFor="let item of listaMonedas">{{item.valor}}</mat-option>
+        </mat-select> -->
+      </mat-form-field>
+    </div>
+    <div class="col-md-7 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Monto</mat-label>
+        <input matInput placeholder="" mask="separator.2" thousandSeparator="," [(ngModel)]="capital">
+        <span matSuffix style="margin-right: .5rem; color:gray;">
+          <i class="fa-solid fa-circle-dollar-to-slot"></i>
+        </span>
+      </mat-form-field>
+    </div>
+    <h4>Observación</h4>
+    <hr>
+    <div class="col-md-12 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>(Español)</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="commentary"></textarea>
+        <span matSuffix  class="fi fi-es" style="font-size: 24px;"></span>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>(Inglés)</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="commentaryEng"></textarea>
+        <span matSuffix class="fi fi-us" style="font-size: 24px;"></span>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<section class="content">
+
+  <div class="row " style="margin: 0 0 2rem 0; padding: 0 0 2rem 0;">
+    <div class="col-md-12 mb-2">
+
+      <div style="font-size: 28px; margin-bottom: 1rem; margin-top: 1rem; color: rgb(69, 69, 69)">
+        <b>Referencias Comerciales</b>
+      </div>
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="d-flex justify-content-between">
+                <h5>Proveedores Nacionales y/o Extranjeros</h5>
+                <div>
+                  <button mat-mini-fab class="bg-cyan" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+                    <mat-icon class="col-white">save</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <hr>
+              <div class="shadow m-1" style="overflow-x: auto; max-height: 20rem;">
+                <div class="table-container">
+                  <table mat-table [dataSource]="dataSourceProveedor" class="mat-elevation-z8 w-100">
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Proveedor
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="telephone">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Teléfono </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.telephone}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="country">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Pais</th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center">
+                        <label> {{proveedor.country}} <span style="font-size: 20px;"  class="fi fi-{{proveedor.flagCountry}}"></span></label>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="maximumAmount">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Cred. Máximo
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.maximumAmount}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="timeLimit">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Plazos </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.timeLimit}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="compliance">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Cumplimiento
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center">
+                        {{proveedor.compliance}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Desde </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.date}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="productsTheySell">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Dio Referencia
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center">
+                        <div class="input-container">
+                          <div class="circle-0" *ngIf="proveedor.qualification === 'Dió referencia'"></div>
+                          <div class="circle-2" *ngIf="proveedor.qualification !== 'Dió referencia'"></div>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="attendedBy">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Atendio </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.attendedBy}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="accion">
+                      <th mat-header-cell *matHeaderCellDef class="text-center">
+                        <button mat-mini-fab color="primary" style="margin-top: .7rem;" (click)="agregarProveedor()">
+                          <mat-icon class="col-white">add</mat-icon>
+                        </button>
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center d-flex">
+                        <button  *ngIf="proveedor.id !== 0" mat-icon-button class="tbl-action-btn " #tooltip="matTooltip" matTooltip="Editar"
+                          style="margin-top: 1rem;" (click)="editarProveedor(proveedor.id)">
+                          <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                        </button>
+                        <button  *ngIf="proveedor.id === 0" mat-icon-button class="tbl-action-btn " #tooltip="matTooltip" matTooltip="Editar"
+                          style="margin-top: 1rem;" (click)="editarProveedorPorNombre(proveedor.name)">
+                          <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                        </button>
+                        <button *ngIf="proveedor.id !== 0" mat-icon-button class="tbl-action-btn" #tooltip="matTooltip" matTooltip="Quitar"
+                          style="margin-top: 1rem;" (click)="eliminarProveedor(proveedor.id)">
+                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                        </button>
+                        <button *ngIf="proveedor.id === 0" mat-icon-button class="tbl-action-btn" #tooltip="matTooltip" matTooltip="Quitar"
+                          style="margin-top: 1rem;" (click)="eliminarProveedorPorNombre(proveedor.name)">
+                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplayProveedor"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsToDisplayProveedor;"></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-2">
+
+
+        <div class="card card-body">
+          <div class="row">
+            <div class="d-flex justify-content-between">
+              <h5>Historico de Proveedores</h5>
+            </div>
+            <hr>
+            <div class="col-md-12 ">
+              <div class="shadow m-1" style="overflow-x: auto; max-height: 20rem;">
+                <div class="table-container">
+                  <table mat-table [dataSource]="dataSourceHistorico" class="mat-elevation-z8 w-100">
+                    <ng-container matColumnDef="ticket">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Ticket
+                      </th>
+                      <td mat-cell *matCellDef="let historico" class="text-center"> {{historico.ticket}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="numReferences">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> # de Referencias Validas </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center">
+                        <a *ngIf="proveedor.numReferences > 0"  (click)="$event.stopPropagation(); listarProveedores(proveedor.idTicket)">{{proveedor.numReferences}}</a>
+                        <p *ngIf="proveedor.numReferences === 0">0</p>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="referentName">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Referencista</th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center">
+                        {{proveedor.referentName}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Fecha
+                      </th>
+                      <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.date}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplayHistorico"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsToDisplayHistorico;"></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+  </div>
+</section>

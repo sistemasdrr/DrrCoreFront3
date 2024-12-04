@@ -1,0 +1,105 @@
+<div class="container" >
+  <div id="loader-lista-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <mat-dialog-content class="mat-typography" style="min-width: 50rem; min-height: 25rem;">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="overflow-y: visible;">
+        <div class="materialTableHeader mt-3 mb-3" >
+          <div class="left">
+            <ul class="header-buttons-left ms-0">
+              <li class="tbl-title" style="font-size: 24px;">
+                <b>Despacho del Informe</b>
+              </li>
+            </ul>
+          </div>
+          <div class="right">
+            <ul class="tbl-export-btn">
+              <li class="tbl-header-btn">
+                <div class="m-l-10" >
+                  <button mat-mini-fab class="bg-red" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Salir">
+                    <mat-icon class="material-icons-outlined col-white" matSuffix>logout</mat-icon>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <div class="row">
+            <div class="col-md-12">
+              <h4><b>Nombre del Informe : </b> {{name}}</h4>
+              <h4><b>Nombre Solicitado : </b> {{requestedName}}</h4>
+              <h4><b>Fecha Despacho : </b> {{dispatchedDate}}</h4>
+              <h4><b>Formatos : </b> </h4>
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                  <mat-checkbox class="example-margin" [(ngModel)]="reportInPdf" [disabled]="true">PDF</mat-checkbox>
+                </div>
+                <div class="col-md-2">
+                  <mat-checkbox class="example-margin" [(ngModel)]="reportInWord" [disabled]="true">WORD</mat-checkbox>
+                </div>
+                <div class="col-md-2">
+                  <mat-checkbox class="example-margin" [(ngModel)]="reportInExcel" [disabled]="true">EXCEL</mat-checkbox>
+                </div>
+                <div class="col-md-2">
+                  <mat-checkbox class="example-margin" [(ngModel)]="reportInXml" [disabled]="true">XML</mat-checkbox>
+                </div>
+                <div class="col-md-3">
+                  <mat-checkbox class="example-margin" [(ngModel)]="reportInXmlCredendo" [disabled]="true">XML CREDENDO</mat-checkbox>
+                </div>
+              </div>
+
+              <hr>
+              <h4>Documentos Adjuntos</h4>
+              <li class="d-flex mb-3" *ngFor="let attachment of adjuntos">
+                <mat-checkbox class="example-margin" [(ngModel)]="attachment.flag"></mat-checkbox>
+
+                <span class="msr-3 align-self-center img-icon primary-rgba text-primary" *ngIf="attachment.extension === '.doc' || attachment.extension === '.docx'">
+                  <i class="far fa-file-word" style="font-size: 28px;"></i>
+                </span>
+                <span class="msr-3 align-self-center img-icon success-rgba text-success" *ngIf="attachment.extension === '.xls' || attachment.extension === '.xlsx'">
+                  <i class="far fa-file-excel" style="font-size: 28px;"></i>
+                </span>
+                <span class="msr-3 align-self-center img-icon danger-rgba text-danger" *ngIf="attachment.extension === '.pdf'">
+                  <i class="far fa-file-pdf" style="font-size: 28px;"></i>
+                </span>
+                <span class="msr-3 align-self-center img-icon info-rgba text-secondary" *ngIf="attachment.extension === '.txt'">
+                  <i class="far fa-file-archive" style="font-size: 28px;"></i>
+                </span>
+                <span class="msr-3 align-self-center img-icon info-rgba text-info" *ngIf="attachment.extension === '.png' || attachment.extension === '.jpg'">
+                  <i class="fa-regular fa-file-image" style="font-size: 28px;"></i>
+                </span>
+                <span class="msr-3 align-self-center img-icon info-rgba text-success" *ngIf="attachment.extension === '.xml'">
+                  <i class="fa-regular fa-file-code" style="font-size: 28px;"></i>
+                </span>
+                <div class="set-flex">
+                  <h5 class="font-20 mb-1" style="font-size: 18px;">{{attachment.name}}</h5>
+                </div>
+                <!--div class="ms-auto">
+                  <td class="d-flex">
+                    <button mat-icon-button #tooltip="matTooltip" class="btn bg-teal shadow" matTooltip="Descargar" (click)="downloadFile(attachment.id, attachment.name)">
+                      <i class="fa-solid fa-download" style="font-size: 16px; color: white;"></i>
+                    </button>
+                    <button mat-icon-button #tooltip="matTooltip" class="btn bg-red shadow" matTooltip="Quitar" (click)="borrarAttachment(attachment.id)">
+                      <i class="fa-solid fa-trash" style="font-size: 16px; color: white;"></i>
+                    </button>
+                  </td>
+                </!--div-->
+              </li>
+
+            </div>
+          </div>
+
+        </div><div class="row d-flex justify-content-center">
+          <button mat-raised-button class="bg-cyan" style="width: 10rem;" (click)="despachar()">Despachar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </mat-dialog-content>
+</div>

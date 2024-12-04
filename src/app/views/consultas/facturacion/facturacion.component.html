@@ -1,0 +1,282 @@
+<section class="content" >
+  <div class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="container-fluid" [ngClass]="{'show-form': loading}" style="overflow: auto; width: 100%;">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [codigoInforme]="''" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+  </div>
+
+  <div class="row m-0 p-0" min>
+    <div class="col-md-12  m-0 p-0">
+      <div class="card card-body shadow " style="padding-bottom: 0px;">
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field class="w-100">
+              <mat-label>Consulta de </mat-label>
+              <mat-select [(ngModel)]="idQuery" placeholder="">
+                  <mat-option [value]="1">1.1.- Listado de Facturas Por Cobrar Ordenadas por Abonados</mat-option>
+                  <mat-option [value]="2">1.2.- Listado de Facturas Por Cobrar Ordenadas por Fechas</mat-option>
+                  <mat-option [value]="3">1.3.- Listado de Facturas Por Cobrar Ordenadas por Rango de Fechas</mat-option>
+                  <mat-option [value]="4">1.4.- Listado de Facturas Cobradas</mat-option>
+                  <mat-option [value]="5">1.5.- Listado de Facturas Emitidas</mat-option>
+                  <mat-option [value]="6">2.1.- Listado de Facturas Pendientes de Agentes</mat-option>
+                  <mat-option [value]="7">2.2.- Listado de Facturas Pendientes de Agentes Por Fechas</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1">
+          </div>
+          <!--QUERY 4_1_1-->
+          <div class="col-md-2" *ngIf="idQuery === 1">
+            <mat-radio-group [(ngModel)]="to">
+              <mat-radio-button class="example-margin" [value]="'all'">Todos</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="'one'">Por Abonado</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-md-3" *ngIf="to === 'one' && idQuery === 1">
+            <mat-form-field class="w-100">
+              <mat-label>Abonado </mat-label>
+              <mat-select [(ngModel)]="idSubscriber" placeholder="">
+                  <mat-option *ngFor="let item of subscribers4_1_1" [value]="item.idSubscriber">{{item.code + ' - ' + item.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 1">
+            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="SendMail()" [disabled]="idSubscriber === 0">
+              <mat-icon class="col-white">mail</mat-icon>
+            </button>
+          </div>
+
+          <!--QUERY 4_1_3-->
+          <div class="col-md-2" *ngIf="idQuery === 3">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Desde</mat-label>
+              <input matInput [matDatepicker]="start_Date" [(ngModel)]="query4_1_3_startDateD" (dateChange)="selectStartDate4_1_3($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="start_Date"></mat-datepicker-toggle>
+              <mat-datepicker #start_Date color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 3">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Hasta</mat-label>
+              <input matInput [matDatepicker]="end_Date" [(ngModel)]="query4_1_3_endDateD" (dateChange)="selectEndDate4_1_3($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="end_Date"></mat-datepicker-toggle>
+              <mat-datepicker #end_Date color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 3">
+            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="searchQuery4_1_3()">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+          </div>
+
+          <!--QUERY 4_1_4-->
+          <div class="col-md-2" *ngIf="idQuery === 4">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Año</mat-label>
+              <mat-select [(ngModel)]="query4_1_4_year">
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{year}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 4">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Mes</mat-label>
+              <mat-select [(ngModel)]="query4_1_4_month">
+                <mat-option [value]="1">Enero</mat-option>
+                <mat-option [value]="2">Febrero</mat-option>
+                <mat-option [value]="3">Marzo</mat-option>
+                <mat-option [value]="4">Abril</mat-option>
+                <mat-option [value]="5">Mayo</mat-option>
+                <mat-option [value]="6">Junio</mat-option>
+                <mat-option [value]="7">Julio</mat-option>
+                <mat-option [value]="8">Agosto</mat-option>
+                <mat-option [value]="9">Septiembre</mat-option>
+                <mat-option [value]="10">Octubre</mat-option>
+                <mat-option [value]="11">Noviembre</mat-option>
+                <mat-option [value]="12">Diciembre</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 4">
+            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="searchQuery4_1_4()">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+          </div>
+          <!--QUERY 4_1_5-->
+          <div class="col-md-2" *ngIf="idQuery === 5">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Ordenar Por</mat-label>
+              <mat-select [(ngModel)]="query4_1_5_orderBy">
+                <mat-option [value]="'invoiceCode'">Número de Factura</mat-option>
+                <mat-option [value]="'invoiceEmitDate'">Fecha de Facturación</mat-option>
+                <mat-option [value]="'amount'">Monto</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 5">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Año</mat-label>
+              <mat-select [(ngModel)]="query4_1_5_year">
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{year}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 5">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Mes</mat-label>
+              <mat-select [(ngModel)]="query4_1_5_month">
+                <mat-option [value]="1">Enero</mat-option>
+                <mat-option [value]="2">Febrero</mat-option>
+                <mat-option [value]="3">Marzo</mat-option>
+                <mat-option [value]="4">Abril</mat-option>
+                <mat-option [value]="5">Mayo</mat-option>
+                <mat-option [value]="6">Junio</mat-option>
+                <mat-option [value]="7">Julio</mat-option>
+                <mat-option [value]="8">Agosto</mat-option>
+                <mat-option [value]="9">Septiembre</mat-option>
+                <mat-option [value]="10">Octubre</mat-option>
+                <mat-option [value]="11">Noviembre</mat-option>
+                <mat-option [value]="12">Diciembre</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 5">
+            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="searchQuery4_1_5()">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+          </div>
+
+           <!--QUERY 4_2_2-->
+           <div class="col-md-2" *ngIf="idQuery === 7">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Desde</mat-label>
+              <input matInput [matDatepicker]="start_Date_2" [(ngModel)]="query4_2_2_startDateD" (dateChange)="selectStartDate4_2_2($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="start_Date_2"></mat-datepicker-toggle>
+              <mat-datepicker #start_Date_2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 7">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Hasta</mat-label>
+              <input matInput [matDatepicker]="end_Date_2" [(ngModel)]="query4_2_2_endDateD" (dateChange)="selectEndDate4_2_2($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="end_Date_2"></mat-datepicker-toggle>
+              <mat-datepicker #end_Date_2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 7">
+            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="searchQuery4_2_2()">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0 p-0">
+    <div class="col-md-12 m-0 p-0" >
+      <div class="card card-body shadow mt-3 w-100">
+        <!--QUERY 4_1_1-->
+        <div class="row" *ngIf="idQuery === 1">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Abonados</h5></mat-label>
+              <mat-list-option *ngFor="let item of subscribers4_1_1"  (click)=" searchQueryChanged(item.code + ' - ' + item.name)">
+                <b>{{item.code}}</b> - {{item.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_1_1" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_1_2-->
+        <div class="row" *ngIf="idQuery === 2">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Fechas</h5></mat-label>
+              <mat-list-option *ngFor="let item of dates4_1_2"  (click)=" searchQueryChanged(item.date)">
+                <b>{{item.date}}</b>
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_1_2" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_1_3-->
+        <div class="row" *ngIf="idQuery === 3">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Abonados</h5></mat-label>
+              <mat-list-option *ngFor="let item of subscribers4_1_3"  (click)=" searchQueryChanged(item.code + ' - ' + item.name)">
+                <b>{{item.code}}</b> - {{item.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_1_3" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_1_4-->
+        <div class="row" *ngIf="idQuery === 4">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Abonados</h5></mat-label>
+              <mat-list-option *ngFor="let item of subscribers4_1_4"  (click)=" searchQueryChanged(item.code + ' - ' + item.name)">
+                <b>{{item.code}}</b> - {{item.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_1_4" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_1_5-->
+        <div class="row" *ngIf="idQuery === 5">
+          <div class="col-md-12" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_1_5" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_2_1-->
+        <div class="row" *ngIf="idQuery === 6">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Agentes</h5></mat-label>
+              <mat-list-option *ngFor="let item of agents4_2_1"  (click)=" searchQueryChanged(item.code + ' - ' + item.name)">
+                <b>{{item.code}}</b> - {{item.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_2_1" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+        <!--QUERY 4_2_2-->
+        <div class="row" *ngIf="idQuery === 7">
+          <div class="col-md-3">
+            <mat-selection-list [multiple]="false">
+              <mat-label><h5>Agentes</h5></mat-label>
+              <mat-list-option *ngFor="let item of agents4_2_2"  (click)=" searchQueryChanged(item.code + ' - ' + item.name)">
+                <b>{{item.code}}</b> - {{item.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div class="col-md-9" style="overflow-y: hidden; overflow-x: hidden; " >
+            <pdf-viewer  [src]="pdfSrc4_2_2" [show-borders]="true" [render-text]="true" [original-size]="false" style="width: 100%;  height: {{loading === true ? '5rem' : '45rem'}}; "></pdf-viewer>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>

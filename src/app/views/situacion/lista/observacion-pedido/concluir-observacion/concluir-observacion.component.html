@@ -1,0 +1,56 @@
+<div class="container" style="min-width: 50rem;">
+  <div class="row m-0 p-0">
+    <div class="col-md-12">
+      <div class="card" style="max-height: 700px; overflow-y: auto;">
+        <div class="header">
+          <div class="materialTableHeader mt-3">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h5 style="font-size: 24px;">Conclusión de la Observación {{idTicketObservation}}</h5>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10">
+                    <button mat-icon-button class="btn bg-cyan " (click)="concluirObservacion()" #tooltip="matTooltip"
+                      matTooltip="Enviar Conclusión">
+                      <mat-icon>send</mat-icon>
+                    </button>
+                    <button mat-icon-button class="btn bg-red " (click)="salir()" #tooltip="matTooltip"
+                      matTooltip="Volver">
+                      <mat-icon>logout</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <h6>Responsable de la Observación</h6><br>
+                <mat-checkbox class="example-margin" [(ngModel)]="dr">Del Risco</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="ag">Agente</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="cl">Cliente</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="na" (ngModelChange)="ninguno()">Ninguno</mat-checkbox>
+              </div>
+
+              <div class="col-md-12 mb-0 mt-0 pb-0 pt-0">
+                <mat-form-field class="w-100"  >
+                  <mat-label>Conclusión</mat-label>
+                  <textarea matInput [(ngModel)]="conclusion" style="min-height: 10rem;"></textarea>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

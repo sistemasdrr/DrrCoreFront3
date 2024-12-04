@@ -1,0 +1,422 @@
+<div id="loader-lista-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+  <span class="loader"></span><br>
+  <h2 style="color: white;">&nbsp;Cargando...</h2>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [codigoInforme]="''" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="card">
+      <div class="materialTableHeader" >
+        <div class="left">
+          <ul class="header-buttons-left ms-0">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+              <li class="tbl-title">
+                <h2>Listado de Pedidos para Asignar</h2>
+              </li>
+              <li class="tbl-title">
+
+              <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="actualizar()" #tooltip="matTooltip" matTooltip="Actualizar">
+                <mat-icon class="col-white">refresh</mat-icon>
+              </button>
+              </li>
+            </div>
+
+
+          </ul>
+        </div>
+        <!-- <div class="left">
+          <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="state" placeholder="">
+                <mat-option [value]="'P'">Pendiente</mat-option>
+                <mat-option [value]="'E'">Enviado</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+        <ng-container matColumnDef="number" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
+        <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;" [style]="order.number.includes('(C)') ? 'color: red;' : ''"> {{order.number}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subscriber" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Abonado </th>
+        <td mat-cell *matCellDef="let order" class="text-center"> {{order.subscriberCode}} </td>
+        </ng-container>
+        <ng-container matColumnDef="country" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
+        <td mat-cell *matCellDef="let order" class="text-center">
+          <label> {{order.investigatedIsoCountry}} <span style="font-size: 20px;"  class="fi fi-{{order.investigatedFlag}}"></span></label><br>
+        </td>
+        </ng-container>
+        <ng-container matColumnDef="busineesName" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Nombre de Informe</th>
+        <td mat-cell *matCellDef="let order"  style="min-width: 14rem;">
+
+            <a *ngIf="order.asignedTo.includes('RC') && order.about === 'E'" [target]="'_blank'" [routerLink]="'../../informes/referencias/E/'+order.idTicket+'/'+order.idCompany+'/'+order.asignedTo.trim()">
+              {{order.busineesName}}
+            </a>
+            <a *ngIf="order.asignedTo.includes('RC') && order.about === 'P'" [target]="'_blank'" [routerLink]="'../../informes/referencias/P/'+order.idTicket+'/'+order.idPerson+'/'+order.asignedTo.trim()">
+              {{order.busineesName}}
+            </a>
+            <a *ngIf="!order.asignedTo.includes('RC') && order.about === 'E'" [target]="'_blank'" [routerLink]="'../../informes/empresa/detalle/'+order.idCompany+'/'+order.idTicket">
+              {{order.busineesName}}
+            </a>
+            <a *ngIf="!order.asignedTo.includes('RC') && order.about === 'P'" [target]="'_blank'" [routerLink]="'../../informes/persona/detalle/'+order.idPerson">
+              {{order.busineesName}}
+            </a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Estado </th>
+        <td mat-cell *matCellDef="let order" class="text-center " >
+          <div class="d-flex">
+            <span class="float-end progress-percent label {{order.statusColor}}  shadow" style="width: 150px;{{order.statusColor === 'label' ? 'color : black;' : ''}}" >
+              {{order.status}}
+            </span>
+            <button  *ngIf="order.references !== -1" class="float-end progress-percent label" [ngClass]="order.references === 1 ? 'bg-green':'bg-red'" (click)="$event.stopPropagation(); listarProveedores(order.idTicket)" style=" border-radius: 15px; color: white;">RC</button>
+          </div>
+
+         </td>
+        </ng-container>
+        <ng-container matColumnDef="subscriberCode" >
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Código </th>
+        <td mat-cell *matCellDef="let order" class="text-left" >
+          <div *ngIf="order.asignedTo.includes('PA') || order.asignedTo.includes('CR') || order.asignedTo.includes('D') || order.asignedTo.includes('T')">
+            <span class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black;"  >
+              {{order.asignedTo}}
+            </span>
+          </div>
+          <button  class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black;" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation();" *ngIf="!order.asignedTo.includes('PA') && !order.asignedTo.includes('CR') && !order.asignedTo.includes('D') && !order.asignedTo.includes('T')">
+            {{order.asignedTo}}
+          </button>
+          <mat-menu #menu="matMenu" >
+            <mat-checkbox class="example-margin" *ngFor="let item of order.otherUserCode" [(ngModel)]="item.active" (click)="$event.stopPropagation();" [disabled]="item.code.trim() === order.asignedTo.trim()" >{{item.code}}</mat-checkbox>
+          </mat-menu>
+
+         </td>
+        </ng-container>
+        <ng-container matColumnDef="reportType" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tipo de Informe</th>
+          <td mat-cell *matCellDef="let order" class="text-center">
+            <div *ngIf="order.reportType === 'OR'">
+              <div class="badge badge-solid-orange" style="font-size: 16px;">OR</div>
+            </div>
+            <div *ngIf="order.reportType === 'RV'">
+              <div class="badge badge-solid-green" style="font-size: 16px;">RV</div>
+            </div>
+            <div *ngIf="order.reportType === 'EF'">
+              <div class="badge badge-solid-cyan" style="font-size: 16px;">EF</div>
+            </div>
+            <div *ngIf="order.reportType === 'DF'">
+              <div class="badge badge-solid-blue" style="font-size: 16px;">DF</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="procedureType" >
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Tipo de Trámite</th>
+          <td mat-cell *matCellDef="let order" class="text-center">
+            <div *ngIf="order.procedureType === 'T1'">
+              <div class="badge badge-solid-blue">T1</div>
+            </div>
+            <div *ngIf="order.procedureType === 'T2'">
+              <div class="badge badge-solid-purple">T2</div>
+            </div>
+            <div *ngIf="order.procedureType === 'T3'">
+              <div class="badge badge-solid-cyan">T3</div>
+            </div>
+            <div *ngIf="order.procedureType === 'BC'">
+              <div class="badge badge-solid-brown">BC</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="quality" >
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Calidad--<b style="font-size: 20px;">  R</b>(D/T)</th>
+          <td mat-cell *matCellDef="let order" class="text-center">
+          <div *ngIf="!activeQuality(order.otherUserCode) && order.quality!==''" class="badge badge-solid-purple"><b style="font-size: 20px;">{{order.quality}}</b>({{order.qualityTypist}}/{{order.qualityTranslator}})</div>
+
+            <button  class="float-end progress-percent label shadow"
+            style="border: 2px solid black; color: black; border-radius: 10px; width: 50px; height: 30px; background-color: rgb(128, 248, 128);"
+        [matMenuTriggerFor]="quality" (click)="$event.stopPropagation();"
+        *ngIf="activeQuality(order.otherUserCode)">
+          {{order.quality}}
+            </button>
+            <mat-menu class="mat-menu-quality m-2"   #quality="matMenu" [hasBackdrop]="true" appStopPropagation  >
+              <div class="row" appStopPropagation>
+                <div class="col-md-6 d-flex align-items-center" >
+                  <div>
+                    <mat-form-field class="w-100" appStopPropagation>
+                      <mat-label>Calidad Del Reportero</mat-label>
+                      <mat-select matInput [(ngModel)]="order.quality" placeholder="" (ngModelChange)="order.qualityTranslator = order.quality; order.qualityTypist = order.quality;">
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6" appStopPropagation>
+                  <div class="row">
+                    <mat-form-field class="w-100 m-0 p-2" appStopPropagation>
+                      <mat-label>Calidad de Digitador</mat-label>
+                      <mat-select matInput [(ngModel)]="order.qualityTypist" placeholder=""  (click)="$event.stopPropagation();">
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="row" >
+                    <mat-form-field class="w-100 m-0 p-2">
+                      <mat-label>Calidad de Traductor</mat-label>
+                      <mat-select matInput [(ngModel)]="order.qualityTranslator" placeholder=""  (click)="$event.stopPropagation();" >
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="border: 1px solid red" appStopPropagation *ngIf="order.isComplement === true">
+
+                <h6>Calidad del Cupón Anterior</h6>
+                <div class="col-md-6 d-flex align-items-center" >
+                  <div>
+                    <mat-form-field class="w-100" appStopPropagation>
+                      <mat-label>Calidad Del Reportero</mat-label>
+                      <mat-select matInput [(ngModel)]="order.complementQuality" placeholder="" [disabled]="true" (click)="$event.stopPropagation();">
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6" appStopPropagation>
+                  <div class="row">
+                    <mat-form-field class="w-100 m-0 p-2" appStopPropagation>
+                      <mat-label>Calidad de Digitador</mat-label>
+                      <mat-select matInput [(ngModel)]="order.complementQualityTypist" placeholder="" [disabled]="true" (click)="$event.stopPropagation();">
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="row" >
+                    <mat-form-field class="w-100 m-0 p-2">
+                      <mat-label>Calidad de Traductor</mat-label>
+                      <mat-select matInput [(ngModel)]="order.complementQuality" placeholder="" [disabled]="true" (click)="$event.stopPropagation();" >
+                        <mat-option [value]="''"></mat-option>
+                        <mat-option [value]="'A'">A</mat-option>
+                        <mat-option [value]="'B'">B</mat-option>
+                        <mat-option [value]="'C'">C</mat-option>
+                        <mat-option [value]="'D'">D</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row" appStopPropagation>
+                <div class="col-md-12 d-flex align-items-center w-100" >
+                  <mat-checkbox class="example-margin" [(ngModel)]="order.hasBalance" *ngIf="order.isAgent && order.specialAgentBalancePrices.length>0"><b>EL AGENTE "{{order.agentFrom}}" TIENE CONFIGURADO UN PRECIO ESPECIAL POR BALANCE</b></mat-checkbox>
+                  <mat-checkbox class="example-margin" [(ngModel)]="order.hasBalance" *ngIf="!order.isAgent || order.specialAgentBalancePrices.length===0"><b>TIENE BALANCE</b></mat-checkbox>
+
+                </div>
+                <div class="col-md-12 d-flex align-items-center" *ngIf="order.hasBalance && order.isAgent" >
+                    <mat-form-field class="w-100" appStopPropagation>
+                      <mat-label>Precio Especial con Balance</mat-label>
+                      <mat-select matInput [(ngModel)]="order.specialPriceBalance" placeholder="">
+                        <mat-option [value]=0></mat-option>
+                        <mat-option *ngFor="let item of order.specialAgentBalancePrices" [value]=item.id>{{item.description}}</mat-option>
+
+                      </mat-select>
+                    </mat-form-field>
+
+
+                </div>
+              </div>
+
+
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate" >
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Ingreso </th>
+          <td mat-cell *matCellDef="let order" class="text-center"> {{order.orderDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="expireDate" >
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
+          <td mat-cell *matCellDef="let order" class="text-center"> {{order.expireDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Acciones" >
+          <th mat-header-cell *matHeaderCellDef  class="text-center" style="min-width: 14rem;"> Acciones </th>
+          <td mat-cell *matCellDef="let order" class="text-center">
+            <button *ngIf="!order.asignedTo.includes('RC')" mat-icon-button #tooltip="matTooltip" (click)="$event.stopPropagation();asignarTrabajador(order)" matTooltip="Asignar">
+              <i class="fa-solid fa-user-check col-blue" style="font-size: 24px;"></i>
+            </button>
+            <button *ngIf="order.asignedTo.includes('RC')" mat-icon-button #tooltip="matTooltip" (click)="$event.stopPropagation();entregarTrabajo(order.id)" matTooltip="Entregar">
+              <i class="fa-solid fa-check col-blue" style="font-size: 24px;"></i>
+            </button>
+            <button mat-icon-button (click)="$event.stopPropagation();agregarAdjuntos(order.idTicket,order.number)" #tooltip="matTooltip" matTooltip="Adjuntos">
+              <mat-icon style="{{order.hasFiles === true ? 'color: red;' : 'color: gray;'}}">attach_file</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="order.comment !== ''" (click)="$event.stopPropagation();agregarComentario(order.idTicket, order.number, order.commentary)" #tooltip="matTooltip" matTooltip="Comentario">
+              <mat-icon style="{{order.commentary !== null && order.commentary !== '' ? 'color: red;' : 'color: gray;'}}">chat</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="order.status === 'ASIG AGE ESPERA'" (click)="$event.stopPropagation();eliminarPorId(order.id)" class="tbl-action-btn"  matTooltip="Trabajo Entregado">
+                <app-feather-icons [icon]="'check'" [class]="'tbl-fav-success'"></app-feather-icons>
+            </button>
+            <button mat-icon-button *ngIf="order.status !== 'ASIG AGE ESPERA'" (click)="$event.stopPropagation();eliminar(order.idTicket,order.asignedTo,order.numberAssign, order.number)" class="tbl-action-btn"  matTooltip="Eliminar">
+                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+          <td mat-cell *matCellDef="let order">
+          <button mat-icon-button aria-label="expand row" (click)="(expandedOrder = expandedOrder === order ? null : order); $event.stopPropagation(); ">
+            <mat-icon *ngIf="expandedOrder !== order">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedOrder === order">keyboard_arrow_up</mat-icon>
+          </button>
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let order;" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div class="example-element-detail"
+                [@detailExpand]="order === expandedOrder ? 'expanded' : 'collapsed'">
+              <div class="card shadow m-4 w-100">
+                <div class="card-header " style="background-color: rgb(180, 252, 193);">
+                  <h5>Datos de la Asignación</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label><b>Estado: </b> <span class="float-end progress-percent label {{order.statusColor}}  shadow" style="width: 150px;{{order.statusColor === 'label' ? 'color : black;' : ''}}" >
+                        {{order.status}}
+                      </span></label><br>
+                      <label><b>Codigo: </b>{{ order.asignedTo }}</label><br>
+                      <button mat-raised-button color="primary" (click)="verHistorial(order.idTicket)">Ver Seguimiento</button>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Fecha de Asignación:</b> {{order.startDate}}</label><br>
+                      <label><b>Fecha de Vencimiento: </b> {{order.endDate}}</label><br>
+                      <label><b>Número de Asignación: </b> {{order.numberAssign}}</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Observaciones: </b> {{order.observations}}</label>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+                <div class="card-header " style="background-color: rgb(180, 204, 252);">
+                  <h5>Datos del Abonado</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label><b>Abonado: </b>{{ order.subscriberCode }}</label><br>
+                      <label><b>País: </b>{{ order.subscriberCountry }} <span class="fi fi-{{order.subscriberFlag}}"></span></label><br>
+                      <label><b>Crédito Consultado:</b>  {{order.queryCredit}}</label><br>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Revelar Nombre:</b><span *ngIf="order.revealName === true"> SI</span><span *ngIf="order.revealName === false"> NO</span></label><br>
+                      <label><b>Nro. de Referencia: </b> {{order.referenceNumber}}</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Indicaciones del Abonado: </b> {{order.subscriberIndications}}</label><br>
+                      <label><b>Datos Adicionales: </b> {{order.aditionalData}}</label>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+                <div class="card-header " style="background-color: rgb(180, 204, 252);">
+                  <h5> {{ order.about === 'E' ? 'Datos de la Empresa a Investigar' : 'Datos de la Persona a Investigar' }} </h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label><b>{{ order.about === 'E' ? 'Nombre Real de la Empresa: ' : 'Nombre Real de la Persona: ' }} </b>  {{order.busineesName}}</label><br>
+                      <label><b>{{ order.about === 'E' ? 'Nombre Solicitado de la Empresa: ' : 'Nombre Solicitado de la Persona: ' }} </b>  {{order.requestedName}}</label><br>
+                      <label><b>Registro Tributario: </b>  {{order.taxType}} - {{order.taxCode}}</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Continente: </b>  {{order.investigatedContinent}}</label><br>
+                      <label><b>País: </b>  {{order.investigatedCountry}} <span class="fi fi-{{order.investigatedFlag}}"></span></label><br>
+                      <label><b>Ciudad: </b>  {{order.city}}</label><br>
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Dirección: </b>  {{order.address}}</label><br>
+                      <label><b>Correo: </b> {{order.email}}</label><br>
+                      <label><b>Telefono: </b>  {{order.telephone}}</label><br>
+                      <label *ngIf="order.about === 'E'"><b>Pagina Web: </b>  {{order.webPage}}</label><br>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                <div class="card-header " style="background-color: rgb(180, 204, 252);">
+                  <h5>Datos del Informe</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label><b>Tipo de Trámite: </b>  {{order.procedureType}}</label><br>
+                      <!--label><b>Fecha de Ingreso: </b>  {{order.orderDate}}</!--label><br-->
+                    </div>
+                    <div class="col-md-4">
+                      <label><b>Tipo de Informe: </b> {{order.reportType}}</label><br>
+                      <!--label><b>Fecha de Vencimiento: </b> {{order.expireDate}}</!--label><br-->
+                    </div>
+                    <div class="col-md-4">
+                      <!--label><b>Fecha de Vencimiento Real: </b>  {{order.realExpireDate}}</!--label><br-->
+                      <label><b>Idioma: </b> {{order.language === 'E' ? 'Español' : 'Inglés'}}
+                        <span class="{{order.language === 'E' ? 'fi fi-es' : 'fi fi-us'}}"></span>
+                      </label>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let order; columns: columnsToDisplayWithExpand;"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedOrder === order"
+          (click)="expandedOrder = expandedOrder === order ? null : order">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[ 10,25,50]" aria-label="Seleccionar página de Pedidos"></mat-paginator>
+    </div>
+  </div>
+
+
+</section>

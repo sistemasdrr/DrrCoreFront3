@@ -1,0 +1,81 @@
+<div class="container-fluid"  style="width: 100%; margin: 0; padding: 0; width: 40rem;">
+  <div class="row " style="margin: 0 0 2rem 0; padding: 0 0 2rem 0;">
+    <div class="col-md-12 mb-2">
+      <div class="row counter-box shadow ">
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <h4>{{action === 'edit' ? 'Editar' : 'Agregar'}} Fecha</h4>
+          <div>
+            <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+              <mat-icon class="col-white">arrow_back</mat-icon>
+            </button>
+            <button  mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+              <mat-icon class="col-white">save</mat-icon>
+            </button>
+          </div>
+        </div>
+        <hr>
+        <form class="register-form" [formGroup]="calendarForm">
+          <div class="row">
+            <div class="col-md-12" style="overflow-x: auto;">
+              <mat-form-field class="w-100">
+                <mat-label>Titulo</mat-label>
+                <input matInput placeholder="" formControlName="title">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6" style="overflow-x: auto;" >
+              <mat-form-field class="w-100">
+                <mat-label>Tipo</mat-label>
+                <input matInput placeholder="" [readonly]="true"  [value]="calendarForm.value.groupId === 'FI' ? 'Fecha Importante' : 'Cierre de Producción'">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6" style="overflow-x: auto;" *ngIf="calendarForm.value.groupId === 'FI'">
+              <mat-form-field class="w-100">
+                <mat-label>Color</mat-label>
+                <mat-select formControlName="className">
+                  <mat-option [value]="'fc-event-primary'">
+                    Azul <div style="background-color: #007bff !important; border-radius: 5px; width: 10px; height: 10px;"></div>
+                  </mat-option>
+                  <mat-option [value]="'fc-event-warning'">
+                    Naranja <div style="background-color: #ff9800 !important; border-radius: 5px; width: 10px; height: 10px;"></div>
+                  </mat-option>
+                  <mat-option [value]="'fc-event-danger'">
+                    Rojo <div style="background-color: #f9483b !important; border-radius: 5px; width: 10px; height: 10px;"></div>
+                  </mat-option>
+                  <mat-option [value]="'fc-event-info'">
+                    Celeste <div style="background-color: #03c5de !important; border-radius: 5px; width: 10px; height: 10px;"></div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6" *ngIf="calendarForm.value.groupId === 'FI'">
+              <mat-form-field class="w-100 example-full-width mb-3">
+                <mat-label>Fecha de Inicio</mat-label>
+                <input matInput formControlName="startDate" [owlDateTimeTrigger]="startDate" [owlDateTime]="startDate"
+                  placeholder="Choose a date" required >
+                <mat-icon matSuffix [owlDateTimeTrigger]="startDate" class="date-icon">today</mat-icon>
+                <owl-date-time #startDate></owl-date-time>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6" *ngIf="calendarForm.value.groupId === 'FI' || calendarForm.value.groupId === 'CP'">
+              <mat-form-field class="w-100 example-full-width mb-3">
+                <mat-label>Fecha de Fin</mat-label>
+                <input matInput formControlName="endDate" [owlDateTimeTrigger]="endDate" [owlDateTime]="endDate" 
+                  placeholder="Choose a date" required>
+                <mat-icon matSuffix [owlDateTimeTrigger]="endDate" class="date-icon">today</mat-icon>
+                <owl-date-time #endDate></owl-date-time>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12" style="overflow-x: auto;">
+              <mat-form-field class="w-100">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput placeholder="" formControlName="details" style="min-height: 12rem;"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+

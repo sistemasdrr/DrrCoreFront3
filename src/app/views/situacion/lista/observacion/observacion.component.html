@@ -1,0 +1,85 @@
+<div class="container" style="min-width: 70rem;" >
+  <div class="row m-0 p-0"  >
+    <div class="col-md-12">
+      <div class="card" style="max-height: 700px; overflow-y: auto;">
+        <div class="header">
+          <div class="materialTableHeader mt-3">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h5 style="font-size: 24px;">Envio de Observación</h5>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10">
+                    <button mat-icon-button  class="btn bg-cyan "  (click)="enviarObservacion()" #tooltip="matTooltip" matTooltip="Enviar Observación">
+                      <mat-icon>send</mat-icon>
+                    </button>
+                    <button mat-icon-button  class="btn bg-red "  (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+                      <mat-icon>logout</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12 m-0">
+                    <mat-form-field class="w-100"  >
+                      <mat-label>Informe</mat-label>
+                      <input matInput [(ngModel)]="informe" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4 m-0 ">
+                    <mat-form-field class="w-100" >
+                      <mat-label>Abonado</mat-label>
+                      <input matInput [(ngModel)]="abonado" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-8 m-0 ">
+                    <mat-form-field class="w-100"  >
+                      <mat-label>Supervisor</mat-label>
+                      <input matInput [(ngModel)]="supervisor" [readonly]="true">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12 m-0">
+                    <mat-form-field class="w-100" >
+                      <mat-label>Observaciones</mat-label>
+                      <textarea matInput [(ngModel)]="observaciones" style="min-height: 10rem;"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <ul class="left-timeline">
+                  <li *ngFor="let item of timeLine">
+                    <time class="left-time" datetime="2017-11-04T18:30"><span  class="hidden">{{item.date}}</span>
+                      <span class="">{{item.time}}</span>
+                    </time>
+                    <div class="left-icon"><img src="assets/images/user/user1.jpg" alt="">
+                    </div>
+                    <div class="left-label empty">
+                      <span class="progress-percent label {{item.color}} mb-2 shadow" style="width: 200px;{{item.color === 'label' ? 'color : black;' : 'color : white;'}}" >
+                        {{item.status}}
+                      </span><br>
+                      <span>{{item.assignedTo}} : {{item.assignedToName}} </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

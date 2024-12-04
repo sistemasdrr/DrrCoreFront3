@@ -1,0 +1,78 @@
+.table-container {
+  max-height: 20rem;
+  overflow-y: auto;
+}
+mat-form-field{
+
+  mat-label{
+
+  }
+  input{
+    border-bottom: 3px solid rgb(200, 233, 200);
+
+  }
+  input:read-only{
+    border-bottom: 3px solid rgb(163, 163, 247);
+
+  }
+  mat-select{
+    border-bottom: 3px solid rgb(200, 233, 200);
+  }
+  textarea{
+    border-bottom: 3px solid rgb(200, 233, 200);
+  }
+}
+
+:host ::ng-deep .mat-mdc-tab-labels {
+  flex-direction: unset !important;
+}
+:host ::ng-deep .mat-mdc-tab-group {
+  flex-direction: column !important;
+}
+.btn-traduccion{
+  background-color: rgba(0,0,0,0);
+  border: 0px solid white;
+}
+.sin-traduccion{
+  filter: contrast(.3);
+}
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 80px;
+  max-width: 100px;
+}
+.circle-0 {
+  width: 1rem;
+  height: 1rem;
+  background-color: green;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.circle-1 {
+  width: 1rem;
+  height: 1rem;
+  background-color: yellow;
+  border-radius: 50%;
+  border: 1px solid black;
+  position: absolute;
+  right: 8px;
+  top: 60%;
+  transform: translateY(-50%);
+}
+.circle-2 {
+  width: 1rem;
+  height: 1rem;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}

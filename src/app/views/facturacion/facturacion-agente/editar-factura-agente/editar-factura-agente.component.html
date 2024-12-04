@@ -1,0 +1,90 @@
+<div class="container" style="max-width: 55rem;" >
+  <div class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="row ">
+    <div class="card">
+      <div class="materialTableHeader mt-3" >
+        <div class="left">
+          <ul class="header-buttons-left ms-0">
+            <li class="tbl-title">
+              <h2>Editar Asignación de Factura</h2>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul class="tbl-export-btn">
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-red" style="margin: 0 .5rem .5rem .5rem;"  matTooltip="Salir" (click)="cerrarDialog()">
+                  <mat-icon class="col-white">logout</mat-icon>
+                </button>
+              </div>
+            </li>
+            <li class="tbl-header-btn">
+              <div class="m-l-10" >
+                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+                  <mat-icon class="col-white">save</mat-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Informe</mat-label>
+        <input matInput placeholder="" [(ngModel)]="requestedName">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4 mb-3">
+      <mat-form-field color="primary" style="width: 100%;">
+        <mat-label>Fecha de Entrega</mat-label>
+        <input matInput [matDatepicker]="shipping_Date" [(ngModel)]="shippingDateD" (dateChange)="setDate($event)" >
+        <mat-datepicker-toggle matIconSuffix [for]="shipping_Date"></mat-datepicker-toggle>
+        <mat-datepicker #shipping_Date color="primary"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Tipo de Trámite</mat-label>
+        <mat-select [(ngModel)]="procedureType" placeholder="" (ngModelChange)="calcularPrecio(quality)">
+            <mat-option [value]="'T1'">T1</mat-option>
+            <mat-option [value]="'T2'">T2</mat-option>
+            <mat-option [value]="'T3'">T3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3 mb-3" *ngIf="asignedTo === 'A17' || asignedTo === 'A30' || asignedTo === 'A32'">
+      <mat-form-field class="w-100">
+        <mat-label>Calidad</mat-label>
+        <mat-select [(ngModel)]="quality" (ngModelChange)="calcularPrecio(quality)" placeholder="">
+            <mat-option [value]="'A'">A</mat-option>
+            <mat-option [value]="'B'">B</mat-option>
+            <mat-option [value]="'C'">C</mat-option>
+            <mat-option [value]="'D'">D</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4 mb-3 d-flex align-items-center" *ngIf="hasBalance" >
+      <mat-form-field class="w-100" appStopPropagation>
+        <mat-label>Precio Especial con Balance</mat-label>
+        <mat-select matInput [(ngModel)]="idSpecialPrice" placeholder="" (ngModelChange)="calcularPrecio(quality)">
+          <mat-option [value]=0></mat-option>
+          <mat-option *ngFor="let item of specialPrice" [value]=item.id>{{item.valor}}</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+
+  </div>
+    <div class="col-md-3 mb-3">
+      <mat-form-field class="w-100">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" placeholder="" [(ngModel)]="price">
+      </mat-form-field>
+    </div>
+  </div>
+</div>

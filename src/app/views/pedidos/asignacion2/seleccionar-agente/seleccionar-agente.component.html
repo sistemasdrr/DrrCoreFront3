@@ -1,0 +1,190 @@
+<div id="loader-lista-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+  <span class="loader"></span><br>
+  <h2 style="color: white;">&nbsp;Cargando...</h2>
+</div>
+<div class="container" >
+  <mat-dialog-content class="mat-typography" style="min-width: 60rem; min-height: 52rem;">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="overflow-y: visible;">
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <div style="font-size: 24px;">Asignación del Cupón  </div>
+            <div [ngClass]="{'step': this.step===3}">
+              <button  mat-flat-button class="bg-cyan" style="margin: 0 .5rem .5rem .5rem; font-size: 16px;" (click)="enviarDespachar()"  >
+                Enviar a Despacho (SÓLO PARA INFORMES CULMINADOS)
+              </button><!--*ngIf="assginFromCode.includes('S')"-->
+              <button mat-mini-fab class="bg-red" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Salir" (click)="cerrarDialog()">
+                <mat-icon class="material-icons-outlined col-white" matSuffix>logout</mat-icon>
+              </button>
+              <button mat-mini-fab class="" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardarCambios()" [ngClass]="dataSource.data.length === 0 ? 'bg-gray' : 'bg-blue' " [disabled]="dataSource.data.length === 0">
+                    <mat-icon class="material-icons-outlined col-white" matSuffix>save</mat-icon>
+              </button>
+
+            </div>
+          </div>
+          <hr>
+           <div class="row">
+             <p *ngIf="this.step===1" style="color: red; font-size: 18px;"><b>SELECCIONA AL PERSONAL AL QUE DESEA DERIVAR EL INFORME!!!</b></p>
+             <p *ngIf="this.step===2" style="color: red; font-size: 18px;"><b>MODIFICAR LAS FECHAS, INDICAR SI SE NECESITA REFERENCIAS COMERCIALES, BALANCE, ENVIAR CARPETAS COMPLETAS, ETC Y DARLE CLICK AL BOTÓN AÑADIR (+)</b></p>
+             <p  *ngIf="this.step===3" style="color: red; font-size: 18px;"><b>VALIDAR QUE TU SELECCIÓN SE ENCUENTRE EN LA TABLA DE ASIGNACIONES Y LUEGO GUARDAR (SÓLO USAR EL BOTÓN DESPACHAR CUANDO SEA NECESARIO)</b></p>
+           </div>
+          <div class="row" >
+            <div class="col-md-6 d-flex mt-2" [ngClass]="{'step': this.step===1}">
+
+                <div class="col-md-3">
+
+                  <mat-button-toggle-group  #group="matButtonToggleGroup" class="w-100 shadow" [vertical]="true" [disabled]="estado === 'editar'">
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 6}" value="PreAsignación" (click)="filtrarDatos('PA'); activeList = 6; type ='PA'; referencias = false;  attachmentRefCom = false; ">PreAsignación</mat-button-toggle>
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 2}" value="Reportero" (click)="filtrarDatos('RP'); activeList = 2; type ='RP'; attachmentRefCom = false;" >Reportero</mat-button-toggle>
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 7}" value="Agente" (click)="filtrarDatos('AG'); activeList = 7; type ='AG';balance=false; attachmentRefCom = false; observaciones = ''" >Agente</mat-button-toggle>
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 3}" value="Referencista" (click)="filtrarDatos('RF'); activeList = 3; type ='RF'; referencias = false;">Referencista</mat-button-toggle>
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 4}" value="Digitadora" (click)="filtrarDatos('DI'); activeList = 4; type ='DI'; referencias = false;">Digitadora</mat-button-toggle>
+                    <mat-button-toggle  [ngClass]="{'bg-blue': activeList === 5}" value="Traductora" (click)="filtrarDatos('TR'); activeList = 5; type ='TR'; referencias = false;">Traductora</mat-button-toggle>
+                    <mat-button-toggle [ngClass]="{'bg-blue': activeList === 1}" value="Supervisor" (click)="filtrarDatos('SU'); activeList = 1; type ='SU'; referencias = false;">Supervisor</mat-button-toggle>
+
+                  </mat-button-toggle-group>
+                </div>
+                <div class="col-md-9 mat-elevation-z8" >
+
+                  <p class="m-1" style="color:green"><b>Asignaciones Activas : {{numAsig}}</b></p>
+                  <mat-selection-list #asignacion [multiple]="false" [disabled]="estado === 'editar'" style="width: 100%; max-height: 400px; overflow-y: auto;" (selectionChange)="seleccionarTrabajador(asignacion.selectedOptions.selected[0].value.code,asignacion.selectedOptions.selected[0].value.fullname,asignacion.selectedOptions.selected[0].value.idUserLogin,asignacion.selectedOptions.selected[0].value.internal)" >
+                    <mat-list-option *ngFor="let asig of datos2" [value]="asig">
+                      <div style="font-size: 12px; border-radius: 14px;" >
+                        <div class="d-flex" style="color: red; font-size: 16px;">{{asig.porcentaje + ' '}} <div style="color:black; font-size: 13px !important;">{{ ' - ' + asig.code}} || {{asig.fullname}}</div></div>
+                      </div>
+                    </mat-list-option>
+                  </mat-selection-list>
+                </div>
+            </div>
+            <div class="col-md-6 " [ngClass]="{'step': this.step===2}">
+              <div class="d-flex justify-content-between">
+                <div style="font-size: 20px;" *ngIf="estado === 'agregar'" >
+                  Agregar Asignación
+                </div>
+                <div style="font-size: 20px;"  *ngIf="estado === 'editar'">
+                  Editar Asignación
+                </div>
+                <div>
+                  <button mat-mini-fab style="margin: 0 .5rem .5rem .5rem;" [class]="asignado === '' ? 'bg-grey' : 'bg-blue'"  *ngIf="estado === 'agregar'" [disabled]="asignado === ''" #tooltip="matTooltip" matTooltip="Agregar" (click)="addAsignacion(); asignacion.deselectAll(); datos2 = [];">
+                    <mat-icon class="material-icons-outlined col-white" matSuffix>add</mat-icon>
+                  </button>
+                  <button mat-mini-fab class="bg-red" *ngIf="estado === 'editar'" #tooltip="matTooltip" matTooltip="Cancelar" (click)="limpiar()">
+                    <mat-icon class="material-icons-outlined col-white" matSuffix>cancel</mat-icon>
+                  </button></div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Código || Nombre</mat-label>
+                    <input matInput [(ngModel)]="asignado" readonly="true">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field color="primary" class="w-100">
+                    <mat-label>Fecha de Asignación</mat-label>
+                    <input matInput [matDatepicker]="fechaAsignacion" [(ngModel)]="fechaAsignacionDate" (dateChange)="selectFechaAsignacion($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaAsignacion"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaAsignacion color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field color="primary" class="w-100">
+                    <mat-label>Fecha de Vencimiento</mat-label>
+                    <input matInput [matDatepicker]="fechaVencimiento" [(ngModel)]="fechaVencimientoDate" (dateChange)="selectFechaVencimiento($event)">
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaVencimiento"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaVencimiento color="primary"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Observaciones</mat-label>
+                    <textarea matInput [(ngModel)]="observaciones"  style="min-height: 12rem;"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-slide-toggle *ngIf="type === 'SU'" class="example-margin" [(ngModel)]="forceSupervisor" style="white-space: nowrap;" >
+                      Asignar a supervisor SIN Ref. Comerciales
+                      </mat-slide-toggle>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-slide-toggle *ngIf="activeList === 2 || activeList === 7" class="example-margin" [(ngModel)]="referencias" style="white-space: nowrap;" >
+                      Referencias Comerciales?
+                      </mat-slide-toggle>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-slide-toggle *ngIf="activeList === 5" class="example-margin" [(ngModel)]="traduccion" (ngModelChange)="traduccion === true ? observaciones = 'REALIZAR TRADUCCION DIRECTA\n============================\n' + observaciones : observaciones = ''" >
+                      Traducción Directa
+                      </mat-slide-toggle>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-slide-toggle *ngIf="activeList === 2 || activeList === 7" class="example-margin" [(ngModel)]="attachmentRefCom">
+                      Adjuntar referencias comerciales
+                      </mat-slide-toggle>
+                  </div>
+                </div>
+                <div class="row">
+
+                <div class="col-md-6">
+                  <mat-slide-toggle *ngIf="type === 'AG'" class="example-margin" [(ngModel)]="balance" (ngModelChange)="balance === true ? observaciones = 'ASIGNACION DE SOLO BALANCE\n============================\n' + observaciones : observaciones = ''">
+                    Solo Balance?
+                  </mat-slide-toggle>
+                </div>
+                <div class="col-md-6">
+                  <mat-slide-toggle *ngIf="type === 'AG'" class="example-margin" [(ngModel)]="sendZip">
+                    Enviar Carpeta Completa
+                  </mat-slide-toggle>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3" [ngClass]="{'step': this.step===3}">
+              <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+                <ng-container matColumnDef="assignedTo" >
+                  <th mat-header-cell *matHeaderCellDef  class="text-center"> Asignado A </th>
+                  <td mat-cell *matCellDef="let asign" class="text-center"> {{asign.assignedToCode + ' || ' + asign.assignedToName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="assignationDate" >
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha de Asignación</th>
+                  <td mat-cell *matCellDef="let asign" class="text-center">
+                    {{asign.startDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="endDate" >
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha de Vencimiento</th>
+                  <td mat-cell *matCellDef="let asign" class="text-center">
+                    {{asign.endDate}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="balance" >
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Balance?</th>
+                  <td mat-cell *matCellDef="let asign" class="text-center">
+                    <mat-checkbox class="example-margin" [(ngModel)]="asign.balance" [disabled]="true"></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="references" >
+                  <th mat-header-cell *matHeaderCellDef  class="text-center"> Referencias?</th>
+                  <td mat-cell *matCellDef="let asign" class="text-center">
+                    <mat-checkbox class="example-margin" [(ngModel)]="asign.references" [disabled]="true"></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="accion" >
+                  <th mat-header-cell *matHeaderCellDef  class="text-center"></th>
+                  <td mat-cell *matCellDef="let asign" class="text-center">
+                    <button mat-icon-button #tooltip="matTooltip" matTooltip="Eliminar" (click)="eliminarAsignacion(asign)">
+                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                <tr mat-row *matRowDef="let asign; columns: columnas;"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

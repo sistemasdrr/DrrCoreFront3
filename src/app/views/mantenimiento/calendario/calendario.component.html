@@ -1,0 +1,22 @@
+<section class="content">
+  <div id="loader-lista-agentes" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="container-fluid" [ngClass]="{'show-form': loading}" style="width: 100%; margin: 0; padding: 0;">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [subtitle]="breadscrum.subtitle" [codigoInforme]="''" [usuario]="''" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-body panel-body">
+        <div class="col-md-10">
+          <full-calendar [options]='calendarOptions' >
+          </full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

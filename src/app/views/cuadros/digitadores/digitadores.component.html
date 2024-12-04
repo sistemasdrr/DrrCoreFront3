@@ -1,0 +1,186 @@
+<section class="content">
+  <div class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+    <span class="loader"></span><br>
+    <h2 style="color: white;">&nbsp;Cargando...</h2>
+  </div>
+  <div class="container-fluid" [ngClass]="{'show-form': loading}" style="overflow: auto; width: 100%;">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [codigoInforme]="''"
+        [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+  </div>
+
+  <div class="row m-0 p-0" min>
+    <div class="col-md-12  m-0 p-0">
+      <div class="card card-body shadow " style="padding-bottom: 0px;">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>Consulta de </mat-label>
+              <mat-select [(ngModel)]="idQuery" placeholder="" (ngModelChange)="selectQuery()">
+                <mat-option [value]="1">6.4.1 LISTADO DE INFORMES SOLICITADOS A UN DIGITADOR</mat-option>
+                <mat-option [value]="2">6.4.2 LISTADO DE INFORMES PENDIENTES POR DIGITADOR</mat-option>
+                <mat-option [value]="3">6.4.3 LISTADO DE INFORMES ENTREGADOS POR DIGITADOR</mat-option>
+                <mat-option [value]="4">6.4.4 CUADRO ESTADISTICO DE INFORMES ATENDIDOS POR LOS DIGITADORES MENSUALMENTE</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 0">
+            <button *ngIf="query1_1_code !== ''" mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
+              <mat-icon class="col-white">picture_as_pdf</mat-icon>
+            </button>
+            <button *ngIf="query1_1_code !== ''" mat-mini-fab class="bg-green" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'excel')" #tooltip="matTooltip" matTooltip="Descargar Excel">
+              <mat-icon class="col-white">grid_on</mat-icon>
+            </button>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 1">
+            <mat-form-field class="w-100">
+              <mat-label>Digitador</mat-label>
+              <mat-select [(ngModel)]="query1_1_code" placeholder="">
+                <mat-option [value]="item.valor" *ngFor="let item of listaDigitadores ">{{item.valor + " - " + item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 1">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Desde</mat-label>
+              <input matInput [matDatepicker]="start_Date2" [(ngModel)]="query1_1_start" (dateChange)="selectStartDate_1($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="start_Date2"></mat-datepicker-toggle>
+              <mat-datepicker #start_Date2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 1">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Hasta</mat-label>
+              <input matInput [matDatepicker]="end_Date2" [(ngModel)]="query1_1_end"  (dateChange)="selectEndDate_1($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="end_Date2"></mat-datepicker-toggle>
+              <mat-datepicker #end_Date2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2" *ngIf="idQuery === 1">
+            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_4_1()" #tooltip="matTooltip" matTooltip="Buscar">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+            <button *ngIf="query1_1_code !== ''" mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
+              <mat-icon class="col-white">picture_as_pdf</mat-icon>
+            </button>
+            <button *ngIf="query1_1_code !== ''" mat-mini-fab class="bg-green" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'excel')" #tooltip="matTooltip" matTooltip="Descargar Excel">
+              <mat-icon class="col-white">grid_on</mat-icon>
+            </button>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 2">
+            <mat-form-field class="w-100">
+              <mat-label>Digitador</mat-label>
+              <mat-select [(ngModel)]="query1_2_code" placeholder="">
+                <mat-option [value]="item.valor" *ngFor="let item of listaDigitadores ">{{item.valor + " - " + item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 2">
+            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_4_2()" #tooltip="matTooltip" matTooltip="Buscar">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+            <button *ngIf="query1_2_code !== ''" mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
+              <mat-icon class="col-white">picture_as_pdf</mat-icon>
+            </button>
+            <button *ngIf="query1_2_code !== ''" mat-mini-fab class="bg-green" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'excel')" #tooltip="matTooltip" matTooltip="Descargar Excel">
+              <mat-icon class="col-white">grid_on</mat-icon>
+            </button>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 3">
+            <mat-form-field class="w-100">
+              <mat-label>Digitador</mat-label>
+              <mat-select [(ngModel)]="query1_3_code" placeholder="">
+                <mat-option [value]="item.valor" *ngFor="let item of listaDigitadores ">{{item.valor + " - " + item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3" *ngIf="idQuery === 3">
+            <mat-form-field color="primary" style="width: 100%;">
+              <mat-label>Ciclo</mat-label>
+              <mat-select [(ngModel)]="query1_3_cycle">
+                <mat-option *ngFor="let item of cycles" [value]="item.code">{{item.value}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-md-2" *ngIf="idQuery === 3">
+            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_4_3()" #tooltip="matTooltip" matTooltip="Buscar">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+            <button *ngIf="query1_3_code !== ''" mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
+              <mat-icon class="col-white">picture_as_pdf</mat-icon>
+            </button>
+            <button *ngIf="query1_3_code !== ''" mat-mini-fab class="bg-green" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'excel')" #tooltip="matTooltip" matTooltip="Descargar Excel">
+              <mat-icon class="col-white">grid_on</mat-icon>
+            </button>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 4">
+            <mat-form-field class="w-100" >
+              <mat-label>Mes</mat-label>
+              <mat-select [(ngModel)]="query1_4_month">
+                  <mat-option [value]="1">Enero</mat-option>
+                  <mat-option [value]="2">Febrero</mat-option>
+                  <mat-option [value]="3">Marzo</mat-option>
+                  <mat-option [value]="4">Abril</mat-option>
+                  <mat-option [value]="5">Mayo</mat-option>
+                  <mat-option [value]="6">Junio</mat-option>
+                  <mat-option [value]="7">Julio</mat-option>
+                  <mat-option [value]="8">Agosto</mat-option>
+                  <mat-option [value]="9">Septiembre</mat-option>
+                  <mat-option [value]="10">Octube</mat-option>
+                  <mat-option [value]="11">Noviembre</mat-option>
+                  <mat-option [value]="12">Diciembre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 4">
+            <mat-form-field class="w-100" >
+              <mat-label>Año </mat-label>
+              <mat-select [(ngModel)]="query1_4_year">
+                <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2" *ngIf="idQuery === 4">
+            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_4_4()" #tooltip="matTooltip" matTooltip="Buscar">
+              <mat-icon class="col-white">search</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
+              <mat-icon class="col-white">picture_as_pdf</mat-icon>
+            </button>
+            <button  mat-mini-fab class="bg-green" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'excel')" #tooltip="matTooltip" matTooltip="Descargar Excel">
+              <mat-icon class="col-white">grid_on</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" *ngIf="idQuery === 1">
+            <pdf-viewer [src]="query1_1_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
+                  style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
+
+          </div>
+          <div class="col-md-12" *ngIf="idQuery === 2">
+            <pdf-viewer [src]="query1_2_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
+                  style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
+
+          </div>
+          <div class="col-md-12" *ngIf="idQuery === 3">
+            <pdf-viewer [src]="query1_3_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
+                  style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
+
+          </div>
+          <div class="col-md-12" *ngIf="idQuery === 4">
+            <pdf-viewer [src]="query1_4_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
+                  style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

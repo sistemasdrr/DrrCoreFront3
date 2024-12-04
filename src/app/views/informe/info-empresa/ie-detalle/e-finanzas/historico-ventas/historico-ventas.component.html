@@ -1,0 +1,91 @@
+<div class="container" style="max-width: 30rem;" >
+  <div class="row m-0 p-0"  >
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <div class="materialTableHeader mt-3">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h5 style="font-size: 24px;">{{titulo}}</h5>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10">
+                    <button mat-icon-button  class="btn bg-red "  (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+                      <mat-icon>logout</mat-icon>
+                    </button>
+                  </div>
+                </li>
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" >
+                    <button mat-icon-button  class="btn btn-primary" (click)="guardar()"  #tooltip="matTooltip" matTooltip="Guardar">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <mat-dialog-content class="mat-typography p-0 m-0">
+
+          <div class="body m-0 p-0">
+            <div class="row p-0 m-0">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>Moneda del País</mat-label>
+                  <span matSuffix style="margin-right: .5rem; color:gray;">
+                    <i class="fa-solid fa-coins"></i>
+                  </span>
+                  <input type="text" matInput [formControl]="ctrlMoneda"  [matAutocomplete]="auto2" [(ngModel)]="monedaInforme" (ngModelChange)="selectMoneda(monedaInforme)">
+
+                  <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" (click)="limpiarSeleccion()" #tooltip="matTooltip" matTooltip="Limpiar">
+                    <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
+                  </button>
+                  <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let moneda of filteredMoneda | async" [value]="moneda">
+                      {{moneda.valor}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <!-- <mat-select [(ngModel)]="idCurrency">
+                      <mat-option [value]="item.id" *ngFor="let item of listaMonedas">{{item.valor}}</mat-option>
+                  </mat-select> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field color="primary" style="width: 100%;" >
+                  <mat-label >Fecha</mat-label>
+                  <input matInput [matDatepicker]="fecha" #fechaInput [ngModel]="fechaD" [readonly]="true" (dateChange)="selectFecha($event)">
+                  <mat-datepicker-toggle matIconSuffix [for]="fecha"></mat-datepicker-toggle>
+                  <mat-datepicker #fecha color="primary"></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field class="w-100" >
+                  <mat-label>Ventas</mat-label>
+                  <input matInput [(ngModel)]="ventas" [maxlength]="20" mask="separator.2" thousandSeparator="{{separator}}" (ngModelChange)="actualizarCampo()" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>T.C. x US$</mat-label>
+                  <input matInput [(ngModel)]="tc" (ngModelChange)="actualizarCampo()" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>Equivalente en Dolares</mat-label>
+                  <input matInput [(ngModel)]="equivaleDolar" mask="separator.2" thousandSeparator="{{separator}}"  [maxlength]="20" type="text" >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-dialog-content>
+      </div>
+    </div>
+  </div>
+</div>

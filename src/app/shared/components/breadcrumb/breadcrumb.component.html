@@ -1,0 +1,37 @@
+<div class="breadcrumb-main">
+  
+    <div class="row">
+        <div class=" d-flex align-items-center" [ngClass]="codigoInforme === '' ? 'col-12' : 'col-12'">
+            <div class="breadcrumb-title ">
+                <h3 class="page-title">{{title}} {{subtitle}}</h3>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center" *ngIf="codigoInforme !== ''">
+          <div class="info-box7 bg-c-blue m-0 d-md-block d-none shadow" style="padding: 0;">
+            <div class="info-box7-block d-flex justify-content-center align-items-center">
+              <div>
+                <h5 class="d-flex justify-content-center"  style="color: white; ">Cód. Informe: &nbsp;<b>{{codigoInforme}}</b></h5>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex" style="margin-left: 1rem;" *ngIf="codigoInforme !== ''">
+            <button class="btn d-flex shadow" style="background-color: #d37d04; color: white; margin: 0 .5rem .5rem .5rem;" type="button" (click)="verSocios()">
+              <i class="fa-solid fa-users" style="font-size: 22px; margin-top: .4rem;"></i>
+              <div style="font-size: 22px;">&nbsp;Socios (F12)</div>
+            </button>
+            <button class="btn bg-red d-flex shadow col-white"  type="button" style="margin: 0 .5rem .5rem .5rem;"  (click)="verInforme('E')">
+              <i class="fa-solid fa-file-pdf" style="font-size: 22px; margin-top: .4rem;"></i>
+              <div style="font-size: 22px;">&nbsp;Ver Informe (F8)</div>
+            </button>
+            <button class="btn bg-red d-flex shadow col-white"  type="button" style="margin: 0 .5rem .5rem .5rem;"  (click)="verInforme('I')">
+              <i class="fa-solid fa-file-pdf" style="font-size: 22px; margin-top: .4rem;"></i><span class="fi fi-us"  style="font-size: 26px;"></span>
+              <div style="font-size: 22px;">&nbsp;Ver Informe (F8)</div>
+            </button>
+            <!--button--  mat-fab class="bg-white" matTooltip="Generar PDF" style="margin: 0 .5rem .5rem .5rem;">
+              <app-feather-icons [icon]="'file-text'" class="tbl-fav-pdf"></app-feather-icons>
+            </!button-->
+          </div>
+        </div>
+      
+    </div>
+</div>

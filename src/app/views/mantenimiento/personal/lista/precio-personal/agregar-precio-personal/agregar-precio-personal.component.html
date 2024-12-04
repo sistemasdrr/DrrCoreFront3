@@ -1,0 +1,94 @@
+<div id="loader-lista-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+  <span class="loader"></span><br>
+  <h2 style="color: white;">&nbsp;Cargando...</h2>
+</div>
+<div class="container" style="width: 45rem;" >
+  <div class="row m-0 p-0"  >
+    <div class="col-md-12 m-0 p-0">
+      <div class="card">
+        <div class="header">
+          <div class="materialTableHeader mt-3">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h5 style="font-size: 24px;">Detalle de Precio</h5>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10">
+                    <button mat-icon-button  class="btn bg-red "  (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+                      <mat-icon>logout</mat-icon>
+                    </button>
+                  </div>
+                </li>
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" >
+                    <button mat-icon-button  class="btn bg-cyan"  (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar"  >
+                      <!--[ngClass]="code !== '' && quality !== '' && reportType !== '' ? 'bg-cyan' : 'bg-grey'" [disabled]="code !== '' && quality !== '' && reportType !== '' ? false : true"-->
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <mat-dialog-content class="mat-typography p-0 m-0">
+          <div class="body m-0 p-0">
+            <div class="row p-0 m-0">
+              <div class="col-md-4 m-0 pt-0 pb-0 ">
+                <mat-form-field class="w-100">
+                  <mat-label>Códigos del Personal</mat-label>
+                  <mat-select [(ngModel)]="code" >
+                      <mat-option *ngFor="let item of userCodes" [value]="item">{{item}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-8 m-0 pt-0 pb-0">
+                <div class="d-flex w-100 justify-content-between">
+                  <mat-slide-toggle style="margin-top: .6rem;" class="example-margin" [(ngModel)]="commission" >
+                    Es Comisionista?
+                  </mat-slide-toggle>
+                  <mat-slide-toggle style="margin-top: .6rem;" class="example-margin" [(ngModel)]="isComplement">
+                    Es Complemento?
+                  </mat-slide-toggle>
+                </div>
+              </div>
+              <div class="col-md-4 m-0 pt-0 pb-0">
+                <mat-form-field class="w-100">
+                  <mat-label>Tipo de Informe</mat-label>
+                  <mat-select [(ngModel)]="reportType" >
+                    <mat-option [value]="''"></mat-option>
+                    <mat-option [value]="'RV'">RV</mat-option>
+                    <mat-option [value]="'OR'">OR</mat-option>
+                    <mat-option [value]="'EF'">EF</mat-option>
+                    <mat-option [value]="'DF'">DF</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 m-0 pt-0 pb-0 ">
+                <mat-form-field class="w-100">
+                  <mat-label>Calidad</mat-label>
+                  <mat-select [(ngModel)]="quality" >
+                    <mat-option [value]="'A'">A</mat-option>
+                    <mat-option [value]="'B'">B</mat-option>
+                    <mat-option [value]="'C'">C</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 m-0 pt-0 pb-0 ">
+                <mat-form-field class="w-100">
+                  <mat-label>Precio</mat-label>
+                  <input matInput type="number" [(ngModel)]="amount">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-dialog-content>
+      </div>
+    </div>
+  </div>
+</div>

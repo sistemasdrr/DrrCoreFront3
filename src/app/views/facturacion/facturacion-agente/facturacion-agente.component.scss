@@ -1,0 +1,11 @@
+.tbl-fav-web {
+  color: #1dcfd5;
+  display: inline !important;
+}
+.readonly-wrapper {
+  cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+  pointer-events: none;
+}

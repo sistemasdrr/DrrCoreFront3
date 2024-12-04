@@ -1,0 +1,103 @@
+<div id="loader-lista-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
+  <span class="loader"></span><br>
+  <h2 style="color: white;">&nbsp;Cargando...</h2>
+</div>
+<div class="container" style="min-width: 60rem; min-height: 30rem;" >
+  <div class="row m-0 p-0"  >
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <div class="materialTableHeader mt-3">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h5 style="font-size: 24px;">Precios del Personal</h5>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10">
+                    <button mat-icon-button  class="btn bg-red "  (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+                      <mat-icon>logout</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <mat-dialog-content class="mat-typography p-0 m-0">
+          <div class="body m-0 p-0">
+            <div class="row p-0 m-0">
+              <div class="col-md-8 p-0 m-0"></div>
+              <div class="col-md-3 p-0 m-0">
+                <mat-form-field>
+                  <mat-label>Códigos del Personal</mat-label>
+                  <mat-select [(ngModel)]="codeSelected" (ngModelChange)="updateData(codeSelected)">
+                      <mat-option *ngFor="let item of userCodes" [value]="item">{{item}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-1 p-0 m-0">
+                <button mat-mini-fab color="primary" style="margin: 0 1rem 0 1rem;" (click)="addBillingPersonal(codeSelected)">
+                  <mat-icon class="col-white">add</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="row p-0 m-0">
+              <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+
+                <ng-container matColumnDef="code" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Cód. </th>
+                <td mat-cell *matCellDef="let personal" class="text-center"> {{personal.code}} </td>
+                </ng-container>
+                <ng-container matColumnDef="commission" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Comisionista</th>
+                <td mat-cell *matCellDef="let personal" class="text-left">
+                  <mat-checkbox [(ngModel)]="personal.commission" value="" color="primary" disabled></mat-checkbox>
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="reportType" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tipo de Informe </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center"> {{personal.reportType}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quality" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Calidad </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center"> {{personal.quality}} </td>
+                </ng-container>
+                <ng-container matColumnDef="isComplement" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Complemento? </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center">
+                    <mat-checkbox [(ngModel)]="personal.isComplement" value="" color="primary" disabled></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="amount" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Precio </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center"> {{personal.amount}} </td>
+                </ng-container>
+                <ng-container matColumnDef="accion" >
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Acciones
+                  </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center">
+                    <a mat-icon-button  #tooltip="matTooltip" matTooltip="Editar" (click)="editBillingPersonal(personal.id)">
+                      <i class="fa-regular fa-pen-to-square" style="font-size: 20px; color: #6777ef;"></i>
+                    </a>
+
+                    <button mat-icon-button  (click)="deleteBillingPersonal(personal.id)" class="tbl-action-btn"  matTooltip="Eliminar">
+                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                    </button>
+                  </td>
+
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let personal; columns: columns;"></tr>
+              </table>
+            </div>
+          </div>
+        </mat-dialog-content>
+      </div>
+    </div>
+  </div>
+</div>

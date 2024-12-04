@@ -1,0 +1,79 @@
+<div class="container" >
+  <mat-dialog-content class="mat-typography container-scrollable" style="min-height: 50rem;">
+    <div class="row " >
+      <div class="col-md-12 d-flex justify-content-between" style="background-color: #dae1f3;">
+        <div style="font-size: 24px;" class="d-flex align-items-center">
+          <b>Ramos de Negocios y Actividades Específicas</b>
+        </div>
+        <div>
+          <button mat-mini-fab color="warn" style="margin: .5rem .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
+            <mat-icon class="col-white">arrow_back</mat-icon>
+          </button>
+          <button mat-mini-fab class="bg-cyan" style="margin: .5rem .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+            <mat-icon class="col-white">save</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card card-body shadow mt-3 ">
+          <div class="row">
+            <div class="col-md-12 d-flex w-100 m-0">
+              <div class="d-flex align-items-center">
+                <h4><b>Ramo de Negocio</b></h4>
+              </div>
+              <div style="width: 70%;"></div>
+              <div>
+                <mat-form-field class="w-100" style="min-width: 20rem;">
+                  <mat-label>Buscar</mat-label>
+                  <input matInput type="text" [(ngModel)]="buscarRamo" >
+                </mat-form-field>
+              </div>
+              <div class="">
+                <button class="btn bg-primary d-flex" type="button" style="margin-top: .6rem;  margin-left: .5rem;" (click)="dialogRamo()">
+                  <i class="fa-regular fa-circle-question" style="font-size: 16px; color: white; margin: .2rem 0 .2rem 0;"></i>
+                  <div style="font-size: 16px;"></div>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="table-container ">
+                <mat-list >
+                  <mat-list-item  *ngFor="let ramo of listaRamoNegocio" [ngClass]="{'select': seleccionado === ramo.id}" (click)="selectRamo(ramo.id)" >
+                    <div class="w-100 d-flex justify-content-between">
+                      {{ ramo.id }} - {{ ramo.valor}}
+                      <mat-icon *ngIf="seleccionado === ramo.id" class="material-icons-two-tone color-icon" matSuffix>check</mat-icon>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card card-body shadow mt-3 ">
+          <div class="row">
+            <div class="col-md-12 d-flex w-100 m-0">
+              <div class="d-flex align-items-center">
+                <h4><b>Actividades Especificas</b></h4>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="table-container ">
+                <mat-list >
+                  <mat-list-item [class]="verificar(actividad) ? 'select' : ''" *ngFor="let actividad of listaActividades" (click)="selectActividad(actividad)" >
+                    <div class="w-100 d-flex justify-content-between">
+                      {{actividad.valor}}
+                      <mat-icon *ngIf="verificar(actividad)" class="material-icons-two-tone color-icon" matSuffix>check</mat-icon>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+</div>
