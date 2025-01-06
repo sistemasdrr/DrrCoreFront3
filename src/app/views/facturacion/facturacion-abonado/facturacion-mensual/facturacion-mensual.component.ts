@@ -34,9 +34,10 @@ export interface dataPedido{
 }
 
 @Component({
-  selector: 'app-facturacion-mensual',
-  templateUrl: './facturacion-mensual.component.html',
-  styleUrls: ['./facturacion-mensual.component.scss']
+    selector: 'app-facturacion-mensual',
+    templateUrl: './facturacion-mensual.component.html',
+    styleUrls: ['./facturacion-mensual.component.scss'],
+    standalone: false
 })
 export class FacturacionMensualComponent implements OnInit, AfterViewInit {
   breadscrums = [

@@ -13,9 +13,10 @@ import { PermisosComponent } from './permisos/permisos.component';
 import { PrecioPersonalComponent } from './precio-personal/precio-personal.component';
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss']
+    selector: 'app-lista',
+    templateUrl: './lista.component.html',
+    styleUrls: ['./lista.component.scss'],
+    standalone: false
 })
 export class ListaPersonalComponent implements OnInit, AfterViewInit {
   breadscrums = [

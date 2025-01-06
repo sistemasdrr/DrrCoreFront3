@@ -4,9 +4,10 @@ import { BillingPersonal, PersonalService } from 'app/services/mantenimiento/per
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-precio-personal',
-  templateUrl: './agregar-precio-personal.component.html',
-  styleUrls: ['./agregar-precio-personal.component.scss']
+    selector: 'app-agregar-precio-personal',
+    templateUrl: './agregar-precio-personal.component.html',
+    styleUrls: ['./agregar-precio-personal.component.scss'],
+    standalone: false
 })
 export class AgregarPrecioPersonalComponent  implements OnInit{
 

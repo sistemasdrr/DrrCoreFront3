@@ -4,9 +4,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-complemento',
-  templateUrl: './complemento.component.html',
-  styleUrls: ['./complemento.component.scss']
+    selector: 'app-complemento',
+    templateUrl: './complemento.component.html',
+    styleUrls: ['./complemento.component.scss'],
+    standalone: false
 })
 export class ComplementoComponent implements OnInit {
 

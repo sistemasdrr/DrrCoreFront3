@@ -13,18 +13,19 @@ import { ImageEditorComponent } from './image-editor/image-editor.component';
 import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 
 @Component({
-  selector: 'app-imagenes',
-  templateUrl: './imagenes.component.html',
-  styleUrls: ['./imagenes.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-imagenes',
+    templateUrl: './imagenes.component.html',
+    styleUrls: ['./imagenes.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class ImagenesComponent implements OnInit{
 

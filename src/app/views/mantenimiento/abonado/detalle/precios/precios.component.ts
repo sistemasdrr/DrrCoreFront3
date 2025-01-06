@@ -10,9 +10,10 @@ import { AgregarEditarPrecioAbonadoComponent } from './agregar-editar/agregar-ed
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-precios-abonado',
-  templateUrl: './precios.component.html',
-  styleUrls: ['./precios.component.scss']
+    selector: 'app-precios-abonado',
+    templateUrl: './precios.component.html',
+    styleUrls: ['./precios.component.scss'],
+    standalone: false
 })
 export class PreciosAbonadoComponent implements OnInit{
 

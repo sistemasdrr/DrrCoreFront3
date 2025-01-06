@@ -15,10 +15,11 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { InConfiguration, DirectionService, RightSidebarService } from '@core';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-right-sidebar',
-  templateUrl: './right-sidebar.component.html',
-  styleUrls: ['./right-sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-right-sidebar',
+    templateUrl: './right-sidebar.component.html',
+    styleUrls: ['./right-sidebar.component.scss'],
+    standalone: false
 })
 export class RightSidebarComponent
   extends UnsubscribeOnDestroyAdapter

@@ -17,9 +17,10 @@ export interface Task {
 }
 
 @Component({
-  selector: 'app-permisos',
-  templateUrl: './permisos.component.html',
-  styleUrls: ['./permisos.component.scss']
+    selector: 'app-permisos',
+    templateUrl: './permisos.component.html',
+    styleUrls: ['./permisos.component.scss'],
+    standalone: false
 })
 export class PermisosComponent implements OnInit{
   idEmployee = 0

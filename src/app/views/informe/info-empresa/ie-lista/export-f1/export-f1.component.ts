@@ -5,18 +5,19 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DatosEmpresaService } from 'app/services/informes/empresa/datos-empresa.service';
 
 @Component({
-  selector: 'app-export-f1',
-  templateUrl: './export-f1.component.html',
-  styleUrls: ['./export-f1.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-export-f1',
+    templateUrl: './export-f1.component.html',
+    styleUrls: ['./export-f1.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class ExportF1Component implements OnInit {
   titulo = "Generar Documento de la Empresa"

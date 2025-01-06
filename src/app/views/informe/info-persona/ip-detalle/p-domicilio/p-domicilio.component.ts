@@ -8,18 +8,19 @@ import { DomicilioService } from 'app/services/informes/persona/domicilio.servic
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-domicilio',
-  templateUrl: './p-domicilio.component.html',
-  styleUrls: ['./p-domicilio.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-domicilio',
+    templateUrl: './p-domicilio.component.html',
+    styleUrls: ['./p-domicilio.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PDomicilioComponent implements OnInit, OnDestroy {
 

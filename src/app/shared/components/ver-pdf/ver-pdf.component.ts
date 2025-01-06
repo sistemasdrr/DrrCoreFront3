@@ -4,9 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DatosEmpresaService } from 'app/services/informes/empresa/datos-empresa.service';
 
 @Component({
-  selector: 'app-ver-pdf',
-  templateUrl: './ver-pdf.component.html',
-  styleUrls: ['./ver-pdf.component.scss']
+    selector: 'app-ver-pdf',
+    templateUrl: './ver-pdf.component.html',
+    styleUrls: ['./ver-pdf.component.scss'],
+    standalone: false
 })
 export class VerPdfComponent implements OnInit {
 

@@ -7,9 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 @Component({
-  selector: 'app-locked',
-  templateUrl: './locked.component.html',
-  styleUrls: ['./locked.component.scss'],
+    selector: 'app-locked',
+    templateUrl: './locked.component.html',
+    styleUrls: ['./locked.component.scss'],
+    standalone: false
 })
 export class LockedComponent implements OnInit {
   loginForm!: UntypedFormGroup;

@@ -6,9 +6,10 @@ import { ComboService } from 'app/services/combo.service';
 import { PersonalService } from 'app/services/mantenimiento/personal.service';
 
 @Component({
-  selector: 'app-agregar-essalud',
-  templateUrl: './agregar-essalud.component.html',
-  styleUrls: ['./agregar-essalud.component.scss']
+    selector: 'app-agregar-essalud',
+    templateUrl: './agregar-essalud.component.html',
+    styleUrls: ['./agregar-essalud.component.scss'],
+    standalone: false
 })
 export class AgregarEssaludComponent implements OnInit {
   title = ""

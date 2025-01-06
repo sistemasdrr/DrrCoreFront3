@@ -9,18 +9,19 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-editar-por-facturar',
-  templateUrl: './editar-por-facturar.component.html',
-  styleUrls: ['./editar-por-facturar.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-editar-por-facturar',
+    templateUrl: './editar-por-facturar.component.html',
+    styleUrls: ['./editar-por-facturar.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class EditarPorFacturarComponent implements OnInit{
 

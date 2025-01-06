@@ -7,9 +7,10 @@ import { ProviderByTicket } from 'app/models/pedidos/ticket';
 import { TicketService } from 'app/services/pedidos/ticket.service';
 
 @Component({
-  selector: 'app-referencias-comerciales-ref',
-  templateUrl: './referencias-comerciales-ref.component.html',
-  styleUrls: ['./referencias-comerciales-ref.component.scss']
+    selector: 'app-referencias-comerciales-ref',
+    templateUrl: './referencias-comerciales-ref.component.html',
+    styleUrls: ['./referencias-comerciales-ref.component.scss'],
+    standalone: false
 })
 export class ReferenciasComercialesRefComponent implements OnInit {
 

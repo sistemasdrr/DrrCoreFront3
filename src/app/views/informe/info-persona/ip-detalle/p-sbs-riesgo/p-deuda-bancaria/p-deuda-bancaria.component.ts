@@ -9,18 +9,19 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-deuda-bancaria',
-  templateUrl: './p-deuda-bancaria.component.html',
-  styleUrls: ['./p-deuda-bancaria.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-deuda-bancaria',
+    templateUrl: './p-deuda-bancaria.component.html',
+    styleUrls: ['./p-deuda-bancaria.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PDeudaBancariaComponent implements OnInit {
 

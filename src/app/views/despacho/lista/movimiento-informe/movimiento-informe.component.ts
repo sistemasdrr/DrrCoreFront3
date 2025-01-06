@@ -8,18 +8,19 @@ import { PedidoService } from 'app/services/pedido.service';
 
 
 @Component({
-  selector: 'app-movimiento-informe',
-  templateUrl: './movimiento-informe.component.html',
-  styleUrls: ['./movimiento-informe.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-movimiento-informe',
+    templateUrl: './movimiento-informe.component.html',
+    styleUrls: ['./movimiento-informe.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class MovimientoInformeComponent implements OnInit {
 

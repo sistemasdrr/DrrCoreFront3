@@ -20,18 +20,19 @@ import * as moment from 'moment';
 import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 
 @Component({
-  selector: 'app-sbs-riesgo',
-  templateUrl: './sbs-riesgo.component.html',
-  styleUrls: ['./sbs-riesgo.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-sbs-riesgo',
+    templateUrl: './sbs-riesgo.component.html',
+    styleUrls: ['./sbs-riesgo.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class SbsRiesgoComponent implements OnInit, OnDestroy{
 

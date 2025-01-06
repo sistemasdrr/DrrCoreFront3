@@ -7,9 +7,10 @@ import { GeneralService } from 'app/services/mantenimiento/general.service';
 
 
 @Component({
-  selector: 'app-mantenedor',
-  templateUrl: './mantenedor.component.html',
-  styleUrls: ['./mantenedor.component.scss']
+    selector: 'app-mantenedor',
+    templateUrl: './mantenedor.component.html',
+    styleUrls: ['./mantenedor.component.scss'],
+    standalone: false
 })
 export class MantenedorComponent implements OnInit {
   breadscrums = [

@@ -12,9 +12,10 @@ import { ConfirmarPedidoComponent } from './confirmar-pedido/confirmar-pedido.co
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-pedidos-online',
-  templateUrl: './pedidos-online.component.html',
-  styleUrls: ['./pedidos-online.component.scss']
+    selector: 'app-pedidos-online',
+    templateUrl: './pedidos-online.component.html',
+    styleUrls: ['./pedidos-online.component.scss'],
+    standalone: false
 })
 export class PedidosOnlineComponent implements OnInit{
   breadscrums = [

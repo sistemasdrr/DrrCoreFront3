@@ -13,9 +13,10 @@ export interface ImpoExpoData{
 }
 
 @Component({
-  selector: 'app-cuadro-impo-expo',
-  templateUrl: './cuadro-impo-expo.component.html',
-  styleUrls: ['./cuadro-impo-expo.component.scss']
+    selector: 'app-cuadro-impo-expo',
+    templateUrl: './cuadro-impo-expo.component.html',
+    styleUrls: ['./cuadro-impo-expo.component.scss'],
+    standalone: false
 })
 export class CuadroImpoExpoComponent implements OnInit{
 

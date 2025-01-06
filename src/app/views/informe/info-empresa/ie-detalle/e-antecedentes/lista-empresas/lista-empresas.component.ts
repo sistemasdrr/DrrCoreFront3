@@ -18,18 +18,19 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AntecedentesLegalesService } from 'app/services/informes/empresa/antecedentes-legales.service';
 
 @Component({
-  selector: 'app-lista-empresas',
-  templateUrl: './lista-empresas.component.html',
-  styleUrls: ['./lista-empresas.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-lista-empresas',
+    templateUrl: './lista-empresas.component.html',
+    styleUrls: ['./lista-empresas.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class ListaEmpresas1Component implements OnInit {
 

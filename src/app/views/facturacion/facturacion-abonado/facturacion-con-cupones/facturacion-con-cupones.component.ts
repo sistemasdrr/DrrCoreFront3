@@ -11,9 +11,10 @@ import { CancelarFacturaAbonadoComponent } from '../facturacion-mensual/cancelar
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-facturacion-con-cupones',
-  templateUrl: './facturacion-con-cupones.component.html',
-  styleUrls: ['./facturacion-con-cupones.component.scss']
+    selector: 'app-facturacion-con-cupones',
+    templateUrl: './facturacion-con-cupones.component.html',
+    styleUrls: ['./facturacion-con-cupones.component.scss'],
+    standalone: false
 })
 export class FacturacionConCuponesComponent implements OnInit{
   breadscrums = [

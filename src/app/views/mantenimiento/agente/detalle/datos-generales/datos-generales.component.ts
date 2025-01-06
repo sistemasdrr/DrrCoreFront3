@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-datos-generales-agente',
-  templateUrl: './datos-generales.component.html',
-  styleUrls: ['./datos-generales.component.scss']
+    selector: 'app-datos-generales-agente',
+    templateUrl: './datos-generales.component.html',
+    styleUrls: ['./datos-generales.component.scss'],
+    standalone: false
 })
 export class DatosGeneralesAgenteComponent implements OnInit {
 

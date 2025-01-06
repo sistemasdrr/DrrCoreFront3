@@ -7,18 +7,19 @@ import { InfoGeneralPService } from 'app/services/informes/persona/info-general-
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-info-general',
-  templateUrl: './p-info-general.component.html',
-  styleUrls: ['./p-info-general.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-info-general',
+    templateUrl: './p-info-general.component.html',
+    styleUrls: ['./p-info-general.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PInfoGeneralComponent implements OnInit,OnDestroy{
 

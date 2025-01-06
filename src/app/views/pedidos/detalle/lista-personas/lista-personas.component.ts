@@ -13,9 +13,10 @@ import { DatosGeneralesService } from 'app/services/informes/persona/datos-gener
 import { TPersona } from 'app/models/informes/persona/datos-generales';
 
 @Component({
-  selector: 'app-lista-personas',
-  templateUrl: './lista-personas.component.html',
-  styleUrls: ['./lista-personas.component.scss']
+    selector: 'app-lista-personas',
+    templateUrl: './lista-personas.component.html',
+    styleUrls: ['./lista-personas.component.scss'],
+    standalone: false
 })
 export class ListaPersonasComponent implements OnInit {
 

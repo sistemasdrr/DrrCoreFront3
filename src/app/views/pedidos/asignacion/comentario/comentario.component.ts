@@ -5,9 +5,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-comentario',
-  templateUrl: './comentario.component.html',
-  styleUrls: ['./comentario.component.scss']
+    selector: 'app-comentario',
+    templateUrl: './comentario.component.html',
+    styleUrls: ['./comentario.component.scss'],
+    standalone: false
 })
 export class ComentarioComponent {
   public Editor: any = ClassicEditor;

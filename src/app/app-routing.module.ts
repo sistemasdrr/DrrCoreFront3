@@ -24,13 +24,7 @@ const routes: Routes = [
           ,canActivate: [AuthGuard],
         title: 'Dashboard DRR Core'
       },
-      {
-        path: 'advance-table',
-        loadChildren: () =>
-          import('./advance-table/advance-table.module').then(
-            (m) => m.AdvanceTableModule
-          ),
-      },
+     
       {
         path: 'order-reception',
         loadChildren: () =>

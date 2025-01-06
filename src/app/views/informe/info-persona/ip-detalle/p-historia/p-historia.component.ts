@@ -7,18 +7,19 @@ import { HistorialPService } from 'app/services/informes/persona/historial-p.ser
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-historia',
-  templateUrl: './p-historia.component.html',
-  styleUrls: ['./p-historia.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-historia',
+    templateUrl: './p-historia.component.html',
+    styleUrls: ['./p-historia.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PHistoriaComponent implements OnInit, OnDestroy{
 

@@ -21,18 +21,19 @@ import { CancelarFacturaComponent } from './cancelar-factura/cancelar-factura.co
 import { selection } from 'd3';
 
 @Component({
-  selector: 'app-facturacion-agente',
-  templateUrl: './facturacion-agente.component.html',
-  styleUrls: ['./facturacion-agente.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-facturacion-agente',
+    templateUrl: './facturacion-agente.component.html',
+    styleUrls: ['./facturacion-agente.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class FacturacionAgenteComponent implements OnInit {
   breadscrums = [

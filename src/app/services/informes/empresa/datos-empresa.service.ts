@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Company, StatusCompany, TCompany, WCompany} from 'app/models/informes/empresa/datos-empresa';
 import { Response } from 'app/models/response';
-import { number } from 'echarts';
+
 import { environment } from 'environments/environment';
 import { Observable, catchError, throwError } from 'rxjs';
 

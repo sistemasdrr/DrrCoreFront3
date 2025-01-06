@@ -8,9 +8,10 @@ import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-abonado',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss']
+    selector: 'app-lista-abonado',
+    templateUrl: './lista.component.html',
+    styleUrls: ['./lista.component.scss'],
+    standalone: false
 })
 export class ListaAbonadoComponent implements OnInit{
   breadscrums = [

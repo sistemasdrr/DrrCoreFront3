@@ -16,9 +16,10 @@ import { ComboService } from 'app/services/combo.service';
 import { ComboData } from 'app/models/combo';
 
 @Component({
-  selector: 'app-detalle',
-  templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.scss']
+    selector: 'app-detalle',
+    templateUrl: './detalle.component.html',
+    styleUrls: ['./detalle.component.scss'],
+    standalone: false
 })
 export class DetallePersonalComponent implements OnInit {
   breadscrums = [

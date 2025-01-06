@@ -8,18 +8,19 @@ import { Query3_1ByMonth, Query3_1ByYear } from 'app/models/consulta';
 import { ConsultaService } from 'app/services/Consultas/consulta.service';
 
 @Component({
-  selector: 'app-agentes',
-  templateUrl: './agentes.component.html',
-  styleUrls: ['./agentes.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-agentes',
+    templateUrl: './agentes.component.html',
+    styleUrls: ['./agentes.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class AgentesComponent implements OnInit{
   years : number[] = []

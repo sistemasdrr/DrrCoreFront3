@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MainComponent } from './main/main.component';
-import { Dashboard2Component } from './dashboard2/dashboard2.component';
-import { Dashboard3Component } from './dashboard3/dashboard3.component';
+
 import { NgChartsModule } from 'ng2-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxGaugeModule } from 'ngx-gauge';
@@ -26,7 +25,7 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { ListaObservadosComponent } from './lista-observados/lista-observados.component';
 
 @NgModule({
-  declarations: [MainComponent, Dashboard2Component, Dashboard3Component,
+  declarations: [MainComponent,
     ProduccionDiariaComponent,
     ProduccionMensualComponent,
     EnviarComplementoComponent,ReportesComponent,ListaObservadosComponent],

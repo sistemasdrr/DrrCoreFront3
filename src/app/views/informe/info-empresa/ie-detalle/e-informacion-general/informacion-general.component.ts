@@ -8,18 +8,19 @@ import { InformacionGeneralService } from 'app/services/informes/empresa/informa
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-informacion-general',
-  templateUrl: './informacion-general.component.html',
-  styleUrls: ['./informacion-general.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-informacion-general',
+    templateUrl: './informacion-general.component.html',
+    styleUrls: ['./informacion-general.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class InformacionGeneralComponent implements OnInit, OnDestroy{
   informacionGeneral = "";

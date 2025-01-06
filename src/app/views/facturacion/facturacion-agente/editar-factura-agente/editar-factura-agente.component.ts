@@ -26,18 +26,19 @@ export interface PriceAgent{
 }
 
 @Component({
-  selector: 'app-editar-factura-agente',
-  templateUrl: './editar-factura-agente.component.html',
-  styleUrls: ['./editar-factura-agente.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-editar-factura-agente',
+    templateUrl: './editar-factura-agente.component.html',
+    styleUrls: ['./editar-factura-agente.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 
 export class EditarFacturaAgenteComponent implements OnInit{

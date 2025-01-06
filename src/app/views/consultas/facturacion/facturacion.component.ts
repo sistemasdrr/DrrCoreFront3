@@ -11,18 +11,19 @@ import { PDFSource, PdfViewerComponent } from 'ng2-pdf-viewer';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-facturacion',
-  templateUrl: './facturacion.component.html',
-  styleUrls: ['./facturacion.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-facturacion',
+    templateUrl: './facturacion.component.html',
+    styleUrls: ['./facturacion.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class FacturacionComponent implements OnInit{
   years : number[] = []

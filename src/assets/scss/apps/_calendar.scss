@@ -179,13 +179,13 @@
 
     th {
       border-color: #f2f2f2;
-      color: color(fontdark) !important;
+      //color: color(fontdark) !important;
       font-weight: 500;
       padding: 10px;
     }
   }
 
-  color: color(fontdark) !important;
+ // color: color(fontdark) !important;
   font-weight: 500;
   padding: 10px;
 }
@@ -265,7 +265,7 @@ tr:first-child > td > .fc-day-grid-event {
   border-radius: 0;
 
   &.fc-state-active {
-    background-color: color(primary);
+    //background-color: color(primary);
     color: #fff;
   }
 }

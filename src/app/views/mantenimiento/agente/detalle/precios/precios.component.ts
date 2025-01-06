@@ -10,9 +10,10 @@ import Swal from 'sweetalert2';
 import { AgregarEditarAgenteComponent } from './agregar-editar/agregar-editar.component';
 
 @Component({
-  selector: 'app-precios-agente',
-  templateUrl: './precios.component.html',
-  styleUrls: ['./precios.component.scss']
+    selector: 'app-precios-agente',
+    templateUrl: './precios.component.html',
+    styleUrls: ['./precios.component.scss'],
+    standalone: false
 })
 export class PreciosAgenteComponent implements OnInit{
   //TABLA

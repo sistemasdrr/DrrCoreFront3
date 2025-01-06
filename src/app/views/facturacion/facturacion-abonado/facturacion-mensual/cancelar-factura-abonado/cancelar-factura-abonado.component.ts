@@ -6,9 +6,10 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-cancelar-factura-abonado',
-  templateUrl: './cancelar-factura-abonado.component.html',
-  styleUrls: ['./cancelar-factura-abonado.component.scss']
+    selector: 'app-cancelar-factura-abonado',
+    templateUrl: './cancelar-factura-abonado.component.html',
+    styleUrls: ['./cancelar-factura-abonado.component.scss'],
+    standalone: false
 })
 export class CancelarFacturaAbonadoComponent {
   loading = false

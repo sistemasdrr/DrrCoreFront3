@@ -7,9 +7,10 @@ import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-cupon',
-  templateUrl: './agregar-cupon.component.html',
-  styleUrls: ['./agregar-cupon.component.scss']
+    selector: 'app-agregar-cupon',
+    templateUrl: './agregar-cupon.component.html',
+    styleUrls: ['./agregar-cupon.component.scss'],
+    standalone: false
 })
 export class AgregarCuponComponent implements OnInit {
   titulo = ""

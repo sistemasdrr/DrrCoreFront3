@@ -10,9 +10,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import { Observable, map, startWith } from 'rxjs';
 
 @Component({
-  selector: 'app-historial-pedidos',
-  templateUrl: './historial-pedidos.component.html',
-  styleUrls: ['./historial-pedidos.component.scss']
+    selector: 'app-historial-pedidos',
+    templateUrl: './historial-pedidos.component.html',
+    styleUrls: ['./historial-pedidos.component.scss'],
+    standalone: false
 })
 export class HistorialPedidosComponent implements OnInit{
 

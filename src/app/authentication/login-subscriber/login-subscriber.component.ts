@@ -10,9 +10,10 @@ import { AuthSubscriberService } from '../auth/auth-subscriber.service';
 
 
 @Component({
-  selector: 'app-login-subscriber',
-  templateUrl: './login-subscriber.component.html',
-  styleUrls: ['./login-subscriber.component.scss']
+    selector: 'app-login-subscriber',
+    templateUrl: './login-subscriber.component.html',
+    styleUrls: ['./login-subscriber.component.scss'],
+    standalone: false
 })
 
 export class LoginSubscriberComponent extends UnsubscribeOnDestroyAdapter implements OnInit{

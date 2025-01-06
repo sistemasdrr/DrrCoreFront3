@@ -13,9 +13,10 @@ import esLocale from '@fullcalendar/core/locales/es';
 import { DetalleCalendarioComponent } from './detalle-calendario/detalle-calendario.component';
 
 @Component({
-  selector: 'app-calendario',
-  templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.scss']
+    selector: 'app-calendario',
+    templateUrl: './calendario.component.html',
+    styleUrls: ['./calendario.component.scss'],
+    standalone: false
 })
 export class CalendarioComponent implements OnInit {
   breadscrums = [

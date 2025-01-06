@@ -10,18 +10,19 @@ import { OpinionCredito } from 'app/models/informes/empresa/opinion-credito';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-opinion-credito',
-  templateUrl: './opinion-credito.component.html',
-  styleUrls: ['./opinion-credito.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-opinion-credito',
+    templateUrl: './opinion-credito.component.html',
+    styleUrls: ['./opinion-credito.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class OpinionCreditoComponent implements OnInit, OnDestroy {
 

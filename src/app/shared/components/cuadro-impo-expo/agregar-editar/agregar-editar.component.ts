@@ -6,9 +6,10 @@ import Swal from 'sweetalert2';
 import { ImportAndExport } from 'app/models/informes/empresa/ramo-negocios';
 
 @Component({
-  selector: 'app-agregar-editar',
-  templateUrl: './agregar-editar.component.html',
-  styleUrls: ['./agregar-editar.component.scss']
+    selector: 'app-agregar-editar',
+    templateUrl: './agregar-editar.component.html',
+    styleUrls: ['./agregar-editar.component.scss'],
+    standalone: false
 })
 export class AgregarEditarComponent implements OnInit {
   titulo = ""

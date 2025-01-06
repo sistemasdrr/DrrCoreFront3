@@ -7,18 +7,19 @@ import { RamoNegociosService } from 'app/services/informes/empresa/ramo-negocios
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-historial-trabajador',
-  templateUrl: './agregar-historial-trabajador.component.html',
-  styleUrls: ['./agregar-historial-trabajador.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-agregar-historial-trabajador',
+    templateUrl: './agregar-historial-trabajador.component.html',
+    styleUrls: ['./agregar-historial-trabajador.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class AgregarHistorialTrabajadorComponent implements OnInit{
 

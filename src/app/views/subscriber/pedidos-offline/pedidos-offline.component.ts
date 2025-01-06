@@ -15,18 +15,19 @@ import { Observable, map, startWith } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-pedidos-offline',
-  templateUrl: './pedidos-offline.component.html',
-  styleUrls: ['./pedidos-offline.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-pedidos-offline',
+    templateUrl: './pedidos-offline.component.html',
+    styleUrls: ['./pedidos-offline.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PedidosOfflineComponent implements OnInit {
 

@@ -7,9 +7,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-consultar',
-  templateUrl: './consultar.component.html',
-  styleUrls: ['./consultar.component.scss']
+    selector: 'app-consultar',
+    templateUrl: './consultar.component.html',
+    styleUrls: ['./consultar.component.scss'],
+    standalone: false
 })
 export class ConsultarComponent implements OnInit{
   loading:boolean = false;

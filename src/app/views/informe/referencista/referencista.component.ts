@@ -13,9 +13,10 @@ import { DetallePComponent } from './detalle-p/detalle-p.component';
 import { ReferenciasComercialesRefComponent } from './referencias-comerciales-ref/referencias-comerciales-ref.component';
 
 @Component({
-  selector: 'app-referencista',
-  templateUrl: './referencista.component.html',
-  styleUrls: ['./referencista.component.scss']
+    selector: 'app-referencista',
+    templateUrl: './referencista.component.html',
+    styleUrls: ['./referencista.component.scss'],
+    standalone: false
 })
 export class ReferencistaComponent implements OnInit {
 

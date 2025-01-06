@@ -5,9 +5,10 @@ import { CropperComponent, ImageCropperResult } from 'angular-cropperjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-image-editor',
-  templateUrl: './image-editor.component.html',
-  styleUrls: ['./image-editor.component.scss']
+    selector: 'app-image-editor',
+    templateUrl: './image-editor.component.html',
+    styleUrls: ['./image-editor.component.scss'],
+    standalone: false
 })
 export class ImageEditorComponent implements OnInit, AfterViewInit{
 

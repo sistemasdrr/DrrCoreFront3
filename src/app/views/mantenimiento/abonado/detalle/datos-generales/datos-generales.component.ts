@@ -13,9 +13,10 @@ import { Observable, map, startWith } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-datos-generales-abonado',
-  templateUrl: './datos-generales.component.html',
-  styleUrls: ['./datos-generales.component.scss']
+    selector: 'app-datos-generales-abonado',
+    templateUrl: './datos-generales.component.html',
+    styleUrls: ['./datos-generales.component.scss'],
+    standalone: false
 })
 export class DatosGeneralesAbonadoComponent implements OnInit {
 

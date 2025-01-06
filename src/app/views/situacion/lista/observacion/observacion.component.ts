@@ -5,9 +5,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-observacion',
-  templateUrl: './observacion.component.html',
-  styleUrls: ['./observacion.component.scss']
+    selector: 'app-observacion',
+    templateUrl: './observacion.component.html',
+    styleUrls: ['./observacion.component.scss'],
+    standalone: false
 })
 export class ObservacionComponent implements OnInit {
 

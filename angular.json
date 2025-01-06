@@ -15,8 +15,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+          
+          "builder": "@angular-devkit/build-angular:browser",          
+          "options": {           
             "outputPath": "dist/lorax",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -56,7 +57,7 @@
               "src/assets/scss/style.scss",
               "src/assets/scss/theme/all-themes.scss",
               "src/styles.scss",
-              "./node_modules/cropperjs/dist/cropper.css",
+              "./node_modules/cropperjs/dist/cropper.css"
            
             ],
             "scripts": [
@@ -102,10 +103,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "lorax:build:production"
+              "buildTarget": "lorax:build:production"
             },
             "development": {
-              "browserTarget": "lorax:build:development"
+              "buildTarget": "lorax:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -113,7 +114,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lorax:build"
+            "buildTarget": "lorax:build"
           }
         },
         "test": {

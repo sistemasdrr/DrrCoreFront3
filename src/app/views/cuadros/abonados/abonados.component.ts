@@ -21,18 +21,19 @@ import { ReportService } from 'app/services/report.service';
 import { map, Observable, startWith } from 'rxjs';
 
 @Component({
-  selector: 'app-abonados',
-  templateUrl: './abonados.component.html',
-  styleUrls: ['./abonados.component.scss'],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es' },
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-  ],
+    selector: 'app-abonados',
+    templateUrl: './abonados.component.html',
+    styleUrls: ['./abonados.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    ],
+    standalone: false
 })
 export class AbonadosComponent implements OnInit {
   years: number[] = [];

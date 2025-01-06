@@ -7,18 +7,19 @@ import { ActividadesPService } from 'app/services/informes/persona/actividades-p
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-otras-actividades',
-  templateUrl: './p-otras-actividades.component.html',
-  styleUrls: ['./p-otras-actividades.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-otras-actividades',
+    templateUrl: './p-otras-actividades.component.html',
+    styleUrls: ['./p-otras-actividades.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class POtrasActividadesComponent implements OnInit, OnDestroy {
 

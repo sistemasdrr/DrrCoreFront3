@@ -6,9 +6,10 @@ import { Pedido } from 'app/models/pedidos/pedido';
 import { PedidosService } from 'app/services/pedidos/pedidos.service';
 
 @Component({
-  selector: 'app-historial',
-  templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.scss']
+    selector: 'app-historial',
+    templateUrl: './historial.component.html',
+    styleUrls: ['./historial.component.scss'],
+    standalone: false
 })
 export class HistorialComponent implements OnInit {
 

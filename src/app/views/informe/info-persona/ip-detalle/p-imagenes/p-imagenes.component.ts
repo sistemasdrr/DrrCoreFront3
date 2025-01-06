@@ -9,18 +9,19 @@ import { ImageEditorComponent } from 'app/views/informe/info-empresa/ie-detalle/
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-p-imagenes',
-  templateUrl: './p-imagenes.component.html',
-  styleUrls: ['./p-imagenes.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-p-imagenes',
+    templateUrl: './p-imagenes.component.html',
+    styleUrls: ['./p-imagenes.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class PImagenesComponent implements OnInit {
   id = -1

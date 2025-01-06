@@ -30,7 +30,8 @@ import { Pais } from 'app/models/combo';
 import { map, Observable, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ComboService } from 'app/services/combo.service';
-import { EChartsOption } from 'echarts';
+//import { EChartOption } from 'echarts';
+//import { EChartsOption } from 'echarts';
 
 
 export interface DistinctSupervisor{
@@ -57,9 +58,10 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: false
 })
 export class MainComponent implements OnInit {
 
@@ -86,7 +88,7 @@ export class MainComponent implements OnInit {
   empresasCalidadD=0
   empresasSinCalidad=0
 
-  pie_chart: EChartsOption={}
+ // pie_chart: EChartOption={}
   pendingTaskSupervisor : PendingTaskSupervisor[] = []
   pendingTaskPersonalSelected : PendingTaskByUser[] = []
   pendingTaskAgent : PendingTaskByUser[] = []
@@ -611,7 +613,7 @@ export class MainComponent implements OnInit {
               this.empresasSinCalidad=response.data.sinQ
               this.empresasSinInformes=response.data.sinInforme
               this.empresasEliminadas=response.data.eliminado
-              this.armarPie();
+             // this.armarPie();
 
             }
           }
@@ -796,7 +798,7 @@ export class MainComponent implements OnInit {
       }
     });
   }
-  armarPie(){
+ /* armarPie(){
   this.pie_chart = {
     tooltip: {
       trigger: 'item',
@@ -843,5 +845,5 @@ export class MainComponent implements OnInit {
     color: ['#575B7A', '#DE725C', '#DFC126', '#72BE81', '#50A5D8'],
   };
 
-}
+}*/
 }

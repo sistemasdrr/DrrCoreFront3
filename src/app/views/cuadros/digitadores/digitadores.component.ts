@@ -11,18 +11,19 @@ import { ReportService } from 'app/services/report.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-digitadores',
-  templateUrl: './digitadores.component.html',
-  styleUrls: ['./digitadores.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-digitadores',
+    templateUrl: './digitadores.component.html',
+    styleUrls: ['./digitadores.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class DigitadoresComponent implements OnInit {
   years: number[] = [];

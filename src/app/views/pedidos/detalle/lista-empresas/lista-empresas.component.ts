@@ -13,9 +13,10 @@ import { Observable, map, startWith } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-empresas',
-  templateUrl: './lista-empresas.component.html',
-  styleUrls: ['./lista-empresas.component.scss']
+    selector: 'app-lista-empresas',
+    templateUrl: './lista-empresas.component.html',
+    styleUrls: ['./lista-empresas.component.scss'],
+    standalone: false
 })
 export class ListaEmpresasComponent implements OnInit {
 

@@ -21,16 +21,17 @@ import { HistorialPedidoComponent } from 'app/views/situacion/lista/historial-pe
 
 
 @Component({
-  selector: 'app-asignacion2',
-  templateUrl: './asignacion2.component.html',
-  styleUrls: ['./asignacion2.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    selector: 'app-asignacion2',
+    templateUrl: './asignacion2.component.html',
+    styleUrls: ['./asignacion2.component.scss'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({ height: '0px', minHeight: '0' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
+    standalone: false
 })
 export class Asignacion2Component implements OnInit {
   userTo = ""

@@ -13,9 +13,10 @@ import { Observable, map, startWith } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+    selector: 'app-perfil',
+    templateUrl: './perfil.component.html',
+    styleUrls: ['./perfil.component.scss'],
+    standalone: false
 })
 export class PerfilComponent implements OnInit {
 

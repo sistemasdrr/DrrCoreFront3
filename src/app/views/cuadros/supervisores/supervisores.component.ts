@@ -5,9 +5,10 @@ import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 import { ReportService } from 'app/services/report.service';
 
 @Component({
-  selector: 'app-supervisores',
-  templateUrl: './supervisores.component.html',
-  styleUrls: ['./supervisores.component.scss']
+    selector: 'app-supervisores',
+    templateUrl: './supervisores.component.html',
+    styleUrls: ['./supervisores.component.scss'],
+    standalone: false
 })
 export class SupervisoresComponent implements OnInit {
   years: number[] = [];

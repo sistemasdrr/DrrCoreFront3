@@ -8,9 +8,10 @@ import { AgenteService } from 'app/services/mantenimiento/agente.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss']
+    selector: 'app-lista',
+    templateUrl: './lista.component.html',
+    styleUrls: ['./lista.component.scss'],
+    standalone: false
 })
 export class ListaAgenteComponent implements OnInit{
   breadscrums = [

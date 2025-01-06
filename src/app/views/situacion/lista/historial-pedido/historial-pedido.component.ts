@@ -4,9 +4,10 @@ import { TimeLineTicket } from 'app/models/pedidos/ticket';
 import { TicketService } from 'app/services/pedidos/ticket.service';
 
 @Component({
-  selector: 'app-historial-pedido',
-  templateUrl: './historial-pedido.component.html',
-  styleUrls: ['./historial-pedido.component.scss']
+    selector: 'app-historial-pedido',
+    templateUrl: './historial-pedido.component.html',
+    styleUrls: ['./historial-pedido.component.scss'],
+    standalone: false
 })
 export class HistorialPedidoComponent implements OnInit {
 

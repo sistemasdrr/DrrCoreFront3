@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-facturacion-web',
-  templateUrl: './facturacion-web.component.html',
-  styleUrls: ['./facturacion-web.component.scss']
+    selector: 'app-facturacion-web',
+    templateUrl: './facturacion-web.component.html',
+    styleUrls: ['./facturacion-web.component.scss'],
+    standalone: false
 })
 export class FacturacionWebComponent implements OnInit {
 

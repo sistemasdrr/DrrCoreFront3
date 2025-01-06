@@ -9,9 +9,10 @@ import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-abonados',
-  templateUrl: './lista-abonados.component.html',
-  styleUrls: ['./lista-abonados.component.scss']
+    selector: 'app-lista-abonados',
+    templateUrl: './lista-abonados.component.html',
+    styleUrls: ['./lista-abonados.component.scss'],
+    standalone: false
 })
 export class ListaAbonadosComponent implements OnInit{
   loading = false

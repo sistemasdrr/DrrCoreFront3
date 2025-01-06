@@ -8,9 +8,10 @@ import { saveAs } from 'file-saver';
 import * as JSZip from 'jszip';
 
 @Component({
-  selector: 'app-adjuntar-archivos',
-  templateUrl: './adjuntar-archivos.component.html',
-  styleUrls: ['./adjuntar-archivos.component.scss']
+    selector: 'app-adjuntar-archivos',
+    templateUrl: './adjuntar-archivos.component.html',
+    styleUrls: ['./adjuntar-archivos.component.scss'],
+    standalone: false
 })
 export class AdjuntarArchivosComponent implements OnInit {
 
@@ -165,8 +166,8 @@ if(fileInput.files){
      this.ticketService.DownloadZipByIdTicket(this.idTicket).subscribe(response=>{
        let blob : Blob = response.body as Blob;
        let a =document.createElement('a');
-      console.log(response.body?.name)
-       a.download= response.body?.name ?? this.cupon;
+     
+       a.download= response.body!==null? this.cupon:"";
        a.href=window.URL.createObjectURL(blob);
        a.click();
      }).add(

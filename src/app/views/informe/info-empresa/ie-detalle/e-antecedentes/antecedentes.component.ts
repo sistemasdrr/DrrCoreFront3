@@ -27,19 +27,20 @@ export interface data {
 }
 
 @Component({
-  selector: 'app-antecedentes',
-  templateUrl: './antecedentes.component.html',
-  styleUrls: ['./antecedentes.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-antecedentes',
+    templateUrl: './antecedentes.component.html',
+    styleUrls: ['./antecedentes.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AntecedentesComponent implements OnInit, OnDestroy{
 

@@ -2,9 +2,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-detalle-agente',
-  templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.scss']
+    selector: 'app-detalle-agente',
+    templateUrl: './detalle.component.html',
+    styleUrls: ['./detalle.component.scss'],
+    standalone: false
 })
 export class DetalleAgenteComponent implements OnInit{
   loading : boolean = true

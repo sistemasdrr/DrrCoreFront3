@@ -14,18 +14,19 @@ import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 
 @Component({
-  selector: 'app-historico-ventas',
-  templateUrl: './historico-ventas.component.html',
-  styleUrls: ['./historico-ventas.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-historico-ventas',
+    templateUrl: './historico-ventas.component.html',
+    styleUrls: ['./historico-ventas.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class HistoricoVentasComponent implements OnInit {
 

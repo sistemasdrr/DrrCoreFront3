@@ -20,9 +20,10 @@ import { UserProcess } from 'app/models/usuario';
 import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    standalone: false
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   activeLI = 0

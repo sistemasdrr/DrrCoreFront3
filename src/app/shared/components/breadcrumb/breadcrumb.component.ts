@@ -6,9 +6,10 @@ import { SociosPersonaComponent } from 'app/views/informe/info-persona/ip-lista/
 import { VerPdfComponent } from '../ver-pdf/ver-pdf.component';
 
 @Component({
-  selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss'],
+    selector: 'app-breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    styleUrls: ['./breadcrumb.component.scss'],
+    standalone: false
 })
 export class BreadcrumbComponent implements OnInit{
   @Input()

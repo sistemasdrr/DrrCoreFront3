@@ -12,18 +12,19 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-reporteros',
-  templateUrl: './reporteros.component.html',
-  styleUrls: ['./reporteros.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-reporteros',
+    templateUrl: './reporteros.component.html',
+    styleUrls: ['./reporteros.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class ReporterosComponent implements OnInit{
   years: number[] = [];

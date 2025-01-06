@@ -10,9 +10,10 @@ import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-facturacion-por-cupon',
-  templateUrl: './facturacion-por-cupon.component.html',
-  styleUrls: ['./facturacion-por-cupon.component.scss']
+    selector: 'app-facturacion-por-cupon',
+    templateUrl: './facturacion-por-cupon.component.html',
+    styleUrls: ['./facturacion-por-cupon.component.scss'],
+    standalone: false
 })
 export class FacturacionPorCuponComponent implements OnInit{
   id = 0

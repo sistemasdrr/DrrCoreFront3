@@ -5,9 +5,10 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { TraduccionData } from 'app/models/dialog-data';
 
 @Component({
-  selector: 'app-traduccion-dialog',
-  templateUrl: './traduccion-dialog.component.html',
-  styleUrls: ['./traduccion-dialog.component.scss']
+    selector: 'app-traduccion-dialog',
+    templateUrl: './traduccion-dialog.component.html',
+    styleUrls: ['./traduccion-dialog.component.scss'],
+    standalone: false
 })
 export class TraduccionDialogComponent{
 

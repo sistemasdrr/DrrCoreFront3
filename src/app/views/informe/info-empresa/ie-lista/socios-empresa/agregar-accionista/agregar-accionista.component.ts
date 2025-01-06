@@ -16,18 +16,19 @@ import { ListaEmpresas2Component } from './lista-empresas/lista-empresas.compone
 
 
 @Component({
-  selector: 'app-agregar-accionista',
-  templateUrl: './agregar-accionista.component.html',
-  styleUrls: ['./agregar-accionista.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-agregar-accionista',
+    templateUrl: './agregar-accionista.component.html',
+    styleUrls: ['./agregar-accionista.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class AgregarAccionistaComponent implements OnInit{
 

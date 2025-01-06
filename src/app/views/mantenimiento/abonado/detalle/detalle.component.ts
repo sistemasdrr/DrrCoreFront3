@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-detalle-abonado',
-  templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.scss']
+    selector: 'app-detalle-abonado',
+    templateUrl: './detalle.component.html',
+    styleUrls: ['./detalle.component.scss'],
+    standalone: false
 })
 export class DetalleAbonadoComponent implements OnInit{
 

@@ -9,9 +9,10 @@ import { AgregarPrecioPersonalComponent } from './agregar-precio-personal/agrega
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-precio-personal',
-  templateUrl: './precio-personal.component.html',
-  styleUrls: ['./precio-personal.component.scss']
+    selector: 'app-precio-personal',
+    templateUrl: './precio-personal.component.html',
+    styleUrls: ['./precio-personal.component.scss'],
+    standalone: false
 })
 export class PrecioPersonalComponent implements OnInit{
 

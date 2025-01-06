@@ -13,16 +13,17 @@ import { HistorialPedidoComponent } from 'app/views/situacion/lista/historial-pe
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-observados',
-  templateUrl: './lista-observados.component.html',
-  styleUrls: ['./lista-observados.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    selector: 'app-lista-observados',
+    templateUrl: './lista-observados.component.html',
+    styleUrls: ['./lista-observados.component.scss'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({ height: '0px', minHeight: '0' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
+    standalone: false
 })
 export class ListaObservadosComponent implements OnInit {
 

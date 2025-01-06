@@ -8,9 +8,10 @@ import Swal from 'sweetalert2';
 import { TicketService } from 'app/services/pedidos/ticket.service';
 
 @Component({
-  selector: 'app-confirmar-pedido',
-  templateUrl: './confirmar-pedido.component.html',
-  styleUrls: ['./confirmar-pedido.component.scss']
+    selector: 'app-confirmar-pedido',
+    templateUrl: './confirmar-pedido.component.html',
+    styleUrls: ['./confirmar-pedido.component.scss'],
+    standalone: false
 })
 export class ConfirmarPedidoComponent implements OnInit {
 

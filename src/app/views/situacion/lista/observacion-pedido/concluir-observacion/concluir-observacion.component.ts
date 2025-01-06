@@ -4,9 +4,10 @@ import { TicketService } from 'app/services/pedidos/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-concluir-observacion',
-  templateUrl: './concluir-observacion.component.html',
-  styleUrls: ['./concluir-observacion.component.scss']
+    selector: 'app-concluir-observacion',
+    templateUrl: './concluir-observacion.component.html',
+    styleUrls: ['./concluir-observacion.component.scss'],
+    standalone: false
 })
 export class ConcluirObservacionComponent implements OnInit{
 

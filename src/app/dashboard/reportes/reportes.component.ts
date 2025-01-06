@@ -8,9 +8,10 @@ import { AbonadoService } from 'app/services/mantenimiento/abonado.service';
 import { GetReport7_10_1, Report7_10_2_Details, Report7_10_2_Main, ReportService } from 'app/services/report.service';
 
 @Component({
-  selector: 'app-reportes',
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.scss'],
+    selector: 'app-reportes',
+    templateUrl: './reportes.component.html',
+    styleUrls: ['./reportes.component.scss'],
+    standalone: false
 })
 export class ReportesComponent implements OnInit {
   loading = false;

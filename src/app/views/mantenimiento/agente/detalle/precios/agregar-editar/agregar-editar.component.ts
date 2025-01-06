@@ -14,9 +14,10 @@ import { Observable, map, startWith } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-editar',
-  templateUrl: './agregar-editar.component.html',
-  styleUrls: ['./agregar-editar.component.scss']
+    selector: 'app-agregar-editar',
+    templateUrl: './agregar-editar.component.html',
+    styleUrls: ['./agregar-editar.component.scss'],
+    standalone: false
 })
 export class AgregarEditarAgenteComponent implements OnInit {
   titulo = ""

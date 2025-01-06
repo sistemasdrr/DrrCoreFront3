@@ -9,18 +9,19 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-morosidad-comercial',
-  templateUrl: './morosidad-comercial.component.html',
-  styleUrls: ['./morosidad-comercial.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-morosidad-comercial',
+    templateUrl: './morosidad-comercial.component.html',
+    styleUrls: ['./morosidad-comercial.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class MorosidadComercialComponent implements OnInit{
   accion = ""

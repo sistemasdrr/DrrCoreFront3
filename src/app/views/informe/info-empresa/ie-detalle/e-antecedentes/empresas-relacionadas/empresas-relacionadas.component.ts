@@ -7,18 +7,19 @@ import { EmpresaRelacionadaService } from 'app/services/informes/empresa-relacio
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-empresas-relacionadas',
-  templateUrl: './empresas-relacionadas.component.html',
-  styleUrls: ['./empresas-relacionadas.component.scss'],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
-  ]
+    selector: 'app-empresas-relacionadas',
+    templateUrl: './empresas-relacionadas.component.html',
+    styleUrls: ['./empresas-relacionadas.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'es' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    ],
+    standalone: false
 })
 export class EmpresasRelacionadasComponent {
   accion = ""
