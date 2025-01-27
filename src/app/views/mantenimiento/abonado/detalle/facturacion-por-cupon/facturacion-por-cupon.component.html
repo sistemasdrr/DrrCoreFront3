@@ -8,7 +8,7 @@
             <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
               <mat-icon class="col-white">arrow_back</mat-icon>
             </button>
-            <button mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+            <button mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
               <mat-icon class="col-white">save</mat-icon>
             </button>
           </div>
@@ -85,7 +85,7 @@
             <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay;"
               class=""></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Seleccionar" class="w-100"></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Seleccionar" class="w-100 form-red"></mat-paginator>
         </div>
       </div>
     </div>

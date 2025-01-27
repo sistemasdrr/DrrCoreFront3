@@ -11,7 +11,7 @@
             <mat-icon class="col-white">picture_as_pdf</mat-icon>
             <span class="fi fi-us"></span>
           </button>
-          <button mat-mini-fab class="bg-cyan" (click)="guardar()" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar">
+          <button mat-mini-fab class="bg-cyan" (click)="guardar()" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Grabar">
             <mat-icon class="col-white">save</mat-icon>
           </button>
         </div>
@@ -25,26 +25,26 @@
         </mat-slide-toggle>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100 mt-2" >
+        <mat-form-field  class="w-100 form-red mt-2" >
           <mat-label>Crédito Consultado</mat-label>
           <input matInput type="text" placeholder="" [(ngModel)]="consultedCredit" [readonly]="!creditRequest">
-          <button class="btn-traduccion" matSuffix mat-icon-button [class]="consultedCreditEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloCreditoConsultado,'',consultedCredit,consultedCreditEng,'creditoConsultado')" [disabled]="!creditRequest">
+          <button class="btn-traduccion" matSuffix mat-icon-button [class]="consultedCreditEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloCreditoConsultado,'',consultedCredit,consultedCreditEng,'creditoConsultado')" >
             <span class="fi fi-us" style="font-size: 24px;"></span>
           </button>
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100 mt-2">
+        <mat-form-field class="w-100 form-red mt-2" >
           <mat-label>Crédito Sugerido</mat-label>
           <input matInput type="text" placeholder=""  [(ngModel)]="suggestedCredit" [readonly]="!creditRequest">
-          <button class="btn-traduccion" matSuffix mat-icon-button [class]="suggestedCreditEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloCreditoSugerido,'',suggestedCredit,suggestedCreditEng,'creditoSugerido')" [disabled]="!creditRequest">
+          <button class="btn-traduccion" matSuffix mat-icon-button [class]="suggestedCreditEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloCreditoSugerido,'',suggestedCredit,suggestedCreditEng,'creditoSugerido')" >
             <span class="fi fi-us" style="font-size: 24px;"></span>
           </button>
         </mat-form-field>
       </div>
       <h5>Comentario Acorde a lo Anotado</h5>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Seleccione un comentario predeterminado</mat-label>
           <mat-select  [(ngModel)]="opinion" (selectionChange)="changeOpinion()">
               <mat-option *ngFor="let item of arrayOpinion" [value]="item">{{item}}</mat-option>
@@ -52,7 +52,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100 mt-2">
+        <mat-form-field class="w-100 form-red mt-2" >
           <mat-label>Comentario</mat-label>
           <textarea matInput type="text" placeholder="" style="min-height: 8rem;" [(ngModel)]="currentCommentary"></textarea>
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="currentCommentaryEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentario,'',currentCommentary,currentCommentaryEng,'comentarioAnotado')">
@@ -62,7 +62,7 @@
       </div>
       <h5>Comentarios Anteriores (No se imprime)</h5>
       <div class="col-md-12">
-        <mat-form-field class="w-100 mt-2">
+        <mat-form-field class="w-100 form-red mt-2" >
           <mat-label>Comentario</mat-label>
           <textarea matInput type="text" placeholder="" style="min-height: 8rem;" [(ngModel)]="previousCommentary"></textarea>
         </mat-form-field>

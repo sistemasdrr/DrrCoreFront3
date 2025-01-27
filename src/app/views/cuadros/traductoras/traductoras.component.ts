@@ -161,6 +161,24 @@ export class TraductorasComponent implements OnInit {
             this.loading = false;
           });
         break;
+        case 5:
+          this.loading = true;
+          this.reportService
+            .DownloadReport_Realizado_Pendiente(this.query1_4_month, this.query1_4_year, 'TR', format)
+            .subscribe((response) => {
+              const blob: Blob = response.body as Blob;
+              const a = document.createElement('a');
+              a.download =
+                'REPORTE_REALIZADOS_PENDIENTES_REPORTEROS' +
+                  this.query1_4_month +
+                (format === 'pdf' ? '.pdf' : '.xlsx');
+              a.href = window.URL.createObjectURL(blob);
+              a.click();
+            })
+            .add(() => {
+              this.loading = false;
+            });
+          break;
     }
   }
 
@@ -282,7 +300,7 @@ export class TraductorasComponent implements OnInit {
   }
 
   query1_4_month = 1;
-  query1_4_year = 2024;
+  query1_4_year = 2025;
   query1_4_orderBy = "C";
 
   query1_4_pdfSrc: any;
@@ -304,5 +322,23 @@ export class TraductorasComponent implements OnInit {
       this.loading = false;
     });
   }
-
+  query1_5_pdfSrc: any;
+  query1_5_pdfBlob: Blob = new Blob();
+  selectQuery6_5_5(){
+    this.loading = true
+    this.reportService
+    .DownloadReport_Realizado_Pendiente(this.query1_4_month, this.query1_4_year,'TR', 'pdf')
+    .subscribe((response) => {
+      this.query1_5_pdfBlob = response.body as Blob;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl: string = reader.result as string;
+        this.query1_5_pdfSrc = dataUrl;
+      };
+      reader.readAsDataURL(this.query1_5_pdfBlob);
+    })
+    .add(() => {
+      this.loading = false;
+    });
+  }
 }

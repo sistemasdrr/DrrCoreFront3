@@ -17,6 +17,7 @@ import { SharedModule } from '@shared';
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import { FeatherModule } from 'angular-feather';
+import { ReferencistasComponent } from './referencistas/referencistas.component';
 @NgModule({
   declarations: [
     AbonadosComponent,
@@ -25,7 +26,8 @@ import { FeatherModule } from 'angular-feather';
     DigitadoresComponent,
     TraductorasComponent,
     SupervisoresComponent,
-    ObservacionesComponent
+    ObservacionesComponent,
+    ReferencistasComponent
   ],
   imports: [
     CommonModule,

@@ -29,7 +29,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3 d-flex justify-content-center">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Idioma</mat-label>
           <mat-select [(ngModel)]="language" (selectionChange)="selectIdioma($event.value)">
             <mat-option [value]="'E'">
@@ -53,7 +53,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Tipo de Institución</mat-label>
           <mat-select [(ngModel)]="typeRegister" (selectionChange)="selectInstitucionInforme($event.value)" >
             <mat-option [value]="'NN'"></mat-option>
@@ -83,29 +83,29 @@
         </button>
       </div>
       <div class="col-md-7">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Razón Social</mat-label>
-          <input matInput placeholder="" [(ngModel)]="name">
+          <input matInput placeholder="" [(ngModel)]="name" style="text-transform: uppercase;">
         </mat-form-field>
       </div>
       <div class="col-md-5">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Nombre Comercial / Sigla</mat-label>
           <input matInput placeholder="" [(ngModel)]="socialName">
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="" style="width: 40%;">
+       <mat-form-field class="" style="width: 40%;"  class="form-red">
           <mat-label>Registro Tributario (Tipo)</mat-label>
           <input matInput placeholder="" [(ngModel)]="taxTypeName">
         </mat-form-field>
-        <mat-form-field class="" style="width: 60%;">
+       <mat-form-field class="" style="width: 60%;"  class="form-red">
           <mat-label>Registro Tributario (Código)</mat-label>
           <input matInput placeholder="" [(ngModel)]="taxTypeCode">
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Situación RUC</mat-label>
           <input type="text" matInput [formControl]="controlSituacionRUC"  [matAutocomplete]="auto2" [(ngModel)]="situacionRucInforme" (ngModelChange)="cambioSituacionRuc(situacionRucInforme)">
           <mat-hint [ngClass]="idLegalRegisterSituation === 0 || idLegalRegisterSituation === null ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="idLegalRegisterSituation === 0 || idLegalRegisterSituation === null"></i><i class="fa-solid fa-circle-check" *ngIf="idLegalRegisterSituation > 0"></i>&nbsp;{{msgSituacionRuc}}</mat-hint>
@@ -120,7 +120,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>País</mat-label>
           <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
           <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
@@ -136,20 +136,20 @@
         </mat-form-field>
       </div>
       <div class="col-md-2">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Dpto. o Estado</mat-label>
           <input matInput placeholder  [(ngModel)]="place">
         </mat-form-field>
       </div>
       <div class="col-md-9">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Dirección Completa</mat-label>
           <input matInput placeholder="" [(ngModel)]="address" >
           <mat-hint>Av., N° de Barrio, Urb., Fracc., Colonia, Dist., Prov.</mat-hint>
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Cód. Postal</mat-label>
           <input matInput placeholder="" [(ngModel)]="postalCode">
         </mat-form-field>
@@ -157,13 +157,13 @@
       <h5 class="mt-2">Datos de la Participación</h5>
       <hr>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Participación (%)</mat-label>
           <input matInput placeholder="" [(ngModel)]="participation" type="number">
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Tipo de Relación</mat-label>
           <mat-select [(ngModel)]="relation" (ngModelChange)="relationIngles(relation)">
               <mat-option [value]="''"></mat-option>

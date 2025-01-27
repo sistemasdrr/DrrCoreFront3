@@ -121,7 +121,7 @@
           <ng-container matColumnDef="Acciones" >
           <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Acciones </th>
           <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;">
-            <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();verHistorial(order.idTicket)" matTooltip="Ver Historiallll">
+            <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();verHistorial(order.idTicket)" matTooltip="Ver Historial">
               <app-feather-icons [icon]="'clock'" [class]="'tbl-fav-edit'"></app-feather-icons>
             </button>
             <button  *ngIf="order.asignationType === 'RF'" mat-mini-fab class="tbl-action-btn " (click)="$event.stopPropagation();enviarComplemento(order.idTicket,order.asignedTo)" matTooltip="Enviar Complemento">

@@ -15,7 +15,7 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-5">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="">
                   <mat-option [value]="1">1.1.- Listado de Facturas Por Cobrar Ordenadas por Abonados</mat-option>
@@ -38,7 +38,7 @@
             </mat-radio-group>
           </div>
           <div class="col-md-3" *ngIf="to === 'one' && idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Abonado </mat-label>
               <mat-select [(ngModel)]="idSubscriber" placeholder="">
                   <mat-option *ngFor="let item of subscribers4_1_1" [value]="item.idSubscriber">{{item.code + ' - ' + item.name }}</mat-option>

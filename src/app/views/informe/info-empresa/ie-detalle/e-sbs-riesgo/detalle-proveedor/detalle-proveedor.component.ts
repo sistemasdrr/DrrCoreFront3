@@ -118,6 +118,7 @@ export class DetalleProveedorComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.dateD=new Date();
     this.ticketService.getNumTicketById(this.idTicket).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
@@ -398,7 +399,7 @@ export class DetalleProveedorComponent implements OnInit {
         this.idCountry = 0
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
         this.iconoSeleccionado = pais.bandera
         this.idCountry = pais.id
       }

@@ -16,7 +16,7 @@
           <br>
           <div class="row m-0 p-0 ">
             <div class="col-md-6">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Mes</mat-label>
                 <mat-select [(ngModel)]="monthPF" placeholder="" >
                     <mat-option [value]="1">Enero</mat-option>
@@ -35,7 +35,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Año</mat-label>
                 <mat-select [(ngModel)]="yearPF">
                   <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -75,7 +75,7 @@
           <br>
           <div class="row m-0 p-0 ">
             <div class="col-md-6">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Mes</mat-label>
                 <mat-select [(ngModel)]="monthPC" placeholder="">
                     <mat-option [value]="1">Enero</mat-option>
@@ -94,7 +94,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Año</mat-label>
                 <input matInput type="number" placeholder="" [(ngModel)]="yearPC">
               </mat-form-field>
@@ -133,7 +133,7 @@
           <br>
           <div class="row m-0 p-0 ">
             <div class="col-md-6">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Mes</mat-label>
                 <mat-select [(ngModel)]="monthC" placeholder="">
                     <mat-option [value]="1">Enero</mat-option>
@@ -152,7 +152,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <mat-form-field color="primary" class="w-100">
+              <mat-form-field color="primary" class="w-100 form-red">
                 <mat-label>Año</mat-label>
                 <input matInput type="number" placeholder="" [(ngModel)]="yearC">
               </mat-form-field>
@@ -217,7 +217,7 @@
           <hr>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Factura N°</mat-label>
             <input matInput placeholder="" [(ngModel)]="invoiceNumber">
           </mat-form-field>
@@ -231,7 +231,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-2">
-          <mat-form-field style="width: 100%;">
+          <mat-form-field class="w-100 form-red">
             <mat-label>Idioma</mat-label>
             <mat-select [(ngModel)]="language">
               <mat-option [value]="'E'">
@@ -250,7 +250,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field style="width: 100%;">
+          <mat-form-field class="w-100 form-red">
             <mat-label>Moneda</mat-label>
             <mat-select [(ngModel)]="idCurrency">
               <mat-option [value]="31">
@@ -266,19 +266,19 @@
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Abonado</mat-label>
             <input matInput placeholder="" [(ngModel)]="name">
           </mat-form-field>
         </div>
         <div class="col-md-2">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Código</mat-label>
             <input matInput placeholder="" [(ngModel)]="code">
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>País</mat-label>
             <mat-select [(ngModel)]="idCountry" placeholder="">
               <mat-option *ngFor="let pais of paises" [value]="pais.id" (onSelectionChange)="bandera = pais.bandera">
@@ -295,55 +295,55 @@
 
 
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Dirección</mat-label>
             <input matInput placeholder="" [(ngModel)]="address">
           </mat-form-field>
         </div>
         <div [class]="idCurrency === 1 ? 'col-md-4' : 'col-md-6'">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Reg. Tributario</mat-label>
             <input matInput placeholder="" [(ngModel)]="taxTypeCode">
           </mat-form-field>
         </div>
         <div class="col-md-2" *ngIf="idCurrency === 1">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>T. C. Sol - Dolar</mat-label>
             <input matInput placeholder="" [(ngModel)]="exchangeRate" type="number">
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Atención</mat-label>
             <input matInput placeholder="" [(ngModel)]="attendedByName">
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Correo</mat-label>
             <input matInput placeholder="" [(ngModel)]="attendedByEmail">
           </mat-form-field>
         </div>
         <div class="col-md-2" *ngIf="type === 'PF'" >
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Cantidad de Cupones</mat-label>
             <input matInput placeholder="" [(ngModel)]="totalQuantity" disabled="true">
           </mat-form-field>
         </div>
         <div class="col-md-2" *ngIf="type === 'PF'">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Monto Total</mat-label>
             <input matInput placeholder="" [(ngModel)]="totalSelectedPrice1" disabled="true">
           </mat-form-field>
         </div>
         <div class="col-md-2" *ngIf="type === 'PC' || type === 'CO'" >
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Cantidad de Cupones</mat-label>
             <input matInput placeholder="" [(ngModel)]="quantity" disabled="true">
           </mat-form-field>
         </div>
         <div class="col-md-2" *ngIf="type === 'PC' || type === 'CO'">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Monto Total</mat-label>
             <input matInput placeholder="" [(ngModel)]="totalAmount" disabled="true">
           </mat-form-field>
@@ -367,7 +367,7 @@
               <h5 >Cupones</h5>
             </div>
             <div class="d-flex">
-              <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem 0 .5rem;" matTooltip="Guardar">
+              <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem 0 .5rem;" matTooltip="Grabar">
                 <mat-icon class="col-white">save</mat-icon>
               </button>
             </div>
@@ -393,19 +393,19 @@
         <div class="col-md-4"></div>
         <h6>Saldos</h6>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Saldo de Cupones</mat-label>
             <input matInput placeholder="" [(ngModel)]="availableTicket" >
           </mat-form-field>
         </div>
         <div class="col-md-2">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Precio por Cupón</mat-label>
             <input matInput placeholder="" [(ngModel)]="pricePerTicket" >
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Monto</mat-label>
             <input matInput placeholder="" [(ngModel)]="totalAmount" >
           </mat-form-field>
@@ -414,7 +414,7 @@
           <mat-checkbox class="example-margin" [(ngModel)]="igvCheck">IGV</mat-checkbox>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Total General</mat-label>
             <input matInput placeholder="" [(ngModel)]="totalGeneral" >
           </mat-form-field>

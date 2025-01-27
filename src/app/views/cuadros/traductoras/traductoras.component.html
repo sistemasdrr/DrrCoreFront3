@@ -16,13 +16,14 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="" (ngModelChange)="selectQuery()">
                 <mat-option [value]="1">6.5.1 LISTADO DE INFORMES SOLICITADOS A UN TRADUCTOR</mat-option>
                 <mat-option [value]="2">6.5.2 LISTADO DE INFORMES PENDIENTES POR TRADUCTOR</mat-option>
                 <mat-option [value]="3">6.5.3 LISTADO DE INFORMES ENTREGADOS POR TRADUCTOR</mat-option>
                 <mat-option [value]="4">6.5.4 CUADRO ESTADISTICO DE INFORMES ATENDIDOS POR LOS TRADUCTORES MENSUALMENTE</mat-option>
+                <mat-option [value]="5">6.5.5 REPORTE DE REALIZADOS Y PENDIENTES</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -35,7 +36,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Traductor</mat-label>
               <mat-select [(ngModel)]="query1_1_code" placeholder="">
                 <mat-option [value]="item.valor" *ngFor="let item of listaTraductores ">{{item.valor + " - " + item.name}}</mat-option>
@@ -71,7 +72,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Traductor</mat-label>
               <mat-select [(ngModel)]="query1_2_code" placeholder="">
                 <mat-option [value]="item.valor" *ngFor="let item of listaTraductores ">{{item.valor + " - " + item.name}}</mat-option>
@@ -90,7 +91,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Traductor</mat-label>
               <mat-select [(ngModel)]="query1_3_code" placeholder="">
                 <mat-option [value]="item.valor" *ngFor="let item of listaTraductores ">{{item.valor + " - " + item.name}}</mat-option>
@@ -119,7 +120,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 4">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query1_4_month">
                   <mat-option [value]="1">Enero</mat-option>
@@ -138,16 +139,42 @@
             </mat-form-field>
           </div>
           <div class="col-md-1" *ngIf="idQuery === 4">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_4_year">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
             </mat-select>
             </mat-form-field>
           </div>
-
-          <div class="col-md-2" *ngIf="idQuery === 4">
-            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_5_4()" #tooltip="matTooltip" matTooltip="Buscar">
+          <div class="col-md-2" *ngIf="idQuery === 5">
+            <mat-form-field class="w-100 form-red" >
+              <mat-label>Mes</mat-label>
+              <mat-select [(ngModel)]="query1_4_month">
+                  <mat-option [value]="1">Enero</mat-option>
+                  <mat-option [value]="2">Febrero</mat-option>
+                  <mat-option [value]="3">Marzo</mat-option>
+                  <mat-option [value]="4">Abril</mat-option>
+                  <mat-option [value]="5">Mayo</mat-option>
+                  <mat-option [value]="6">Junio</mat-option>
+                  <mat-option [value]="7">Julio</mat-option>
+                  <mat-option [value]="8">Agosto</mat-option>
+                  <mat-option [value]="9">Septiembre</mat-option>
+                  <mat-option [value]="10">Octube</mat-option>
+                  <mat-option [value]="11">Noviembre</mat-option>
+                  <mat-option [value]="12">Diciembre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" *ngIf="idQuery === 5">
+            <mat-form-field class="w-100 form-red" >
+              <mat-label>Año </mat-label>
+              <mat-select [(ngModel)]="query1_4_year">
+                <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2" *ngIf="idQuery === 5">
+            <button  mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="selectQuery6_5_5()" #tooltip="matTooltip" matTooltip="Buscar">
               <mat-icon class="col-white">search</mat-icon>
             </button>
             <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="descargarDocumento(idQuery, 'pdf')" #tooltip="matTooltip" matTooltip="Descargar PDF">
@@ -178,7 +205,10 @@
             <pdf-viewer [src]="query1_4_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
                   style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
           </div>
-
+          <div class="col-md-12" *ngIf="idQuery === 5">
+            <pdf-viewer [src]="query1_5_pdfSrc" [show-borders]="true" [render-text]="true" [original-size]="false"
+                  style="width: 100%; height: {{loading === true ? '5rem' : '45rem'}}"></pdf-viewer>
+          </div>
         </div>
       </div>
     </div>

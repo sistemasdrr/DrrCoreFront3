@@ -16,6 +16,8 @@ import {
   ApexGrid,
   ApexTitleSubtitle,
   ApexStates,
+  ApexNonAxisChartSeries
+  
 } from 'ng-apexcharts';
 import { Router } from '@angular/router';
 import { DashboardService } from 'app/services/Dashboard/dashboard.service';
@@ -56,6 +58,14 @@ export type ChartOptions = {
   states: ApexStates;
   fill: ApexFill;
 };
+export type ChartOptionsCircle = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+  legend:ApexLegend;
+  dataLabels:ApexDataLabels;
+};
 
 @Component({
     selector: 'app-main',
@@ -87,6 +97,10 @@ export class MainComponent implements OnInit {
   empresasCalidadC=0
   empresasCalidadD=0
   empresasSinCalidad=0
+  totalOR=0
+  totalRV=0
+  totalEF=0
+  totalGeneral=0
 
  // pie_chart: EChartOption={}
   pendingTaskSupervisor : PendingTaskSupervisor[] = []
@@ -103,7 +117,7 @@ export class MainComponent implements OnInit {
   public smallAreaChart!: Partial<ChartOptions>;
   public smallColumnChart!: Partial<ChartOptions>;
   public smallLineChart!: Partial<ChartOptions>;
-
+  public chartOptions: Partial<ChartOptionsCircle>;
 
   public sampleData = [
     31, 40, 28, 44, 60, 55, 68, 51, 42, 85, 77, 31, 40, 28, 44, 60, 55,
@@ -138,13 +152,14 @@ export class MainComponent implements OnInit {
       this.idUser = auth.idUser
       this.idEmployee = parseInt(auth.idEmployee)
     }
+    this.chartOptions={}
   }
 
   tipo = "RP"
 
   ngOnInit() {
-    this.chart1();
-    this.chart2();
+    this.areaChartOptions={};
+   
     this.comboService.getPaises().subscribe(
       (response) => {
         if(response.isSuccess === true){
@@ -291,304 +306,8 @@ export class MainComponent implements OnInit {
   cuponesObservados(){
     this.router.navigate(['/dashboard/cupones-observados']);
   }
-  private cardChart1() {
-    this.smallBarChart = {
-      chart: {
-        type: 'bar',
-        width: 200,
-        height: 50,
-        sparkline: {
-          enabled: true,
-        },
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: '40%',
-        },
-      },
-      series: [
-        {
-          name: 'income',
-          data: this.sampleData,
-        },
-      ],
-      tooltip: {
-        theme: 'dark',
-        fixed: {
-          enabled: false,
-        },
-        x: {
-          show: false,
-        },
-        y: {},
-        marker: {
-          show: false,
-        },
-      },
-    };
-  }
-  private cardChart2() {
-    this.smallAreaChart = {
-      series: [
-        {
-          name: 'order',
-          data: this.sampleData,
-        },
-      ],
-      chart: {
-        type: 'area',
-        height: 50,
-        sparkline: {
-          enabled: true,
-        },
-      },
-      stroke: {
-        curve: 'straight',
-      },
-      colors: ['#00E396'],
-      tooltip: {
-        theme: 'dark',
-        fixed: {
-          enabled: false,
-        },
-        x: {
-          show: false,
-        },
-        marker: {
-          show: false,
-        },
-      },
-      xaxis: {
-        labels: {
-          show: false,
-        },
-      },
-      legend: {
-        show: false,
-      },
-      yaxis: {
-        show: false,
-      },
-      grid: {
-        show: false,
-      },
-    };
-  }
-  private cardChart3() {
-    this.smallColumnChart = {
-      chart: {
-        type: 'bar',
-        width: 200,
-        height: 50,
-        sparkline: {
-          enabled: true,
-        },
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: '40%',
-        },
-      },
-      series: [
-        {
-          name: 'income',
-          data: this.sampleData,
-        },
-      ],
-
-      tooltip: {
-        theme: 'dark',
-        fixed: {
-          enabled: false,
-        },
-        x: {
-          show: false,
-        },
-        y: {},
-        marker: {
-          show: false,
-        },
-      },
-    };
-  }
-  private cardChart4() {
-    this.smallLineChart = {
-      series: [
-        {
-          name: 'Users',
-          data: this.sampleData,
-        },
-      ],
-      chart: {
-        type: 'line',
-        height: 50,
-        sparkline: {
-          enabled: true,
-        },
-      },
-      stroke: {
-        curve: 'straight',
-        colors: ['#FEB019'],
-        width: 4,
-      },
-      tooltip: {
-        theme: 'dark',
-        fixed: {
-          enabled: false,
-        },
-        x: {
-          show: false,
-        },
-        marker: {
-          show: false,
-        },
-      },
-      xaxis: {
-        labels: {
-          show: false,
-        },
-      },
-      legend: {
-        show: false,
-      },
-      yaxis: {
-        show: false,
-      },
-      grid: {
-        show: false,
-      },
-    };
-  }
-
-  private chart1() {
-    this.areaChartOptions = {
-      series: [
-        {
-          name: 'New Clients',
-          data: [31, 40, 28, 51, 42, 85, 77],
-        },
-        {
-          name: 'Old Clients',
-          data: [11, 32, 45, 32, 34, 52, 41],
-        },
-      ],
-      chart: {
-        height: 350,
-        type: 'area',
-        toolbar: {
-          show: false,
-        },
-        foreColor: '#9aa0ac',
-      },
-      colors: ['#FC8380', '#6973C6'],
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      xaxis: {
-        type: 'datetime',
-        categories: [
-          '2018-09-19',
-          '2018-09-20',
-          '2018-09-21',
-          '2018-09-22',
-          '2018-09-23',
-          '2018-09-24',
-          '2018-09-25',
-        ],
-      },
-      legend: {
-        show: true,
-        position: 'top',
-        horizontalAlign: 'center',
-        offsetX: 0,
-        offsetY: 0,
-      },
-      grid: {
-        show: true,
-        borderColor: '#9aa0ac',
-        strokeDashArray: 1,
-      },
-      tooltip: {
-        theme: 'dark',
-        marker: {
-          show: true,
-        },
-        x: {
-          show: true,
-        },
-      },
-    };
-  }
-  private chart2() {
-    this.barChartOptions = {
-      series: [
-        {
-          name: 'T1',
-          data: [44, 55, 41, 37],
-        },
-        {
-          name: 'T2',
-          data: [53, 32, 33, 52],
-        },
-      ],
-      chart: {
-        type: 'bar',
-        height: 350,
-        stacked: true,
-        foreColor: '#9aa0ac',
-      },
-      colors: ['#5048e5', '#f43f5e', '#3c6494', '#a5a5a5'],
-      plotOptions: {
-        bar: {
-          horizontal: true,
-        },
-      },
-      stroke: {
-        width: 1,
-        colors: ['#fff'],
-      },
-      xaxis: {
-        categories: ['OR', 'RV', 'EF', 'DF'],//OR RV EF DF
-        labels: {
-          /*formatter: function (val: string) {
-            return val + 'K';
-          },
-        },
-      },
-      yaxis: {
-        title: {
-          text: undefined,
-        },
-      },
-      grid: {
-        show: true,
-        borderColor: '#9aa0ac',
-        strokeDashArray: 1,
-      },
-      tooltip: {
-        theme: 'dark',
-        marker: {
-          show: true,
-        },
-        y: {
-          /*formatter: function (val: number) {
-            return val + 'K';
-          },*/
-        },
-      },
-      fill: {
-        opacity: 1,
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'left',
-        offsetX: 40,
-      },
-    };
-  }
+  
+  
   async cambioPais(pais: Pais) {
     if (pais !== null) {
       if (typeof pais === 'string' || pais === null || this.paisSeleccionado.id === 0) {
@@ -599,7 +318,7 @@ export class MainComponent implements OnInit {
 
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
         this.iconoSeleccionado = pais.bandera
         this.idCountry = pais.id
         this.dashboardService.GetStaticsByCountryDto(this.idCountry).subscribe(
@@ -613,7 +332,7 @@ export class MainComponent implements OnInit {
               this.empresasSinCalidad=response.data.sinQ
               this.empresasSinInformes=response.data.sinInforme
               this.empresasEliminadas=response.data.eliminado
-             // this.armarPie();
+              this.armarPie();
 
             }
           }
@@ -639,10 +358,15 @@ export class MainComponent implements OnInit {
   }
   seriesDashboard : SeriesDashboard[] = []
   private chart2Rel() {
+   
     this.dashboardService.SeriesDashboard().subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.seriesDashboard[0] = response.data
+          this.totalOR=response.data.totalOR
+          this.totalRV=response.data.totalRV
+          this.totalEF=response.data.totalEF
+          this.totalGeneral=response.data.totalGeneral
           console.log(response.data)
           console.log(this.seriesDashboard[0])
         }
@@ -653,18 +377,19 @@ export class MainComponent implements OnInit {
           series: this.seriesDashboard[0].series,
           chart: {
             type: 'bar',
-            height: 500,
+            height: 450,
             stacked: true,
-            foreColor: '#9aa0ac',
+            foreColor: '#000000'
+           
           },
           colors: ['#3A9413','#229cf7', '#f43f5e','#F5C42B'],
           plotOptions: {
             bar: {
-              horizontal: true,
+              horizontal: false,
             },
           },
           stroke: {
-            width: 1,
+            width: 0,
 
             colors: ['#fff'],
           },
@@ -672,9 +397,7 @@ export class MainComponent implements OnInit {
             categories: this.seriesDashboard[0].categories,
 
             labels: {
-              /*formatter: function (val: string) {
-                return val + 'K';
-              },*/
+             
             },
           },
           yaxis: {
@@ -693,9 +416,7 @@ export class MainComponent implements OnInit {
               show: true,
             },
             y: {
-              /*formatter: function (val: number) {
-                return val + 'K';
-              },*/
+             
             },
           },
           fill: {
@@ -703,8 +424,26 @@ export class MainComponent implements OnInit {
           },
           legend: {
             position: 'top',
-            horizontalAlign: 'left',
+            horizontalAlign: 'center',
             offsetX: 40,
+            fontSize:'18px',
+            fontWeight:'bold'
+          },
+          dataLabels: {
+            style: {
+              fontSize: '20px',
+              fontWeight: 'bold',
+              colors:['#fff'],
+            },
+            background: {
+              enabled: false,
+              foreColor: '#fff',
+              borderRadius: 2,
+              padding: 4,
+              opacity: 0.9,
+              borderWidth: 1,
+              borderColor: '#fff'
+            },
           },
         };
       }
@@ -798,52 +537,54 @@ export class MainComponent implements OnInit {
       }
     });
   }
- /* armarPie(){
-  this.pie_chart = {
-    tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b} : {c} ({d}%)',
-    },
-    legend: {
-      data: ['A', 'B', 'C', 'D', 'Sin Calidad'],
-      textStyle: {
-        color: '#9aa0ac',
-        padding: [0, 5, 0, 5],
+  armarPie(){
+    this.chartOptions = {
+      series: [ this.empresasCalidadA,
+       this.empresasCalidadB,
+       this.empresasCalidadC,
+       this.empresasCalidadD,
+       this.empresasSinCalidad],
+      chart: {
+        width: 300,
+        type: "pie"
       },
-    },
-
-    series: [
-      {
-        name: 'Chart Data',
-        type: 'pie',
-        radius: '55%',
-        center: ['50%', '48%'],
-        data: [
-          {
-            value: this.empresasCalidadA,
-            name: 'A',
-          },
-          {
-            value: this.empresasCalidadB,
-            name: 'B',
-          },
-          {
-            value: this.empresasCalidadC,
-            name: 'C',
-          },
-          {
-            value: this.empresasCalidadD,
-            name: 'D',
-          },
-          {
-            value: this.empresasSinCalidad,
-            name: 'Sin Calidad',
-          },
-        ],
+      labels: ["A", "B", "C", "D", "Sin Calidad"],
+      legend: {
+        show: true,
+        position: "bottom"
       },
-    ],
-    color: ['#575B7A', '#DE725C', '#DFC126', '#72BE81', '#50A5D8'],
-  };
+      dataLabels: {
+        style: {
+          fontSize: '20px',
+          fontWeight: 'bold',
+          colors:['#000000'],
+        },
+        background: {
+          enabled: false,
+          foreColor: '#fff',
+          borderRadius: 2,
+          padding: 4,
+          opacity: 0.9,
+          borderWidth: 1,
+          borderColor: '#fff'
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              show: true,
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
 
-}*/
+
+}
 }

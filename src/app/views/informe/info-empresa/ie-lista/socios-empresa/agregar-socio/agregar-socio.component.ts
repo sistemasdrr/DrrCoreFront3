@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ComboData, ComboDataCode } from 'app/models/combo';
+import { ComboData, ComboDataCode, Pais } from 'app/models/combo';
 import { ComboService } from 'app/services/combo.service';
 import { SociosEmpresaService } from 'app/services/informes/empresa/socios-empresa.service';
 import { Observable, map, startWith } from 'rxjs';
@@ -15,6 +15,10 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import * as moment from 'moment';
 import { TraduccionDialogComponent } from '@shared/components/traduccion-dialog/traduccion-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatTableDataSource } from '@angular/material/table';
+import { Persona, TPersona } from 'app/models/informes/persona/datos-generales';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-agregar-socio',
@@ -39,6 +43,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     standalone: false
 })
 export class AgregarSocioComponent implements OnInit {
+
   titulo = ""
 
   fullname = ""
@@ -76,13 +81,34 @@ export class AgregarSocioComponent implements OnInit {
   controlSituacionRUC = new FormControl<string | ComboData>('');
   filterSituacionRuc: Observable<ComboData[]>
   situacionRuc: ComboData[] = []
+  
+  controlPaises = new FormControl<string | Pais>('')
   situacionRucInforme: ComboData = {
     id: 0,
     valor: ''
   }
+  paises: Pais[] = []
+  filterPais: Observable<Pais[]>
+  iconoSeleccionado = ""
+  paisSeleccionado: Pais = {
+    id: 0,
+    valor: '',
+    abreviation: '',
+    bandera: '',
+    regtrib: '',
+    codCel: '',
+  }
+  paisNewSeleccionado: Pais = {
+    id: 0,
+    valor: '',
+    abreviation: '',
+    bandera: '',
+    regtrib: '',
+    codCel: '',
+  }
   msgSituacionRuc = ""
   colorMsgSituacionRuc = ""
-
+  modeloPersona : Persona[] = []
   controlProfesion = new FormControl<string | ComboData>('');
   filterProfesion: Observable<ComboDataCode[]>
   listaProfesion: ComboDataCode[] = []
@@ -94,11 +120,23 @@ export class AgregarSocioComponent implements OnInit {
   }
   msgProfesion = ""
   colorMsgProfesion = ""
-
+  nombreCompleto = ''
+  idPais = 0
+  filtroRB = 'C'
+  chkConInforme = false
   modeloNuevo : SociosEmpresa[] = []
+  msgPais = ""
+  colorMsgPais = ""
+  newPerson=false;
+
+   columnsToDisplay = ['name', 'taxNumber', 'lastReportDate', 'country', 'traductionPercentage', 'quality','birthDate','profession','acciones' ];
+    dataSource: MatTableDataSource<TPersona>;
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private comboService : ComboService,
     private sociosEmpresaService : SociosEmpresaService,
+    private personaService : DatosGeneralesService,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog : MatDialog,
     public dialogRef: MatDialogRef<AgregarSocioComponent>,
     private datosGeneralesService : DatosGeneralesService){
@@ -108,9 +146,17 @@ export class AgregarSocioComponent implements OnInit {
     this.idCompany = data.idCompany
     this.filterSituacionRuc = new Observable<ComboData[]>()
     this.filterProfesion = new Observable<ComboDataCode[]>()
+    this.filterPais = new Observable<Pais[]>()
+    this.dataSource = new MatTableDataSource<TPersona>()
   }
   ngOnInit(): void {
     this.loading = true;
+    this.comboService.getPaises().subscribe(
+      (response) => {
+        if(response.isSuccess === true && response.isWarning === false){
+          this.paises = response.data;
+        }
+      });
     this.comboService.getOccupations().subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
@@ -139,6 +185,13 @@ export class AgregarSocioComponent implements OnInit {
           this.situacionRuc = response.data
         }
       }
+    )
+    this.filterPais = this.controlPaises.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.valor
+        return name ? this._filterPais(name as string) : this.paises.slice()
+      }),
     )
     if(this.id !== 0){
       this.titulo = "Editar Socio"
@@ -237,6 +290,59 @@ export class AgregarSocioComponent implements OnInit {
       }),
     )
   }
+  nuevo() {
+  this.newPerson=true;
+}
+private _filterPais(description: string): Pais[] {
+  const filterValue = description.toLowerCase();
+  return this.paises.filter(pais => pais.valor.toLowerCase().includes(filterValue));
+}
+  displayPais(pais: Pais): string {
+    return pais && pais.valor ? pais.valor : '';
+  }
+  limpiarSeleccionPais() {
+    this.controlPaises.reset();
+    this.idPais = 0
+    this.iconoSeleccionado = ""
+  }
+  limpiar(){
+    this.nombreCompleto = ""
+    this.filtroRB = "C"
+    this.idPais = 0
+    this.paisSeleccionado = {
+      id: 0,
+      valor: '',
+      abreviation: '',
+      bandera: '',
+      regtrib: '',
+      codCel: '',
+    }
+    this.dataSource=new MatTableDataSource();
+    this.chkConInforme = false
+
+    //this.filtrarPersonas()
+  }
+    cambioPais(pais: Pais) {
+      console.log(pais);
+      if (pais !== null && pais !== undefined) {
+        this.iconoSeleccionado = pais.bandera
+        this.idPais = pais.id
+        console.log(this.idPais)
+        if (typeof pais === 'string' || pais === null) {
+          this.msgPais = "Seleccione una opción."
+          this.idPais = 0
+          this.colorMsgPais = "red"
+        } else {
+          this.msgPais = "Opción Seleccionada"
+          this.colorMsgPais = "blue"
+        }
+      } else {
+        this.idPais = 0
+        console.log(this.idPais)
+        this.msgPais = "Seleccione una opción."
+        this.colorMsgPais = "red"
+      }
+    }
   agregarTraduccion(titulo : string, subtitulo : string, comentario_es : string, comentario_en : string, input : string) {
     const dialogRef = this.dialog.open(TraduccionDialogComponent, {
       data: {
@@ -259,6 +365,53 @@ export class AgregarSocioComponent implements OnInit {
       }
     });
   }
+
+  filtrar(event : any){
+    if(event.code == 'Enter'){
+      this.filtrarPersonas()
+    }
+  }
+
+    filtrarPersonas(){
+      const listaPersonas = document.getElementById('loader-lista-persona') as HTMLElement | null;
+      if(listaPersonas){
+        listaPersonas.classList.remove('hide-loader');
+      }
+      const busqueda = {
+        nombreCompleto : this.nombreCompleto.replace(',',''),
+        filtro : this.filtroRB,
+        idPais : this.idPais,
+        conInforme : this.chkConInforme
+      }
+     
+      this.personaService.getDatosPersonas(this.nombreCompleto.trim(), this.filtroRB, this.idPais, this.chkConInforme,'N','T').subscribe(
+        (response) => {
+          if(response.isSuccess === true && response.isWarning === false){
+            this.dataSource = new MatTableDataSource<TPersona>(response.data);
+  
+            this.dataSource.sort = this.sort
+            this.dataSource.paginator = this.paginator
+          }
+        },(error) => {
+          if(listaPersonas){
+            listaPersonas.classList.add('hide-loader');
+          }
+          Swal.fire({
+            title: 'Ocurrió un problema. Comunicarse con Sistemas.',
+            text: error,
+            icon: 'warning',
+            confirmButtonColor: 'blue',
+            confirmButtonText: 'Ok',
+            width: '40rem',
+            heightAuto : true
+          }).then(() => {
+          })
+        }).add(() => {
+          if(listaPersonas){
+            listaPersonas.classList.add('hide-loader');
+          }
+        })
+    }
   armarModelo(){
     this.modeloNuevo[0] = {
       id : this.id,
@@ -271,6 +424,79 @@ export class AgregarSocioComponent implements OnInit {
       startDate : this.startDate,
       numeration : this.numeration,
       print : this.print
+    }
+  }
+  armarModeloPersona(){
+    this.modeloPersona[0]={
+      id : this.idPerson,
+      oldCode : '',
+      fullname : this.fullname,
+      lastSearched : this.lastSearched,
+      language : this.language,
+      nationality : this.nationality,
+      birthDate : this.birthDate,
+      birthPlace : '',
+      idDocumentType : this.idDocumentType,
+      codeDocumentType : this.codeDocumentType,
+      taxTypeName : this.taxTypeName,
+      taxTypeCode : this.taxTypeCode,
+      idLegalRegisterSituation : this.idLegalRegisterSituation,
+      address : '',
+      cp : '',
+      city : '',
+      otherDirecctions : '',
+      tradeName : '',
+      idCountry : this.idPais,
+      idContinent : 0,
+      taxTypeByCountry : '',
+      codePhone : '',
+      numberPhone : '',
+      idCivilStatus : 0,
+      relationshipWith : '',
+      relationshipDocumentType : 0,
+      relationshipCodeDocument : '',
+      fatherName : '',
+      motherName : '',
+      email : '',
+      cellphone : '',
+      profession : this.profession,
+      clubMember : '',
+      insurance : '',
+      newsCommentary : '',
+      printNewsCommentary : false,
+      privateCommentary : '',
+      reputationCommentary : '',
+      idCreditRisk : 0,
+      idPaymentPolicy : 0,
+      idReputation : 0,
+      idPersonSituation : this.idPersonSituation,
+      quality : '',    
+      traductions : [
+        {
+          key : "S_P_NACIONALITY",
+          value : ''
+        },
+        {
+          key : "S_P_BIRTHPLACE",
+          value : ''
+        },
+        {
+          key : "S_P_MARRIEDTO",
+          value : ''
+        },
+        {
+          key : "S_P_PROFESSION",
+          value : ''
+        },
+        {
+          key : "L_P_NEWSCOMM",
+          value : ''
+        },
+        {
+          key : "L_P_REPUTATION",
+          value : ''
+        },
+      ]
     }
   }
   newFormatDate() {
@@ -363,15 +589,7 @@ export class AgregarSocioComponent implements OnInit {
     console.log(this.profession)
   }
   seleccionarPersona(){
-    const dialogRef = this.dialog.open(SeleccionarPersonaComponent);
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data.idPerson !== 0 && data !== undefined) {
-        this.idPerson = data.idPerson
-        console.log(data)
-      }
-    }).add(
-      () => {
-        if(this.idPerson !== 0){
+    if(this.idPerson !== 0){
           this.datosGeneralesService.getPersonaById(this.idPerson).subscribe(
             (response) => {
               if(response.isSuccess === true && response.isWarning === false){
@@ -400,19 +618,15 @@ export class AgregarSocioComponent implements OnInit {
                       this.birthDate = persona.birthDate
                     }
                   }
+                  if(this.idLegalRegisterSituation !== null && this.idLegalRegisterSituation !== 0){
+                    this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.idLegalRegisterSituation)[0]
+                  }
                 }
               }
             }
-          ).add(
-            () => {
-              if(this.idLegalRegisterSituation !== null && this.idLegalRegisterSituation !== 0){
-                this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.idLegalRegisterSituation)[0]
-              }
-            }
-          )
-        }
-      }
-    )
+          )}
+      
+    
   }
   borrarSeleccion(){
     this.idPerson = 0
@@ -433,8 +647,13 @@ export class AgregarSocioComponent implements OnInit {
   salir(){
     this.dialogRef.close()
   }
+  seleccionarPersonaId(idPerson : number){
+    this.idPerson=idPerson;
+    this.seleccionarPersona();
+  }
   guardar(){
     this.armarModelo()
+    this.armarModeloPersona();
     if(this.id > 0){
       console.log(this.modeloNuevo[0])
       Swal.fire({
@@ -452,6 +671,15 @@ export class AgregarSocioComponent implements OnInit {
         if (result.value) {
 
           this.loading = true
+          this.personaService.addPerson(this.modeloPersona[0]).subscribe((response) => {
+            if(response.isSuccess === true && response.isWarning === false){
+            
+               this.idPerson=response.data;
+            }
+          });
+          console.log(this.idPerson);
+          console.log(this.idPerson!==0);
+         if(this.idPerson!==0){
           this.sociosEmpresaService.addCompanyPartner(this.modeloNuevo[0]).subscribe((response) => {
             this.loading = false
             if(response.isSuccess === true && response.isWarning === false){
@@ -486,7 +714,10 @@ export class AgregarSocioComponent implements OnInit {
          this.loading = false
         })
         }
+      
+      }
       });
+  
     }else{
       console.log(this.modeloNuevo[0])
       Swal.fire({
@@ -503,6 +734,14 @@ export class AgregarSocioComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this.loading = true
+          this.personaService.addPerson(this.modeloPersona[0]).subscribe((response) => {
+            if(response.isSuccess === true && response.isWarning === false){
+            
+               this.idPerson=response.data;
+               //this.armarModelo();
+         
+               this.modeloNuevo[0].idPerson=response.data;
+               console.log(this.modeloNuevo[0]);
           this.sociosEmpresaService.addCompanyPartner(this.modeloNuevo[0]).subscribe((response) => {
             if(response.isSuccess === true && response.isWarning === false){
               this.loading = false
@@ -548,6 +787,8 @@ export class AgregarSocioComponent implements OnInit {
             }).then(() => {
             })
           })
+        }
+      });
         }
       });
     }

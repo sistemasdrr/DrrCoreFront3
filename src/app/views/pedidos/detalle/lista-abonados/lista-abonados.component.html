@@ -4,7 +4,7 @@
       <div class="card shadow " style="border-radius: 0; background-color: #dae1f3;">
         <div class="row">
           <div class="col-md-2">
-            <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+            <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
               <mat-label>Código</mat-label>
               <input matInput placeholder="Ej. 1234" [(ngModel)]="codigo" >
               <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="codigo !== ''" (click)="codigo = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -13,7 +13,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+            <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
               <mat-label>Nombre</mat-label>
               <input matInput placeholder="Ej. ALICORP SA" [(ngModel)]="nombre" >
               <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="nombre !== ''" (click)="nombre = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -87,7 +87,7 @@
         <tr mat-row *matRowDef="let empresa; columns: columnsToDisplay;"
           class=""></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Seleccionar" class="w-100"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Seleccionar" class="w-100 form-red"></mat-paginator>
     </div>
   </div>
 </mat-dialog-content>

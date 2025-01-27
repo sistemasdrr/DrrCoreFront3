@@ -3,7 +3,7 @@
     <div class="col-md-12 mb-2">
       <div class="row counter-box shadow mb-2">
         <div class="w-100 d-flex justify-content-between align-items-center">
-          <h4>Balance General</h4>
+          <h4>Balance Situacional</h4>
           <div>
             <button mat-mini-fab class="bg-green" *ngIf="agregar === true" style="margin: 0 .5rem .5rem .5rem;" (click)="confirmarAgregar()" #tooltip="matTooltip" [matTooltip]="'Agregar'">
               <mat-icon class="col-white" >check</mat-icon>
@@ -17,11 +17,14 @@
             <button mat-mini-fab  [ngClass]="id === 0 ? 'bg-gray' : 'bg-blue'" *ngIf="agregar === false" style="margin: 0 2rem .5rem .5rem; " (click)="editarBalance()" #tooltip="matTooltip" matTooltip="Editar Balance" [disabled]="id === 0">
               <mat-icon class="col-white">edit</mat-icon>
             </button>
+            <button mat-mini-fab  [ngClass]="id === 0 ? 'bg-gray' : 'bg-red'" *ngIf="agregar === false" style="margin: 0 2rem .5rem .5rem; " (click)="eliminarBalance()" #tooltip="matTooltip" matTooltip="Eliminar Balance" [disabled]="id === 0">
+              <mat-icon class="col-white">delete</mat-icon>
+            </button>
           </div>
         </div>
         <hr>
         <div class="col-md-3" *ngIf="agregar === false">
-          <mat-form-field style="width: 100%;" >
+          <mat-form-field class="w-100 form-red" >
             <mat-label>Balance</mat-label>
             <mat-select (selectionChange)="actualizarBalance($event.value)" [(ngModel)]="balanceSeleccionado">
               <mat-option *ngFor="let balance of listaBalances" [value]="balance.id">
@@ -31,7 +34,7 @@
           </mat-form-field>
         </div>
         <div [ngClass]="agregar === true ? 'col-md-4' : 'col-md-3'">
-          <mat-form-field color="primary" style="width: 100%;">
+          <mat-form-field color="primary"class="w-100 form-red">
             <mat-label>Fecha de Balance</mat-label>
             <input matInput [matDatepicker]="fecha_balance" [(ngModel)]="dateD" (dateChange)="selectFecha($event)" [readonly]="!agregar">
             <mat-datepicker-toggle matIconSuffix [for]="fecha_balance" [disabled]="!agregar"></mat-datepicker-toggle>
@@ -39,7 +42,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-3" [ngClass]="{'col-md-4': agregar === true}">
-          <mat-form-field color="primary" style="width: 100%;">
+          <mat-form-field color="primary" class="w-100 form-red">
             <mat-label>Tipo de Balance</mat-label>
             <mat-select [(ngModel)]="balanceType">
               <mat-option [value]="'SITUACIONAL'">
@@ -49,7 +52,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-3" [ngClass]="{'col-md-4': agregar === true}">
-          <mat-form-field color="primary" style="width: 100%;">
+          <mat-form-field color="primary" class="w-100 form-red">
             <mat-label>Duración de Balance</mat-label>
             <input matInput [(ngModel)]="duration" [readonly]="!agregar">
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="durationEng === '' || durationEng !== null ? 'sin-traduccion' : ''" (click)="agregarTraduccion('Traducción de Duración del Balance','',duration,durationEng,'duracion')">
@@ -60,7 +63,7 @@
         <h5>Cabecera de Balance</h5>
         <hr>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Tipo de Moneda</mat-label>
             <input type="text" matInput [formControl]="ctrlMoneda" [matAutocomplete]="auto" [(ngModel)]="currencyInforme" (ngModelChange)="seleccionarTipoMoneda(currencyInforme)">
             <mat-hint [ngClass]="colorMsgTipoMoneda === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgTipoMoneda === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgTipoMoneda === 'green'"></i>&nbsp;{{msgTipoMoneda}}</mat-hint>
@@ -75,7 +78,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Tipo de C. x US$ Dólar</mat-label>
             <span matSuffix style="margin-right: .5rem; color:gray;">
             </span>
@@ -83,19 +86,19 @@
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Ventas</mat-label>
             <span matSuffix style="margin-right: .5rem; color:gray;">
             </span>
-            <input matInput mask="separator" thousandSeparator="{{separator}}"  [(ngModel)]="sales" (ngModelChange)="updRatios()">
+            <input matInput mask="separator" thousandSeparator="{{separator}}" [allowNegativeNumbers]="true"  [(ngModel)]="sales" (ngModelChange)="updRatios()">
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Utilidades (Pérdidas) Netas</mat-label>
             <span matSuffix style="margin-right: .5rem; color:gray;">
             </span>
-            <input matInput mask="separator" thousandSeparator="{{separator}}" [(ngModel)]="utilities" (ngModelChange)="updRatios()">
+            <input matInput mask="separator" thousandSeparator="{{separator}}" [allowNegativeNumbers]="true" [(ngModel)]="utilities" (ngModelChange)="updRatios()">
           </mat-form-field>
         </div>
       </div>
@@ -110,7 +113,7 @@
               <h4>Activos</h4>
             </div>
             <div class="col-md-12 ">
-              <mat-accordion class="w-100">
+              <mat-accordion class="w-100 form-red">
                 <mat-expansion-panel [expanded]="true" (opened)="true">
                   <mat-expansion-panel-header >
                     <mat-panel-title>
@@ -120,7 +123,7 @@
                       <input class="form-control" (click)="$event.stopPropagation();"  mask="separator.2" thousandSeparator="{{separator}}" [allowNegativeNumbers]="true" [(ngModel)]="totalAssets" (keyup.enter)="enter($event)" (ngModelChange)="updRatios()">
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-                  <mat-accordion class="w-100" [displayMode]="'default'">
+                  <mat-accordion class="w-100 form-red" [displayMode]="'default'">
                     <mat-expansion-panel [expanded]="true" (opened)="true">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -159,7 +162,7 @@
                       </div>
                     </mat-expansion-panel>
                   </mat-accordion>
-                  <mat-accordion class="w-100">
+                  <mat-accordion class="w-100 form-red">
                     <mat-expansion-panel [expanded]="true" (opened)="true">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -195,7 +198,7 @@
               <h4>Pasivos</h4>
             </div>
             <div class="col-md-12 mb-1">
-              <mat-accordion class="w-100">
+              <mat-accordion class="w-100 form-red">
                 <mat-expansion-panel [expanded]="true" (opened)="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -205,7 +208,7 @@
                       <input  type="text" (click)="$event.stopPropagation();" class="form-control" mask="separator.2" thousandSeparator="{{separator}}" [allowNegativeNumbers]="true" [(ngModel)]="totalLliabilities" (ngModelChange)="updRatios()" >
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-                  <mat-accordion class="w-100">
+                  <mat-accordion class="w-100 form-red">
                     <mat-expansion-panel [expanded]="true" (opened)="true">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -231,7 +234,7 @@
                       </div>
                     </mat-expansion-panel>
                   </mat-accordion>
-                  <mat-accordion class="w-100">
+                  <mat-accordion class="w-100 form-red">
                     <mat-expansion-panel [expanded]="true" (opened)="true">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -264,7 +267,7 @@
               <h4>Patrimonio</h4>
             </div>
             <div class="col-md-12 ">
-              <mat-accordion class="w-100" >
+              <mat-accordion class="w-100 form-red" >
                 <mat-expansion-panel [expanded]="true" (opened)="true">
                   <mat-expansion-panel-header >
                     <mat-panel-title>
@@ -300,7 +303,7 @@
                       <input type="text" (click)="$event.stopPropagation();" class="form-control" mask="separator.2" thousandSeparator="{{separator}}"  [allowNegativeNumbers]="true"[(ngModel)]="pOther" (ngModelChange)="updPatrimonio()" >
                     </div>
                   </div>
-                  <mat-accordion class="w-100">
+                  <mat-accordion class="w-100 form-red">
                     <mat-expansion-panel [expanded]="true" (opened)="true">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -345,28 +348,28 @@
         <h4>Ratios</h4>
         <hr>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Indice de Liquidez</mat-label>
             <input matInput  mask="separator.2" thousandSeparator="{{separator}}"  [allowNegativeNumbers]="true" [(ngModel)]="liquidityRatio" [readOnly]="true">
             <mat-hint><em>(Activo Corriente / Pasivo Corriente)</em></mat-hint>
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Ratio de Endeudamiento (<i class="fa-solid fa-percent"></i>)</mat-label>
             <input matInput mask="separator.2" thousandSeparator="{{separator}}"  [allowNegativeNumbers]="true" [(ngModel)]="debtRatio"  [readOnly]="true">
             <mat-hint><em>(Patrimonio / Pasivo Corriente %)</em></mat-hint>
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Ratio de Rentabilidad (<i class="fa-solid fa-percent"></i>)</mat-label>
             <input matInput mask="separator.2" thousandSeparator="{{separator}}"  [allowNegativeNumbers]="true" [(ngModel)]="profitabilityRatio" [readOnly]="true">
             <mat-hint><em>(Utilidad / Ventas %)</em></mat-hint>
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Capital de Trabajo</mat-label>
             <input matInput  mask="separator.2" thousandSeparator="{{separator}}"  [allowNegativeNumbers]="true" [(ngModel)]="workingCapital"  [readOnly]="true">
             <mat-hint><em>(Activo Corriente - Pasivo Corriente)</em></mat-hint>

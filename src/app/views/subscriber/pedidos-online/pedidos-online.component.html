@@ -13,16 +13,16 @@
         <div class="card shadow" style="border-radius: 0; background-color: #dae1f3;">
           <div class="row m-0 p-0">
             <div class="col-md-4 ">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                 <mat-label>Razón Social</mat-label>
-                <input matInput [(ngModel)]="name" >
+                <input matInput [(ngModel)]="name"  style="text-transform: uppercase;">
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="name !== ''" (click)="name = ''" #tooltip="matTooltip" matTooltip="Limpiar">
                   <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
                 </button>
               </mat-form-field>
             </div>
             <div class="col-md-3 ">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;">
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;">
                 <mat-label>Registro Tributario</mat-label>
                 <input matInput [(ngModel)]="taxCode" >
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="name !== ''" (click)="name = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -31,7 +31,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-3">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;">
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;">
                 <mat-label>País</mat-label>
                 <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
                 <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
@@ -110,7 +110,7 @@
             class=""></tr>
           <!--[ngClass]="empresa.rc === 'NN' ? 'bg-cyan' : ''"-->
         </table>
-        <mat-paginator [pageSizeOptions]="[25, 50, 100]" aria-label="Seleccionar página de Pedidos" class="w-100"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[25, 50, 100]" aria-label="Seleccionar página de Pedidos" class="w-100 form-red"></mat-paginator>
       </div>
     </div>
   </div>

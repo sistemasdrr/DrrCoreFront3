@@ -15,7 +15,7 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-5">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="">
                   <mat-option [value]="1">1.- Informes Facturados por Agentes de Mayor a Menor</mat-option>
@@ -25,7 +25,7 @@
           <div class="col-md-1"></div>
           <!--3_1-->
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query3_1_year" placeholder="">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -87,7 +87,7 @@
 
                 <tr mat-footer-row style="background-color:  rgba(1,1,1,0.1);"  *matFooterRowDef="columnsQuery3_1ByYear; sticky: true"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
             </div>
             <div style="height: 20rem;" class=" mb-3" *ngIf="idQuery === 1">
               <table mat-table [dataSource]="DTQuery3_1ByMonth" class="mat-elevation-z8 w-100" matSort>

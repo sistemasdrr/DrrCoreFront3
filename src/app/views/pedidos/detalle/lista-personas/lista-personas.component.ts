@@ -119,7 +119,7 @@ export class ListaPersonasComponent implements OnInit {
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       if(this.idPais!==0){
@@ -146,7 +146,7 @@ export class ListaPersonasComponent implements OnInit {
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarPersonas()
   }
@@ -165,7 +165,7 @@ export class ListaPersonasComponent implements OnInit {
     // localStorage.setItem('busquedaPersonas', JSON.stringify(busqueda))
 
     this.loading=true;
-    this.datosPersonaService.getDatosPersonas(this.razonSocial.trim(), this.filtroRB, this.idPais, this.chkConInforme,this.filterBy,'T').subscribe(
+    this.datosPersonaService.getDatosPersonas(encodeURI(this.razonSocial.trim()), this.filtroRB, this.idPais, this.chkConInforme,this.filterBy,'T').subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.dataSource = new MatTableDataSource(response.data)

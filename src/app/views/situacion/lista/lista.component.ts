@@ -18,6 +18,7 @@ import { ComplementoComponent } from 'app/views/consultas/informes/complemento/c
 import { Pais } from 'app/models/combo';
 import { map, Observable, startWith } from 'rxjs';
 import { PaisService } from 'app/services/pais.service';
+import { AdjuntarArchivosComponent } from '@shared/components/adjuntar-archivos/adjuntar-archivos.component';
 
 
 const today = new Date();
@@ -145,7 +146,7 @@ export class ListaSituacionComponent implements  OnInit {
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       this.idPais = 0
@@ -162,8 +163,18 @@ export class ListaSituacionComponent implements  OnInit {
       },
     });
   }
+  agregarAdjuntos(cod : string,cupon:string) {
+      console.log(cod);
+      const dialogRef = this.dialog.open(AdjuntarArchivosComponent, {
+        data: {
+          id: cod,
+          cupon: cupon,
+        },
+    });
+  }
   applyFilter() {
     this.loading = true
+    this.dataSourceSelect = new MatTableDataSource();
     this.ticketService.GetNewSearchSituation(this.about, this.name, this.filtroRB, this.idPais, this.haveReport, this.typeSearch).subscribe(
       (response) => {
         if(response.isSuccess === true){

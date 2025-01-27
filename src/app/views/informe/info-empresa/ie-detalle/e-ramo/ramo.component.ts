@@ -234,7 +234,7 @@ export class RamoComponent implements OnInit, OnDestroy{
                 let numberA = parseInt(a.numberYear.toString(), 10);
                 let numberB = parseInt(b.numberYear.toString(), 10);
 
-                return numberB - numberA;
+                return numberA - numberB;
               });
               this.workerNumber = this.dataSourceWorkerHistory.data[0].numberWorker
             }
@@ -519,7 +519,7 @@ export class RamoComponent implements OnInit, OnDestroy{
     if (this.dataSourceWorkerHistory.data.length > 0 || this.idCompany !== 0) {
       const listaFechas: string[] = [];
       const listaNW: number[] = [];
-
+    
       this.dataSourceWorkerHistory.data.forEach(data => {
         listaFechas.push(data.numberYear+"");
 
@@ -529,7 +529,7 @@ export class RamoComponent implements OnInit, OnDestroy{
           listaNW.push(amount);
         }
       });
-
+       
       this.areaChartOptions = {
         series: [
           {

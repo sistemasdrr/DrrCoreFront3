@@ -15,14 +15,14 @@
             <mat-icon class="col-white">picture_as_pdf</mat-icon>
             <span class="fi fi-us"></span>
           </button>
-          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
             <mat-icon class="col-white">save</mat-icon>
           </button>
         </div>
       </div>
       <hr>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+        <mat-form-field class="w-100 form-red" >
           <mat-label>Fecha de Constitución</mat-label>
           <span matSuffix style="margin-right: .5rem; color:gray;">
           </span>
@@ -30,7 +30,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Inicio de Actividades</mat-label>
           <span matSuffix style="margin-right: .5rem; color:gray;">
             <i class="fa-solid fa-flag-checkered"></i>
@@ -39,7 +39,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Duración</mat-label>
           <input matInput placeholder="" [(ngModel)]="operationDuration">
           <button class="btn-traduccion" [class]="operationDurationEng === '' ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion(tituloDuracion,'', operationDuration, operationDurationEng, 'duracion')">
@@ -48,7 +48,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Registrada en</mat-label>
           <input matInput placeholder="" [(ngModel)]="registerPlace">
           <button class="btn-traduccion" [class]="registerPlaceEng === '' ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion(tituloRegistradaEn,'', registerPlace, registerPlaceEng,'registradaEn')">
@@ -57,13 +57,13 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Notaria</mat-label>
           <input matInput placeholder="" [(ngModel)]="notaryRegister">
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Registros Públicos</mat-label>
           <input matInput placeholder="" [(ngModel)]="publicRegister">
           <button class="btn-traduccion" [class]="publicRegisterEng === '' ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion(tituloRegistrosPublicos,'', publicRegister, publicRegisterEng, 'registrosPublicos')">
@@ -72,7 +72,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Capital Pagado Actual</mat-label>
           <input matInput [(ngModel)]="capitalPagadoActualInforme" [readonly]="true">
           <button matSuffix mat-mini-fab color="primary" (click)="abrirCapitalPagado()"  #tooltip="matTooltip" matTooltip="Editar">
@@ -82,7 +82,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 d-flex">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Origen</mat-label>
           <mat-select [(ngModel)]="origin" (selectionChange)="selectOrigen($event.value)">
             <mat-option [value]="''">
@@ -101,7 +101,7 @@
 
       </div>
       <div class="col-md-4 d-flex">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Fecha Aumento</mat-label>
           <input matInput placeholder="" [(ngModel)]="increaceDateCapital">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="increaceDateCapitalEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloFechaAumento,'', increaceDateCapital, increaceDateCapitalEng, 'fechaAumento')">
@@ -110,7 +110,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Moneda del País</mat-label>
           <input type="text" matInput [formControl]="ctrlMoneda" [matAutocomplete]="auto" [ngClass]="colorMsgTipoMoneda === 'red' ? 'error': ''" [(ngModel)]="currencyInforme" (ngModelChange)="seleccionarTipoMoneda(currencyInforme)">
           <mat-hint [ngClass]="colorMsgTipoMoneda === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgTipoMoneda === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgTipoMoneda === 'green'"></i>&nbsp;{{msgTipoMoneda}}</mat-hint>
@@ -126,7 +126,7 @@
       </div>
       <div class="col-md-5">
         <div class="d-flex">
-          <mat-form-field style="width: 45%;">
+          <mat-form-field style="width: 45%;" class="form-red">
             <mat-label>¿Cotizada en Bolsa?</mat-label>
             <mat-select [(ngModel)]="traded">
               <mat-option [value]="''">
@@ -140,7 +140,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field style="width: 55%;">
+          <mat-form-field style="width: 55%;" class="form-red">
             <mat-label>Por</mat-label>
             <mat-select [(ngModel)]="tradedBy" >
               <mat-option [value]="''">
@@ -156,7 +156,7 @@
         </div>
       </div>
       <div class="col-md-3 d-flex">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Actual T.C. X 1 US$</mat-label>
           <input matInput placeholder="" [(ngModel)]="currentExchangeRate">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="currentExchangeRateEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloActualTC,'', currentExchangeRate+'', currentExchangeRateEng, 'actualTC')">
@@ -165,7 +165,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field color="primary" style="width: 100%;">
+        <mat-form-field color="primary" class="w-100 form-red">
           <mat-label>Fecha de Ultima Consulta a RR.PP.</mat-label>
           <input matInput [matDatepicker]="fecha_ultima_consulta" [(ngModel)]="lastQueryRrppD" (dateChange)="selectFechaUltimaConsulta($event)" >
           <mat-datepicker-toggle matIconSuffix [for]="fecha_ultima_consulta"></mat-datepicker-toggle>
@@ -173,14 +173,14 @@
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Por</mat-label>
           <input matInput placeholder="" [(ngModel)]="lastQueryRrppBy">
         </mat-form-field>
       </div>
     </div>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-8">
     <div class="row counter-box">
       <h4>Empresas Relacionadas Integrantes del Grupo Económico</h4>
       <div class="col-md-12">
@@ -227,29 +227,29 @@
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar página de Pedidos" class="w-100"></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar página de Pedidos" class="w-100 form-red"></mat-paginator>
 
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="row counter-box">
       <h4>Comentarios e Historial de Antecedentes</h4>
       <div class="col-md-12 d-flex justify-content-center mb-2">
 
       </div>
       <div class="col-md-12 d-flex justify-content-center mb-2">
-        <button class="btn bg-blue d-flex justify-content-center" style="color: white; width: 9rem;"  #tooltip="matTooltip" matTooltip="Antecedentes Legales" [class]="backgroundEng === '' ? 'sin-traduccion' : ''"
+        <button class="btn bg-blue d-flex justify-content-center" style="color: white; width: 100%;font-size: 25px !important; height: 70px;"  #tooltip="matTooltip" matTooltip="Antecedentes Legales" 
         (click)="agregarComentario(tituloComentarioAntecedentes,subtituloComentarioAntecedentes, background, backgroundEng, 'comentarioAntecedentes')">
-          <i class="fa-regular fa-comment-dots" style="font-size: 18px; margin-top: .1rem;"></i>
+          <i class="fa-regular fa-comment-dots" style="font-size: 20px; margin-top: .1rem;"></i>
           &nbsp;Antecedentes
         </button>
       </div>
       <div class="col-md-12 d-flex justify-content-center mb-2">
-        <button class="btn bg-cyan d-flex justify-content-center" style="color: white; width: 9rem;" #tooltip="matTooltip" matTooltip="Historia (Antecedentes)" [class]="historyEng === '' ? 'sin-traduccion' : ''"
+        <button class="btn bg-cyan d-flex justify-content-center" style="color: white; width: 100%; font-size: 25px !important; height: 70px;" #tooltip="matTooltip" matTooltip="Historia (Antecedentes)" 
         (click)="agregarComentario(tituloHistoria,subtituloHistoria, history, historyEng , 'historiaAntecedentes')">
-          <i class="fa-solid fa-magnifying-glass"  style="font-size: 18px; margin-top: .1rem;"></i>
+          <i class="fa-solid fa-magnifying-glass"  style="font-size: 20px; margin-top: .1rem;"></i>
           &nbsp;Historia
         </button>
       </div>

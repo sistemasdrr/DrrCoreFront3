@@ -22,7 +22,7 @@
                 </li>
                 <li class="tbl-header-btn">
                   <div class="m-l-10" >
-                    <button mat-icon-button  class="btn btn-primary" (click)="guardar()"  #tooltip="matTooltip" matTooltip="Guardar">
+                    <button mat-icon-button  class="btn btn-primary" (click)="guardar()"  #tooltip="matTooltip" matTooltip="Grabar">
                       <mat-icon>save</mat-icon>
                     </button>
                   </div>
@@ -37,19 +37,19 @@
               <h5 style="font-size: 20px;">La siguiente es información del avalista de la empresa</h5>
 
               <div class="col-md-6 m-0">
-                <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                   <mat-label>Avalista</mat-label>
                   <input matInput [(ngModel)]="endorsementName">
                 </mat-form-field>
               </div>
               <div class="col-md-3 m-0">
-                <mat-form-field class="w-100" >
+                <mat-form-field class="w-100 form-red" >
                   <mat-label>RUC</mat-label>
                   <input matInput [(ngModel)]="ruc">
                 </mat-form-field>
               </div>
               <div class="col-md-3 m-0">
-                <mat-form-field color="primary" class="w-100" >
+                <mat-form-field color="primary" class="w-100 form-red" >
                   <mat-label>Fecha</mat-label>
                   <input matInput [matDatepicker]="fecha" [ngModel]="dateD" (dateChange)="selectFecha($event)">
                   <mat-datepicker-toggle matIconSuffix [for]="fecha"></mat-datepicker-toggle>
@@ -58,19 +58,19 @@
               </div>
 
               <div class="col-md-3 m-0">
-                <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                   <mat-label>Monto en Moneda Nacional</mat-label>
                   <input matInput [(ngModel)]="amountNc" type="text" mask="separator.2" thousandSeparator="{{','}}">
                 </mat-form-field>
               </div>
               <div class="col-md-3 m-0">
-                <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                   <mat-label>Monto en Moneda Extranjera</mat-label>
                   <input matInput [(ngModel)]="amountUs" type="text" mask="separator.2" thousandSeparator="{{','}}">
                 </mat-form-field>
               </div>
               <div class="col-md-6 m-0">
-                <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                   <mat-label>Entidad Receptora</mat-label>
                   <input matInput [(ngModel)]="receivingEntity">
                 </mat-form-field>

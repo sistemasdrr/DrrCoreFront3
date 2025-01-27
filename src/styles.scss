@@ -1,4 +1,4 @@
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 .loader {
   width: 48px;
   height: 48px;
@@ -105,3 +105,70 @@
   background-color: #ebfb3a;
 }
 
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+
+.form-red{
+  //INPUT Y TEXTAREA
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgb(220, 255, 249);
+    
+  }
+
+  //SELECT
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgb(220, 255, 249);
+   
+  }
+}
+.mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+  color: black !important;
+  font-size: large !important;
+  font-weight: bold !important;
+  
+}
+
+.form-green{
+  //INPUT Y TEXTAREA
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(0, 255, 0, 0.5);
+  }
+
+  //SELECT
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(0, 255, 0, 0.5);
+  }
+}
+
+.form-blue{
+  //INPUT Y TEXTAREA
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(0, 0, 255, 0.5);
+  }
+
+  //SELECT
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(0, 0, 255, 0.5);
+  }
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #ff884d!important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #ff884d;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-required-marker {
+  color: #ff884d;
+}
+::ng-deep .mat-form-field.mat-focused .mat-input-element {
+  color: #ff884d;
+}

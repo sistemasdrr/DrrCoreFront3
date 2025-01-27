@@ -119,7 +119,7 @@ export class ListaEmpresasComponent implements OnInit {
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       if(this.idPais!==0){
@@ -146,7 +146,7 @@ export class ListaEmpresasComponent implements OnInit {
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarEmpresas()
   }
@@ -156,7 +156,7 @@ export class ListaEmpresasComponent implements OnInit {
       listaEmpresas.classList.remove('hide-loader');
     }
     this.loading=true;
-    this.datosEmpresaService.getDatosEmpresas(this.razonSocial.trim(), this.filtroRB, this.idPais, this.chkConInforme,this.filterBy,'T',0).subscribe(
+    this.datosEmpresaService.getDatosEmpresas(encodeURI(this.razonSocial.trim()), this.filtroRB, this.idPais, this.chkConInforme,this.filterBy,'T',0).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
 

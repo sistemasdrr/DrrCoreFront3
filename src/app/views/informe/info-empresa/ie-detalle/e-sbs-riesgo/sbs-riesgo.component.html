@@ -1,6 +1,6 @@
 <div class="row " style="margin: 0 0 2rem 0; padding: 0 0 2rem 0;">
   <div class="col-md-12 mb-2">
-    <mat-tab-group [headerPosition]="'above'"  class="w-100">
+    <mat-tab-group [headerPosition]="'above'"  class="w-100 form-red">
       <mat-tab >
         <ng-template mat-tab-label>
           <div style="font-size: 20px;">
@@ -21,7 +21,7 @@
                       <mat-icon class="col-white">picture_as_pdf</mat-icon>
                       <span class="fi fi-us"></span>
                     </button>
-                    <button mat-mini-fab class="bg-cyan" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+                    <button mat-mini-fab class="bg-cyan" #tooltip="matTooltip" matTooltip="Grabar" (click)="guardar()">
                       <mat-icon class="col-white">save</mat-icon>
                     </button>
                   </div>
@@ -59,7 +59,7 @@
                           </td>
                       </ng-container>
                       <ng-container matColumnDef="date">
-                        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Desde </th>
+                        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> últ. Actualización </th>
                         <td mat-cell *matCellDef="let proveedor" class="text-center"> {{proveedor.date}} </td>
                       </ng-container>
                       <ng-container matColumnDef="productsTheySell">
@@ -131,7 +131,7 @@
               <div class="d-flex justify-content-between w-100">
                 <h5>Morosidad Comercial</h5>
                 <div class="">
-                  <button mat-mini-fab class="bg-cyan" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+                  <button mat-mini-fab class="bg-cyan" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
                     <mat-icon class="col-white">save</mat-icon>
                   </button>
                 </div>
@@ -192,7 +192,7 @@
                 </div>
               </div>
               <div class="col-md-12 mt-2">
-                <mat-form-field class="w-100" >
+                <mat-form-field class="w-100 form-red" >
                   <mat-label>Comentario Adicional de la Central de Riesgo (Otras Morosidades)</mat-label>
                   <textarea matInput style="min-height: 8rem;" [(ngModel)]="aditionalCommentaryRiskCenter"></textarea>
                   <button class="btn-traduccion" [class]="aditionalCommentaryRiskCenterEng === '' ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion('Comentario Adicional de la Central de Riesgo','', aditionalCommentaryRiskCenter, aditionalCommentaryRiskCenterEng, 'comentarioAdicional')">
@@ -210,7 +210,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
-                  <mat-form-field color="primary" style="width: 100%;" >
+                  <mat-form-field color="primary" class="w-100 form-red" >
                     <mat-label >Endeudamiento Registrado a la Fecha</mat-label>
                     <input matInput [matDatepicker]="fecha_informe" #fechaInput [(ngModel)]="debtRecordedDateD" (dateChange)="selectFecha2($event)">
                     <mat-datepicker-toggle matIconSuffix [for]="fecha_informe"></mat-datepicker-toggle>
@@ -218,7 +218,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-2">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>Tasa de Cambio</mat-label>
                     <input matInput placeholder="" type="number" [(ngModel)]="exchangeRate" (ngModelChange)="tasaCambio()">
                   </mat-form-field>
@@ -233,14 +233,7 @@
                     </ng-container>
                     <ng-container matColumnDef="qualification">
                       <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Calificación </th>
-                      <td mat-cell *matCellDef="let deudaBancaria" class="text-center">
-                        <div *ngIf="deudaBancaria.qualification === ''"></div>
-                        <div *ngIf="deudaBancaria.qualification === 'NORM'">NORMAL</div>
-                        <div *ngIf="deudaBancaria.qualification === 'PRPO'">PROBLEMA POTENCIAL</div>
-                        <div *ngIf="deudaBancaria.qualification === 'DEFI'">DEFICIENTE</div>
-                        <div *ngIf="deudaBancaria.qualification === 'DUDO'">DUDOSO</div>
-                        <div *ngIf="deudaBancaria.qualification === 'PERD'">PERDIDA</div>
-                      </td>
+                      <td mat-cell *matCellDef="let deudaBancaria" class="text-center"> {{deudaBancaria.qualification}} </td>
                     </ng-container>
                     <ng-container matColumnDef="debtDate">
                       <th mat-header-cell *matHeaderCellDef class="text-center" style="font-size: 18px;"> Fecha </th>
@@ -286,13 +279,13 @@
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-6">
-                    <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                    <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                       <mat-label>Totales Moneda Nacional</mat-label>
                       <input matInput [(ngModel)]="totalesMN" type="text" mask="separator.2" thousandSeparator="{{','}}">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
-                    <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                    <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                       <mat-label>Totales Moneda Extranjera</mat-label>
                       <input matInput [(ngModel)]="totalesME" type="text" mask="separator.2" thousandSeparator="{{','}}">
                     </mat-form-field>
@@ -300,7 +293,7 @@
                 </div>
                 <div class="d-flex">
                   <div class="col-md-6">
-                    <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                    <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                       <mat-label>Totales MN Equivalente a USD$</mat-label>
                       <input matInput  [(ngModel)]="totalesMD" type="text" mask="separator.2" thousandSeparator="{{','}}">
                     </mat-form-field>
@@ -308,13 +301,13 @@
                 </div>
                 <div class="d-flex">
                   <div class="col-md-6">
-                    <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                    <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                       <mat-label>Garantías Ofrecidas MN</mat-label>
                       <input matInput [(ngModel)]="guaranteesOfferedNc" type="text" mask="separator.2" thousandSeparator="{{','}}">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
-                    <mat-form-field class="w-100" style="margin: 0 .5rem 0 .5rem;">
+                    <mat-form-field class="w-100 form-red" style="margin: 0 .5rem 0 .5rem;">
                       <mat-label>Garantías Ofrecidas ME</mat-label>
                       <input matInput [(ngModel)]="guaranteesOfferedFc" type="text" mask="separator.2" thousandSeparator="{{','}}">
                     </mat-form-field>
@@ -322,7 +315,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <mat-form-field class="w-100" >
+                <mat-form-field class="w-100 form-red" >
                   <mat-label>Comentarios Bancarios</mat-label>
                   <textarea matInput style="min-height: 10rem;" [(ngModel)]="bankingCommentary"></textarea>
                   <button class="btn-traduccion" [class]="bankingCommentaryEng === '' ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion('Comentarios Bancarios de la Central de Riesgo','', bankingCommentary, bankingCommentaryEng, 'comentarioBancario')">
@@ -393,7 +386,7 @@
               <div class="row">
                 <h5>Observaciones</h5>
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Español)
                     </mat-label>
@@ -402,7 +395,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Inglés)
                     </mat-label>
@@ -429,7 +422,7 @@
               <div class="d-flex justify-content-between w-100">
                 <h5>Litigios (Notificaciones, Demandas, Juicios, Fiscalía, Deudas Coactivas, Omisiones Tributarias, etc.)</h5>
                 <div class="">
-                  <button mat-mini-fab class="bg-cyan m-0" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+                  <button mat-mini-fab class="bg-cyan m-0" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
                     <mat-icon class="col-white">save</mat-icon>
                   </button>
                 </div>
@@ -437,7 +430,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Español)
                     </mat-label>
@@ -446,7 +439,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Inglés)
                     </mat-label>
@@ -463,7 +456,7 @@
               <div class="d-flex justify-content-between w-100">
                 <h5>Antecedentes Crediticios de Informes Anteriores (Histórico de Pagos)</h5>
                 <div class="">
-                  <button mat-mini-fab class="bg-cyan m-0" #tooltip="matTooltip" matTooltip="Guardar">
+                  <button mat-mini-fab class="bg-cyan m-0" #tooltip="matTooltip" matTooltip="Grabar">
                     <mat-icon class="col-white">save</mat-icon>
                   </button>
                 </div>
@@ -471,7 +464,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Español)
                     </mat-label>
@@ -480,7 +473,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>
                       (Inglés)
                     </mat-label>

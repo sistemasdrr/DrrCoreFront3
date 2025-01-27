@@ -8,7 +8,7 @@
             <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
               <mat-icon class="col-white">arrow_back</mat-icon>
             </button>
-            <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+            <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
               <mat-icon class="col-white">save</mat-icon>
             </button>
           </div>
@@ -24,7 +24,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Idioma</mat-label>
               <mat-select [(ngModel)]="language">
                 <mat-option [value]="'E'">
@@ -43,7 +43,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Moneda</mat-label>
               <mat-select [(ngModel)]="idCurrency">
                 <mat-option [value]="31">
@@ -64,25 +64,25 @@
             <mat-slide-toggle [(ngModel)]="maximumCredit" class="mb-3" (click)="!maximumCredit" style="margin-left: 1rem;">Crédito Máximo: <div *ngIf="maximumCredit === true">SÍ</div><div *ngIf="maximumCredit === false">NO</div></mat-slide-toggle>
           </div>
           <div class="col-md-2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Código</mat-label>
               <input matInput placeholder="" [(ngModel)]="code">
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nombre</mat-label>
               <input matInput placeholder="" [(ngModel)]="name">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Siglas</mat-label>
               <input matInput placeholder="" [(ngModel)]="acronym">
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Rubro</mat-label>
               <mat-select [(ngModel)]="idRubro">
                 <mat-option [value]="rubro.id" *ngFor="let rubro of rubros">{{rubro.valor}}</mat-option>
@@ -90,13 +90,13 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Registro Tributario</mat-label>
               <input matInput placeholder="" [(ngModel)]="taxRegistration">
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Tipo de Abonado</mat-label>
               <mat-select [(ngModel)]="subscriberType">
                 <mat-option [value]="'SC'">
@@ -109,7 +109,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Tipo de Facturación</mat-label>
               <mat-select [(ngModel)]="facturationType">
                 <mat-option [value]="'FM'">
@@ -127,19 +127,19 @@
           <h4>Información de Contacto</h4>
           <hr>
           <div class="col-md-8">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Dirección</mat-label>
               <input matInput placeholder="" [(ngModel)]="address">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Contacto Principal</mat-label>
               <input matInput placeholder="" [(ngModel)]="principalContact">
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Continente</mat-label>
               <mat-select [(ngModel)]="idContinent" (selectionChange)="selectContinente(idContinent)">
                   <mat-option [value]="continente.id" *ngFor="let continente of continentes">{{continente.valor}}</mat-option>
@@ -147,7 +147,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>País</mat-label>
               <input type="text" matInput [formControl]="controlPaises" [matAutocomplete]="auto6" [(ngModel)]="countryAbonado" (ngModelChange)="cambioPais(countryAbonado)">
               <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
@@ -163,31 +163,31 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Ciudad</mat-label>
               <input matInput placeholder="" [(ngModel)]="city">
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Fax</mat-label>
               <input matInput placeholder="" [(ngModel)]="fax">
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Teléfono</mat-label>
               <input matInput placeholder="" [(ngModel)]="telephone">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Email</mat-label>
               <input matInput placeholder="" [(ngModel)]="email">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Página Web</mat-label>
               <input matInput placeholder="" [(ngModel)]="webPage">
             </mat-form-field>
@@ -212,57 +212,57 @@
           </div>
           <h5>Enviar Informe</h5>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Para</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendReportToName">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Teléfono</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendReportToTelephone">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Email</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendReportToEmail">
             </mat-form-field>
           </div>
           <h5>Enviar Factura</h5>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Para</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendInvoiceToName">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Teléfono</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendInvoiceToTelephone">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Email</mat-label>
               <input matInput placeholder="" [(ngModel)]="sendInvoiceToEmail">
             </mat-form-field>
           </div>
           <h5>Contacto Adicional</h5>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Para</mat-label>
               <input matInput placeholder="" [(ngModel)]="additionalContactName">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Teléfono</mat-label>
               <input matInput placeholder="" [(ngModel)]="additionalContactTelephone">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Email</mat-label>
               <input matInput placeholder="" [(ngModel)]="additionalContactEmail">
             </mat-form-field>
@@ -270,13 +270,13 @@
           <h4>Otros</h4>
           <hr>
           <div class="col-md-6">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Observaciones</mat-label>
               <textarea matInput placeholder="" style="min-height: 6rem;" [(ngModel)]="observations"></textarea>
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Indicaciones para el Cupón</mat-label>
               <textarea matInput placeholder=""  style="min-height: 6rem;" [(ngModel)]="indications"></textarea>
             </mat-form-field>

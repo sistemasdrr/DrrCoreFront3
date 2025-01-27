@@ -168,7 +168,7 @@ export class ListaEmpresas1Component implements OnInit {
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       this.idPais = 0
@@ -194,7 +194,7 @@ export class ListaEmpresas1Component implements OnInit {
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarEmpresas()
   }

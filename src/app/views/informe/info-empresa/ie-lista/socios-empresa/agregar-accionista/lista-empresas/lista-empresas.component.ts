@@ -146,7 +146,7 @@ export class ListaEmpresas2Component implements OnInit {
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       this.idPais = 0
@@ -172,7 +172,7 @@ export class ListaEmpresas2Component implements OnInit {
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarEmpresas()
   }
@@ -186,7 +186,7 @@ export class ListaEmpresas2Component implements OnInit {
       conInforme : this.chkConInforme
     }
     localStorage.setItem('busquedaEmpresas', JSON.stringify(busqueda))
-    this.datosEmpresaService.getDatosEmpresas(this.razonSocial.trim(), this.filtroRB, this.idPais, this.chkConInforme,"N",'T',0).subscribe(
+    this.datosEmpresaService.getDatosEmpresas(encodeURI(this.razonSocial.trim()), this.filtroRB, this.idPais, this.chkConInforme,"N",'T',0).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.dataSource = new MatTableDataSource(response.data)

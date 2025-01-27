@@ -13,7 +13,7 @@
         <div class="card shadow" style="border-radius: 0; background-color: #dae1f3;">
           <div class="row m-0 p-0">
             <div class="col-md-2 m-0 p-0">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                 <mat-label>Cupón</mat-label>
                 <input matInput [(ngModel)]="buscarCupon" >
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="buscarCupon !== ''" (click)="buscarCupon = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -22,7 +22,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-2 m-0 p-0">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                 <mat-label>Informe</mat-label>
                 <input matInput [(ngModel)]="buscarInforme" >
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="buscarInforme !== ''" (click)="buscarInforme = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -31,7 +31,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-2 m-0 p-0">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                 <mat-label>Código de Abonado</mat-label>
                 <input matInput [(ngModel)]="buscarAbonado" >
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="buscarAbonado !== ''" (click)="buscarAbonado = ''" #tooltip="matTooltip" matTooltip="Limpiar">

@@ -23,7 +23,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   overflow: hidden;
   display: flex;
 }
-
+.card .body {
+  padding: 2px !important;
+}
+.badge {
+  padding: 20px !important;
+}
 .example-element-diagram {
   min-width: 80px;
   border: 2px solid black;
@@ -64,6 +69,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
+
+span.a {
+  display: inline; /* the default for span */
+
+}
+
 .loader::after,
 .loader::before {
   content: '';

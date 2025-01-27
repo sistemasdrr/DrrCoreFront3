@@ -36,20 +36,20 @@
               </button>
             </div>
             <div>
-              <button mat-mini-fab [class]="cardSeleccionada !== 0 ? 'bg-cyan' : 'bg-grey'"  style="margin: 0 .5rem .5rem .5rem;" matTooltip="Guardar" (click)="guardar(cardSeleccionada, desc, descIng)" [disabled]="cardSeleccionada === 0">
+              <button mat-mini-fab [class]="cardSeleccionada !== 0 ? 'bg-cyan' : 'bg-grey'"  style="margin: 0 .5rem .5rem .5rem;" matTooltip="Grabar" (click)="guardar(cardSeleccionada, desc, descIng)" [disabled]="cardSeleccionada === 0">
                 <mat-icon class="col-white">save</mat-icon>
               </button>
             </div>
           </div>
         <hr>
         <div class="col-md-12">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Descripción</mat-label>
             <input matInput [(ngModel)]="desc"  [disabled]="cardSeleccionada === 0">
           </mat-form-field>
         </div>
         <div class="col-md-12">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Descripción Inglés</mat-label>
             <input matInput [(ngModel)]="descIng"  [disabled]="cardSeleccionada === 0">
           </mat-form-field>
@@ -76,7 +76,7 @@
         <p><b>Descripción Inglés: </b>{{imgDescEng1}}</p>
       </mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-actions class="w-100" style="display: unset;">
+      <mat-card-actions class="w-100 form-red" style="display: unset;">
         <div fxLayout="row">
           <div class="w-100 d-flex justify-content-end">
             <button mat-mini-fab color="primary" style="margin: 0 .5rem 0 .5rem;" (click)="seleccionarCard(1)" #tooltip="matTooltip" matTooltip="Seleccionar">
@@ -98,7 +98,7 @@
        <p><b>Descripción Inglés: </b>{{imgDescEng2}}</p>
       </mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-actions class="w-100" style="display: unset;">
+      <mat-card-actions class="w-100 form-red" style="display: unset;">
         <div fxLayout="row">
           <div class="w-100 d-flex justify-content-end">
             <button mat-mini-fab color="primary" style="margin: 0 .5rem 0 .5rem;" (click)="seleccionarCard(2)" #tooltip="matTooltip" matTooltip="Seleccionar">
@@ -120,7 +120,7 @@
         <p><b>Descripción Inglés: </b>{{imgDescEng3}}</p>
       </mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-actions class="w-100" style="display: unset;">
+      <mat-card-actions class="w-100 form-red" style="display: unset;">
         <div fxLayout="row">
           <div class="w-100 d-flex justify-content-end">
             <button mat-mini-fab color="primary" style="margin: 0 .5rem 0 .5rem;" (click)="seleccionarCard(3)" #tooltip="matTooltip" matTooltip="Seleccionar">
@@ -142,7 +142,7 @@
         <p><b>Descripción Inglés: </b>{{imgDescEng4}}</p>
       </mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-actions class="w-100" style="display: unset;">
+      <mat-card-actions class="w-100 form-red" style="display: unset;">
         <div fxLayout="row">
           <div class="w-100 d-flex justify-content-end">
             <button mat-mini-fab color="primary" style="margin: 0 .5rem 0 .5rem;" (click)="seleccionarCard(4)" #tooltip="matTooltip" matTooltip="Seleccionar">

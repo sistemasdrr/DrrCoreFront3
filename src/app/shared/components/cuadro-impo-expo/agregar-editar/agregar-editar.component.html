@@ -16,7 +16,7 @@
                 <button mat-mini-fab color="warn" style="margin: .5rem .5rem .5rem .5rem;" (click)="cerrarDialog()" #tooltip="matTooltip" matTooltip="Volver">
                   <mat-icon class="col-white">arrow_back</mat-icon>
                 </button>
-                <button mat-mini-fab class="bg-cyan" style="margin: .5rem .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+                <button mat-mini-fab class="bg-cyan" style="margin: .5rem .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
                   <mat-icon class="col-white">save</mat-icon>
                 </button>
               </div>
@@ -28,13 +28,13 @@
     <div class="pt-3">
       <div class="row">
         <div class="col-md-12">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Año</mat-label>
             <input matInput placeholder="" value="" [(ngModel)]="year" type="number">
           </mat-form-field>
         </div>
         <div class="col-md-12">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Monto</mat-label>
             <input matInput placeholder="" value="" [(ngModel)]="amount" mask="separator.2" thousandSeparator="{{','}}">
           </mat-form-field>
@@ -42,7 +42,7 @@
         <h4>Observaciones</h4>
         <hr>
         <div class="col-md-12 mb-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>(Español)</mat-label>
             <textarea matInput placeholder="" style="min-height: 6rem;" [(ngModel)]="observation"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button>
@@ -51,7 +51,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-12 mb-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>(Inglés)</mat-label>
             <textarea matInput placeholder=""  style="min-height: 6rem;" [(ngModel)]="observationEng"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button>

@@ -99,6 +99,18 @@ export class TicketService {
   getListPending() : Observable<Response<TicketListPending[]>>{
     return this.http.get<Response<TicketListPending[]>>(this.url + this.controllerTicket + '/getListPending');
   }
+  getTicketHistoryToDelete(idTicket:number) : Observable<Response<any[]>>{
+    return this.http.get<Response<TicketListPending[]>>(this.url + this.controllerTicket + '/GetTicketHistoryToDelete?idTicket='+idTicket);
+  }
+  getTicketToDelete(cupon:number,name:string) : Observable<Response<any[]>>{
+    return this.http.get<Response<TicketListPending[]>>(this.url + this.controllerTicket + '/GetTicketToDelete?cupon'+cupon+'&name='+name);
+  }
+  anularTicketHistory(idTicketHistory:number) : Observable<Response<boolean>>{
+    return this.http.post<Response<boolean>>(this.url + this.controllerTicket + '/AnluarTicketHistory?idTicketHistory='+idTicketHistory,'');
+  }
+  anularTicket(idTicket:number,reason:number) : Observable<Response<boolean>>{
+    return this.http.post<Response<boolean>>(this.url + this.controllerTicket + '/AnularTicket?idTicket='+idTicket+'&reason='+reason,'');
+  }
   getById(id : number) : Observable<Response<Ticket>>{
     return this.http.get<Response<Ticket>>(this.url + this.controllerTicket + '/getTicketById?id='+id);
   }

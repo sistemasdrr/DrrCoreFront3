@@ -6,7 +6,7 @@
                 <h3 class="page-title">{{title}} {{subtitle}}</h3>
             </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center" *ngIf="codigoInforme !== ''">
+        <div class="d-flex align-items-center justify-content-center" *ngIf="(this.idCompany !== 0 ||this.idPerson !== 0) && this.idCompany!== undefined && this.idPerson!== undefined ">
           <div class="info-box7 bg-c-blue m-0 d-md-block d-none shadow" style="padding: 0;">
             <div class="info-box7-block d-flex justify-content-center align-items-center">
               <div>
@@ -14,10 +14,11 @@
               </div>
             </div>
           </div>
-          <div class="d-flex" style="margin-left: 1rem;" *ngIf="codigoInforme !== ''">
+          <div class="d-flex" style="margin-left: 1rem;" >
             <button class="btn d-flex shadow" style="background-color: #d37d04; color: white; margin: 0 .5rem .5rem .5rem;" type="button" (click)="verSocios()">
               <i class="fa-solid fa-users" style="font-size: 22px; margin-top: .4rem;"></i>
-              <div style="font-size: 22px;">&nbsp;Socios (F12)</div>
+              <div *ngIf="this.idCompany !== 0 || this.idPerson===0" style="font-size: 22px;">&nbsp;Socios (F12)</div>
+              <div *ngIf="this.idCompany === 0 || this.idPerson!==0" style="font-size: 22px;">&nbsp;Empresas Relacionadas (F12)</div>
             </button>
             <button class="btn bg-red d-flex shadow col-white"  type="button" style="margin: 0 .5rem .5rem .5rem;"  (click)="verInforme('E')">
               <i class="fa-solid fa-file-pdf" style="font-size: 22px; margin-top: .4rem;"></i>

@@ -4,6 +4,7 @@ import { ListaComponent } from './lista/lista.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { Asignacion2Component } from './asignacion2/asignacion2.component';
 import { AsignacionComponent } from './asignacion/asignacion.component';
+import { AnulacionComponent } from './anulacion/anulacion.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'asignacion', component: AsignacionComponent,
     title : 'Asignación del Pedido - DRR Core V1'
+  },
+  {
+    path: 'anulacion', component: AnulacionComponent,
+    title : 'Anulación del Pedido - DRR Core V1'
   },
 ];
 

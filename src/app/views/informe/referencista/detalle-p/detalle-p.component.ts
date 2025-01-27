@@ -320,7 +320,7 @@ export class DetallePComponent implements OnInit{
         this.idCountry = 0
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
         this.iconoSeleccionado = pais.bandera
         this.isoCountry = pais.valor
         this.idCountry = pais.id

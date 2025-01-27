@@ -105,6 +105,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
   duration = ""
   durationEng = ""
   place = ""
+  __subTel=""
   idCountry = 0
   subTelephone = ""
   cellphone = ""
@@ -225,6 +226,8 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
         return name ? this._filterSituacionRuc(name as string) : this.situacionRuc.slice()
       }),
     )
+    console.log(this.__subTel);
+    this.subTelephone=this.__subTel
   }
 
   getComboPersonaJuridica(){
@@ -237,13 +240,16 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
     })
   }
   getComboPaises(){
+    console.log(this.subTelephone);
     this.paisService.getPaises().subscribe((response) => {
       if (response.isSuccess == true) {
         this.paises = response.data;
       }
     }).add(() =>{
+       console.log(this.subTelephone);
       this.getComboReputacion()
     })
+   
   }
   getComboReputacion(){
     this.comboService.getReputacion().subscribe((response) => {
@@ -327,7 +333,8 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
               this.paisSeleccionado = this.paises.filter(x => x.id === this.idCountry)[0]
               this.taxTypeName = this.paisSeleccionado.regtrib
               this.subTelephone = DatosEmpresa.subTelephone
-              console.log(this.subTelephone)
+              this.__subTel=DatosEmpresa.subTelephone
+              console.log(this.__subTel)
             }else{
               this.limpiarSeleccionPais()
               this.subTelephone = DatosEmpresa.subTelephone == null ? "" : DatosEmpresa.subTelephone
@@ -473,8 +480,8 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
     this.datosEmpresaModificado[0] = {
       id: this.id,
       oldCode: this.oldCode,
-      name: this.name,
-      socialName: this.socialName,
+      name: this.name.toUpperCase(),
+      socialName: this.socialName.toUpperCase(),
       lastSearched: this.lastSearched,
       language: this.language,
       typeRegister: this.typeRegister,
@@ -566,9 +573,10 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
     this.idCountry = 0
     this.iconoSeleccionado = ""
     this.taxTypeName = ""
-    this.subTelephone = ""
+    
   }
   async cambioPais(pais: Pais) {
+   
     if (pais !== null) {
       if (typeof pais === 'string' || pais === null || this.paisSeleccionado.id === 0) {
         this.msgPais = "Seleccione una opción."
@@ -576,14 +584,19 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
         this.iconoSeleccionado = ""
         this.idCountry = 0
         this.taxTypeName = ""
-        this.subTelephone = ""
+       
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
         this.iconoSeleccionado = pais.bandera
         this.idCountry = pais.id
         this.taxTypeName = pais.regtrib
-        this.subTelephone = pais.codCel
+        if(this.__subTel.length >=2) {
+        if(this.__subTel.substring(0,2)!=pais.codCel){
+          this.subTelephone = pais.codCel
+        }
+      }
+      
       }
     } else {
       this.idCountry = 0

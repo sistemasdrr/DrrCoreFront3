@@ -20,7 +20,7 @@
                 <mat-icon class="col-white">arrow_back</mat-icon>
               </button>
               <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow"
-             (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar"
+             (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar"
                 [class]="idSubscriber === 0 || language === '' || idCountry === 0 || procedureType === '' ? 'bg-grey' : ''"
                 [disabled]="idSubscriber === 0 || language === '' ||  idCountry === 0 || procedureType === ''  ? true : false">
                 <mat-icon class="col-white">save</mat-icon>
@@ -31,13 +31,13 @@
             <h4>Abonado : {{ subscriberName}} &nbsp; <span class="fi fi-{{subscriberFlag}}" style="font-size: 26px;"></span></h4>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nro. Referencia</mat-label>
               <input matInput placeholder="" [(ngModel)]="referenceNumber" value="">
             </mat-form-field>
           </div>
           <div class="col-md-2">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Idioma (*)</mat-label>
               <mat-select [(ngModel)]="language">
                 <mat-option [value]="'E'">
@@ -63,7 +63,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Tipo de Trámite (*)</mat-label>
               <mat-select [(ngModel)]="procedureType">
                 <mat-option *ngFor="let precio of listaPrecio" [value]="precio.name">{{precio.name}} {{ precio.name === 'T1' ? 'Normal' : precio.name === 'T2' ? 'Urgente' : precio.name === 'T3' ? 'Super Urgente' : '' }}</mat-option>
@@ -80,13 +80,13 @@
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-12">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Crédito Consultado</mat-label>
                   <input matInput placeholder="" value="" [(ngModel)]="queryCredit">
                 </mat-form-field>
               </div>
               <div class="col-md-12">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Plazos</mat-label>
                   <input matInput placeholder="" value="" [(ngModel)]="timeLimit">
                 </mat-form-field>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="col-md-8">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Datos Adicionales</mat-label>
               <textarea matInput placeholder="" style="min-height: 7rem;" [(ngModel)]="aditionalData"></textarea>
             </mat-form-field>
@@ -110,31 +110,31 @@
             <h6>(*) Datos Obligatorios</h6>
           </div>
           <div class="col-md-8">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nombre de la Empresa (*)</mat-label>
               <input matInput placeholder="" [(ngModel)]="requestedName" value="">
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nro de Registro Tributario (*)</mat-label>
               <input matInput placeholder="" [(ngModel)]="taxCode" value="">
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Dirección completa (*)</mat-label>
               <input matInput placeholder="" [(ngModel)]="address" value="">
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Ciudad / Provincia /Estado (*)</mat-label>
               <input matInput placeholder="" [(ngModel)]="city" value="">
             </mat-form-field>
           </div>
           <div class="col-md-5">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>País (*)</mat-label>
               <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
               <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
@@ -150,13 +150,13 @@
             </mat-form-field>
           </div>
           <div class="col-md-7">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Teléfonos</mat-label>
               <input matInput placeholder="" [(ngModel)]="telephone" value="">
             </mat-form-field>
           </div>
           <div class="col-md-12">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Representante Legal o Contacto</mat-label>
               <input matInput placeholder="" [(ngModel)]="nameRevealed" value="">
             </mat-form-field>

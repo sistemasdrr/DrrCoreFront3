@@ -11,14 +11,14 @@
             <mat-icon class="col-white">picture_as_pdf</mat-icon>
             <span class="fi fi-us"></span>
           </button>
-          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
             <mat-icon class="col-white">save</mat-icon>
           </button>
         </div>
       </div>
       <hr>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Sector (Principal)</mat-label>
           <mat-select [(ngModel)]="idBranchSector">
             <mat-option [value]="item.id" *ngFor="let item of listaSectorPrincipal">{{item.valor}}</mat-option>
@@ -26,7 +26,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-6 d-flex">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Ramo de Negocios (Principal)</mat-label>
           <mat-select [(ngModel)]="idBusinessBranch" placeholder="">
               <mat-option *ngFor="let item of listaRamoNegocio" [value]="item.id" readonly="true">{{item.valor}}</mat-option>
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Actividad Específica</mat-label>
           <input matInput placeholder="" [(ngModel)]="specificActivities" [readonly]="true">
         </mat-form-field>
@@ -48,7 +48,7 @@
       <!--COMERCIO EXTERIOR-->
       <h5>Comercio Exterior</h5>
       <div class="col-md-2">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>¿Importan?</mat-label>
           <mat-select [(ngModel)]="import">
             <mat-option [value]="null">
@@ -63,14 +63,14 @@
         </mat-form-field>
       </div>
       <div class="col-md-8">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Paises </mat-label>
           <input matInput placeholder="" [(ngModel)]="countriesImport" [disabled]="import === false || import === null">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="countriesImportEng === '' || countriesImportEng === null ? 'sin-traduccion' : ''" (click)="agregarTraduccion('Traducción de Países', '', countriesImport, countriesImportEng,'importacion')">
             <span class="fi fi-us" style="font-size: 24px;"></span>
           </button>
         </mat-form-field>
-        <!--form class="w-100">
+        <!--form class="w-100 form-red">
           <mat-form-field class="example-chip-list w-100">
             <mat-label>Paises </mat-label>
             <mat-chip-grid #chipGrid1 aria-label="Country selection" [disabled]="import === false || import === null">
@@ -100,7 +100,7 @@
         </button>
       </div>
       <div class="col-md-2">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>¿Exportan?</mat-label>
           <mat-select [(ngModel)]="export">
             <mat-option [value]="null">
@@ -115,14 +115,14 @@
         </mat-form-field>
       </div>
       <div class="col-md-8">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Paises </mat-label>
           <input matInput placeholder="" [(ngModel)]="countriesExport" [disabled]="export === false || export === null">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="countriesExportEng === '' || countriesExportEng === null ? 'sin-traduccion' : ''" (click)="agregarTraduccion('Traducción de Países', '', countriesExport, countriesExportEng,'exportacion')">
             <span class="fi fi-us" style="font-size: 24px;"></span>
           </button>
         </mat-form-field>
-        <!--form-- class="w-100">
+        <!--form-- class="w-100 form-red">
           <mat-form-field class="example-chip-list w-100">
             <mat-label>Paises </mat-label>
             <mat-chip-grid #chipGrid2 aria-label="Country selection" [disabled]="export === false || export === null">
@@ -152,7 +152,7 @@
         </button>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>% Venta Contado/Forma</mat-label>
           <input matInput placeholder="" [(ngModel)]="cashSale">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('% Venta Contado / Forma', cashSalePercentage, cashSaleComentary, cashSaleComentaryEng, 'cashSale')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -162,7 +162,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>% Crédito/Términos</mat-label>
           <input matInput placeholder="" [(ngModel)]="creditSale">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('% Venta Crédito / Forma', creditSalePercentage, creditSaleComentary, creditSaleComentaryEng, 'creditSale')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -172,7 +172,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Territorio de Ventas</mat-label>
           <input matInput placeholder="" [(ngModel)]="territorySale">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('Territorios de Ventas', territorySalePercentage, territorySaleComentary, territorySaleComentaryEng, 'territorySale')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -182,7 +182,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>% Ventas al Exterior</mat-label>
           <input matInput placeholder="" [(ngModel)]="abroadSale">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('Ventas al Exterior', abroadSalePercentage, abroadSaleComentary, abroadSaleComentaryEng, 'abroadSale')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -192,7 +192,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>% Compras Nacionales</mat-label>
           <input matInput placeholder="" [(ngModel)]="nationalPurchase">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('% Compras Nacionales', nationalPurchasesPercentage, nationalPurchasesComentary, nationalPurchasesComentaryEng, 'nationalPurchase')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -202,7 +202,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>% Del Exterior</mat-label>
           <input matInput placeholder="" [(ngModel)]="internationPurchase">
           <button matSuffix mat-mini-fab color="primary" (click)="comercioDialog('% del Exterior', internationalPurchasesPercentage, internationalPurchasesComentary, internationalPurchasesComentaryEng, 'internationPurchase')"  #tooltip="matTooltip" matTooltip="Editar">
@@ -212,7 +212,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Núm. Trabajadores</mat-label>
           <input matInput placeholder="" type="number" [(ngModel)]="workerNumber">
         </mat-form-field>
@@ -253,7 +253,7 @@
             <tr mat-header-row *matHeaderRowDef="columnsWorkerHistory"></tr>
             <tr mat-row *matRowDef="let row; columns: columnsWorkerHistory;"></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5]" aria-label="Seleccionar página de Pedidos" class="w-100"></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[5]" aria-label="Seleccionar página de Pedidos" class="w-100 form-red"></mat-paginator>
 
         </div>
       </div>
@@ -270,7 +270,7 @@
     <div class="row counter-box shadow mb-2">
       <h4>Local Principal</h4>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Titularidad</mat-label>
           <mat-select [(ngModel)]="idLandOwnership">
               <mat-option *ngFor="let item of listaTitularidad" [value]="item.id">{{item.valor}}</mat-option>
@@ -278,7 +278,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Area Total</mat-label>
           <input matInput placeholder="" [(ngModel)]="totalArea">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="totalAreaEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloAreaTotal, '', totalArea, totalAreaEng,'areaTotal')">
@@ -287,13 +287,13 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Domicilio Anterior</mat-label>
           <input matInput placeholder=""[(ngModel)]="previousAddress">
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Descripción de Local Principal</mat-label>
           <textarea matInput placeholder="" style="min-height: 10rem;" [(ngModel)]="descPrincipalAddress"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="descPrincipalAddressEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario('Descripción de Local Principal','', descPrincipalAddress, descPrincipalAddressEng,'localPrincipal')">
@@ -302,7 +302,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Otros Locales (Plantas, Almacenes, Depósitos, Sucursales)</mat-label>
           <textarea matInput placeholder="" style="min-height: 10rem;" [(ngModel)]="otherLocations"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="otherLocationsEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloOtrosLocales,subtituloOtrosLocales, otherLocations, otherLocationsEng,'otrosLocales')">
@@ -318,7 +318,7 @@
     <div class="row counter-box shadow mb-2">
       <h4>Detalles y Comentarios</h4>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Detalle de Actividad Principal u Objetivo Social</mat-label>
           <textarea matInput placeholder="" style="min-height: 15rem;" [(ngModel)]="activityDetailCommentary"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="activityDetailCommentaryEng === '' ? 'sin-traduccion' : ''"  (click)="agregarComentario('Detalle de Actividad Principal u Objetivo Social','', activityDetailCommentary, activityDetailCommentaryEng,'comentarioActividadPrincipal')">
@@ -327,7 +327,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Comentario Adicional de Negocio</mat-label>
           <textarea matInput placeholder="" style="min-height: 15rem;" [(ngModel)]="aditionalCommentary"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="aditionalCommentaryEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario('Comentario Adicional de Negocio','', aditionalCommentary, aditionalCommentaryEng,'comentarioNegocio')">

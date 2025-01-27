@@ -8,7 +8,7 @@
             <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
               <mat-icon class="col-white">arrow_back</mat-icon>
             </button>
-            <button  mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+            <button  mat-mini-fab class="bg-cyan shadow" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
               <mat-icon class="col-white">save</mat-icon>
             </button>
           </div>
@@ -17,19 +17,19 @@
         <form class="register-form" [formGroup]="calendarForm">
           <div class="row">
             <div class="col-md-12" style="overflow-x: auto;">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Titulo</mat-label>
                 <input matInput placeholder="" formControlName="title">
               </mat-form-field>
             </div>
             <div class="col-md-6" style="overflow-x: auto;" >
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Tipo</mat-label>
                 <input matInput placeholder="" [readonly]="true"  [value]="calendarForm.value.groupId === 'FI' ? 'Fecha Importante' : 'Cierre de Producción'">
               </mat-form-field>
             </div>
             <div class="col-md-6" style="overflow-x: auto;" *ngIf="calendarForm.value.groupId === 'FI'">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Color</mat-label>
                 <mat-select formControlName="className">
                   <mat-option [value]="'fc-event-primary'">
@@ -66,7 +66,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-12" style="overflow-x: auto;">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Observaciones</mat-label>
                 <textarea matInput placeholder="" formControlName="details" style="min-height: 12rem;"></textarea>
               </mat-form-field>

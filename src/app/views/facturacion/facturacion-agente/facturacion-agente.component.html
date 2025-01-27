@@ -16,7 +16,7 @@
           <br>
           <div class="row m-0 p-0 ">
             <div class="col-md-10">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Rango de Fechas</mat-label>
                 <mat-date-range-input [formGroup]="range1" [rangePicker]="picker1">
                   <input matStartDate formControlName="start" placeholder="Desde" (dateChange)="selectStartDate($event)">
@@ -53,7 +53,7 @@
               <tr mat-header-row *matHeaderRowDef="columnsDS"></tr>
               <tr mat-row style="{{row.idAgent === idAgent ? 'background-color: rgba(0, 0, 0, 0.2);' : ''}}" *matRowDef="let row; columns: columnsDS;"></tr>
             </table>
-            <mat-paginator  [pageSizeOptions]="[10]" aria-label="" class="w-100"></mat-paginator>
+            <mat-paginator  [pageSizeOptions]="[10]" aria-label="" class="w-100 form-red"></mat-paginator>
 
           </div>
         </mat-tab>
@@ -95,7 +95,7 @@
               <tr mat-header-row *matHeaderRowDef="columnsPorCobrar"></tr>
               <tr mat-row style="{{row.id === idAgentInvoice ? 'background-color: rgba(0, 0, 0, 0.2);' : ''}}" *matRowDef="let row;  columns: columnsPorCobrar;"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
 
           </div>
         </mat-tab>
@@ -137,7 +137,7 @@
               <tr mat-header-row *matHeaderRowDef="columnsCobradas"></tr>
               <tr mat-row style="{{row.id === idAgentInvoice ? 'background-color: rgba(0, 0, 0, 0.2);' : ''}}" *matRowDef="let row; columns: columnsCobradas;"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
 
           </div>
         </mat-tab>
@@ -162,7 +162,7 @@
           <hr>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Factura N°</mat-label>
             <input matInput placeholder="" [(ngModel)]="invoiceNumber">
           </mat-form-field>
@@ -176,7 +176,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-2" >
-          <mat-form-field style="width: 100%;">
+          <mat-form-field class="w-100 form-red">
             <mat-label>Idioma</mat-label>
             <mat-select [(ngModel)]="language" >
               <mat-option [value]="'E'">
@@ -195,7 +195,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-3" >
-          <mat-form-field style="width: 100%;">
+          <mat-form-field class="w-100 form-red">
             <mat-label>Moneda</mat-label>
             <mat-select [(ngModel)]="idCurrency" >
               <mat-option [value]="1">
@@ -208,19 +208,19 @@
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Agente</mat-label>
             <input matInput placeholder="" [(ngModel)]="name">
           </mat-form-field>
         </div>
         <div class="col-md-2">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Código</mat-label>
             <input matInput placeholder="" [(ngModel)]="code">
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>País</mat-label>
             <mat-select [(ngModel)]="idCountry" placeholder="">
               <mat-option *ngFor="let pais of paises" [value]="pais.id" (onSelectionChange)="bandera = pais.bandera">
@@ -237,39 +237,39 @@
 
 
         <div class="col-md-5">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Dirección</mat-label>
             <input matInput placeholder="" [(ngModel)]="address">
           </mat-form-field>
         </div>
 
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Atención</mat-label>
             <input matInput placeholder="" [(ngModel)]="attendedByName">
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Email</mat-label>
             <input matInput placeholder="" [(ngModel)]="attendedByEmail">
           </mat-form-field>
         </div>
 
         <!--div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>T.C. Sol - Dolar</mat-label>
             <input matInput placeholder="" [(ngModel)]="exchangeRateSD">
           </mat-form-field>
         </!--div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>T.C. Euro - Dolar</mat-label>
             <input matInput placeholder="" [(ngModel)]="exchangeRateED">
           </mat-form-field>
         </div-->
         <!--div class="col-md-5">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Observaciones</mat-label>
             <textarea matInput placeholder="" [(ngModel)]="observations" style="min-height: 7rem;"></textarea>
           </mat-form-field>
@@ -280,13 +280,13 @@
           </div>
           <div class="row">
             <div class="col-md-7">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Concepto</mat-label>
                 <textarea matInput placeholder="" [(ngModel)]="concept" style="min-height: 4rem;"></textarea>
               </mat-form-field>
             </div>
             <div class="col-md-5">
-              <mat-form-field class="w-100">
+             <mat-form-field class="w-100 form-red">
                 <mat-label>Monto</mat-label>
                 <input matInput placeholder="" [(ngModel)]="amount" >
               </mat-form-field>

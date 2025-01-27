@@ -28,7 +28,7 @@
           </ul>
         </div>
         <!-- <div class="left">
-          <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+          <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
             <mat-label>Estado</mat-label>
             <mat-select [(ngModel)]="state" placeholder="">
                 <mat-option [value]="'P'">Pendiente</mat-option>
@@ -39,19 +39,22 @@
         </div> -->
       </div>
     </div>
-    <div class="col-md-12">
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="w-100 mat-elevation-z8" style="table-layout:  auto !important;" matSort>
+    <div class="col-md-12" >
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="table-layout:  auto !important;" matSort>
         <ng-container matColumnDef="number" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
-        <td mat-cell *matCellDef="let order" class="text-center" style="white-space: nowrap;" [style]="order.number.includes('(C)') ? 'color: red;' : ''"> {{order.number}} </td>
+        <td mat-cell *matCellDef="let order" class="text-center"  style="min-width: 6rem; white-space: nowrap;" [style]="order.number.includes('(C)') ? 'color: red;' : ''">
+          <span [ngClass]="order.language == 'E' ? 'fi fi-es' : 'fi fi-us'"></span>
+          {{order.number}} </td>
         </ng-container>
+      
         <ng-container matColumnDef="subscriber" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Abonado </th>
-        <td mat-cell *matCellDef="let order" class="text-center"> {{order.subscriberCode}} </td>
+        <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;"> {{order.subscriberCode}} </td>
         </ng-container>
         <ng-container matColumnDef="country" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
-        <td mat-cell *matCellDef="let order" class="text-center">
+        <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;">
           <label> {{order.investigatedIsoCountry}} <span style="font-size: 20px;"  class="fi fi-{{order.investigatedFlag}}"></span></label><br>
         </td>
         </ng-container>
@@ -75,50 +78,50 @@
         </ng-container>
         <ng-container matColumnDef="status" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Estado </th>
-        <td mat-cell *matCellDef="let order" class="text-center " >
+        <td mat-cell *matCellDef="let order" class="text-center "   style="min-width: 6rem;">
           <div class="d-flex">
             <span class="float-end progress-percent label {{order.statusColor}}  shadow" style="width: 150px;{{order.statusColor === 'label' ? 'color : black;' : ''}}" >
               {{order.status}}
             </span>
-            <button  *ngIf="order.references !== -1" class="float-end progress-percent label" [ngClass]="order.references === 1 ? 'bg-green':'bg-red'" (click)="$event.stopPropagation(); listarProveedores(order.idTicket)" style=" border-radius: 15px; color: white;">RC</button>
+            <button  class="float-end progress-percent label" [ngClass]="order.references === 1 ? 'bg-green':'bg-red'" (click)="$event.stopPropagation(); listarProveedores(order.idTicket)" style=" border-radius: 15px; color: white;">RC</button>
           </div>
 
          </td>
         </ng-container>
         <ng-container matColumnDef="subscriberCode" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Código </th>
-        <td mat-cell *matCellDef="let order" class="text-left" >
-          <div *ngIf="order.asignedTo.includes('PA') || order.asignedTo.includes('CR') || order.asignedTo.includes('D') || order.asignedTo.includes('T')">
-            <span class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black;"  >
+        <td mat-cell *matCellDef="let order" class="text-center"  style="white-space: nowrap; width: 2rem; ">
+          <div *ngIf="order.asignedTo.includes('PA') || order.asignedTo.includes('CR') || order.asignedTo.includes('D') || order.asignedTo.includes('T')" style="text-align: center;">
+            <span class="progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black; width: 4rem;"  >
               {{order.asignedTo}}
             </span>
           </div>
-          <button  class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black;" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation();" *ngIf="!order.asignedTo.includes('PA') && !order.asignedTo.includes('CR') && !order.asignedTo.includes('D') && !order.asignedTo.includes('T')">
-            {{order.asignedTo}}
-          </button>
-          <mat-menu #menu="matMenu" >
-            <mat-checkbox class="example-margin" *ngFor="let item of order.otherUserCode" [(ngModel)]="item.active" (click)="$event.stopPropagation();" [disabled]="item.code.trim() === order.asignedTo.trim()" >{{item.code}}</mat-checkbox>
-          </mat-menu>
+          <div  class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black; display: inline;"  (click)="$event.stopPropagation();" *ngIf="!order.asignedTo.includes('PA') && !order.asignedTo.includes('CR') && !order.asignedTo.includes('D') && !order.asignedTo.includes('T')">
+         
+           <mat-checkbox style="display: inline-block;"  *ngFor="let item of order.otherUserCode" [(ngModel)]="item.active" (click)="$event.stopPropagation();" [disabled]="item.code.trim() === order.asignedTo.trim()" >{{item.code}}</mat-checkbox> 
+          </div>
+         
 
          </td>
         </ng-container>
         <ng-container matColumnDef="reportType" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tipo de Informe</th>
-          <td mat-cell *matCellDef="let order" class="text-center">
+          <td mat-cell *matCellDef="let order" class="text-center"  style="min-width: 3rem;">
             <div *ngIf="order.reportType === 'OR'">
-              <div class="badge badge-solid-orange" style="font-size: 16px;">OR</div>
+              <div class="badge badge-solid-orange" style="font-size: 18px;">OR - {{order.lastSearched}}</div>
             </div>
             <div *ngIf="order.reportType === 'RV'">
-              <div class="badge badge-solid-green" style="font-size: 16px;">RV</div>
+              <div class="badge badge-solid-green" style="font-size: 18px">RV - {{order.lastSearched}}</div>
             </div>
             <div *ngIf="order.reportType === 'EF'">
-              <div class="badge badge-solid-cyan" style="font-size: 16px;">EF</div>
+              <div class="badge badge-solid-brown" style="font-size: 18px;">EF - {{order.lastSearched}}</div>
             </div>
             <div *ngIf="order.reportType === 'DF'">
-              <div class="badge badge-solid-blue" style="font-size: 16px;">DF</div>
+              <div class="badge badge-solid-blue" style="font-size: 18px;">DF - {{order.lastSearched}}</div>
             </div>
           </td>
         </ng-container>
+       
         <ng-container matColumnDef="procedureType" >
           <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Tipo de Trámite</th>
           <td mat-cell *matCellDef="let order" class="text-center">
@@ -138,8 +141,8 @@
         </ng-container>
         <ng-container matColumnDef="quality" >
           <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Calidad--<b style="font-size: 20px;">  R</b>(D/T)</th>
-          <td mat-cell *matCellDef="let order" class="text-center">
-          <div *ngIf="!activeQuality(order.otherUserCode) && order.quality!==''" class="badge badge-solid-purple"><b style="font-size: 20px;">{{order.quality}}</b>({{order.qualityTypist}}/{{order.qualityTranslator}})</div>
+          <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;">
+          <div *ngIf="!activeQuality(order.otherUserCode) && order.quality!==''" class="badge badge-solid-purple"><b style="font-size: 16px;">{{order.quality}}</b>({{order.qualityTypist}}/{{order.qualityTranslator}})</div>
 
             <button  class="float-end progress-percent label shadow"
             style="border: 2px solid black; color: black; border-radius: 10px; width: 50px; height: 30px; background-color: rgb(128, 248, 128);"
@@ -151,7 +154,7 @@
               <div class="row" appStopPropagation>
                 <div class="col-md-6 d-flex align-items-center" >
                   <div>
-                    <mat-form-field class="w-100" appStopPropagation>
+                    <mat-form-field class="w-100 form-red" appStopPropagation>
                       <mat-label>Calidad Del Reportero</mat-label>
                       <mat-select matInput [(ngModel)]="order.quality" placeholder="" (ngModelChange)="order.qualityTranslator = order.quality; order.qualityTypist = order.quality;">
                         <mat-option [value]="''"></mat-option>
@@ -197,7 +200,7 @@
                 <h6>Calidad del Cupón Anterior</h6>
                 <div class="col-md-6 d-flex align-items-center" >
                   <div>
-                    <mat-form-field class="w-100" appStopPropagation>
+                    <mat-form-field class="w-100 form-red" appStopPropagation>
                       <mat-label>Calidad Del Reportero</mat-label>
                       <mat-select matInput [(ngModel)]="order.complementQuality" placeholder="" [disabled]="true" (click)="$event.stopPropagation();">
                         <mat-option [value]="''"></mat-option>
@@ -245,7 +248,7 @@
 
                 </div>
                 <div class="col-md-12 d-flex align-items-center" *ngIf="order.hasBalance && order.isAgent" >
-                    <mat-form-field class="w-100" appStopPropagation>
+                    <mat-form-field class="w-100 form-red" appStopPropagation>
                       <mat-label>Precio Especial con Balance</mat-label>
                       <mat-select matInput [(ngModel)]="order.specialPriceBalance" placeholder="">
                         <mat-option [value]=0></mat-option>
@@ -264,13 +267,12 @@
         </ng-container>
 
         <ng-container matColumnDef="orderDate" >
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Ingreso </th>
-          <td mat-cell *matCellDef="let order" class="text-center"> {{order.orderDate}} </td>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Ingreso-Vencimiento </th>
+          <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 10rem;"> {{order.orderDate}}-{{order.expireDate}} </td>
+
+        
         </ng-container>
-        <ng-container matColumnDef="expireDate" >
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Fecha de Vencimiento </th>
-          <td mat-cell *matCellDef="let order" class="text-center"> {{order.expireDate}} </td>
-        </ng-container>
+      
 
         <ng-container matColumnDef="Acciones" >
           <th mat-header-cell *matHeaderCellDef  class="text-center" style="min-width: 14rem;"> Acciones </th>
@@ -320,6 +322,24 @@
                         {{order.status}}
                       </span></label><br>
                       <label><b>Codigo: </b>{{ order.asignedTo }}</label><br>
+
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label><b>Tipo de Trámite: </b>  {{order.procedureType}}</label><br>
+                          <!--label><b>Fecha de Ingreso: </b>  {{order.orderDate}}</!--label><br-->
+                        </div>
+                        <div class="col-md-4">
+                          <label><b>Tipo de Informe: </b> {{order.reportType}}</label><br>
+                          <!--label><b>Fecha de Vencimiento: </b> {{order.expireDate}}</!--label><br-->
+                        </div>
+                        <div class="col-md-4">
+                          <!--label><b>Fecha de Vencimiento Real: </b>  {{order.realExpireDate}}</!--label><br-->
+                          <label><b>Idioma: </b> {{order.language === 'E' ? 'Español' : 'Inglés'}}
+                            <span class="{{order.language === 'E' ? 'fi fi-es' : 'fi fi-us'}}"></span>
+                          </label>
+                        </div>
+                        <br>
+                      </div>
                       <button mat-raised-button color="primary" (click)="verHistorial(order.idTicket)">Ver Seguimiento</button>
                     </div>
                     <div class="col-md-4">
@@ -331,6 +351,7 @@
                       <label><b>Observaciones: </b> {{order.observations}}</label>
                     </div>
                   </div>
+                  
                   <br>
                 </div>
                 <div class="card-header " style="background-color: rgb(180, 204, 252);">
@@ -341,11 +362,13 @@
                     <div class="col-md-4">
                       <label><b>Abonado: </b>{{ order.subscriberCode }}</label><br>
                       <label><b>País: </b>{{ order.subscriberCountry }} <span class="fi fi-{{order.subscriberFlag}}"></span></label><br>
-                      <label><b>Crédito Consultado:</b>  {{order.queryCredit}}</label><br>
+                      <label><b>Crédito Consultado:</b>  {{order.queryCredit}}   |  <b>Periodo:</b>  {{order.timeLimit}} </label><br>
+                      
                     </div>
                     <div class="col-md-4">
                       <label><b>Revelar Nombre:</b><span *ngIf="order.revealName === true"> SI</span><span *ngIf="order.revealName === false"> NO</span></label><br>
                       <label><b>Nro. de Referencia: </b> {{order.referenceNumber}}</label>
+                     
                     </div>
                     <div class="col-md-4">
                       <label><b>Indicaciones del Abonado: </b> {{order.subscriberIndications}}</label><br>
@@ -382,23 +405,7 @@
                   <h5>Datos del Informe</h5>
                 </div>
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label><b>Tipo de Trámite: </b>  {{order.procedureType}}</label><br>
-                      <!--label><b>Fecha de Ingreso: </b>  {{order.orderDate}}</!--label><br-->
-                    </div>
-                    <div class="col-md-4">
-                      <label><b>Tipo de Informe: </b> {{order.reportType}}</label><br>
-                      <!--label><b>Fecha de Vencimiento: </b> {{order.expireDate}}</!--label><br-->
-                    </div>
-                    <div class="col-md-4">
-                      <!--label><b>Fecha de Vencimiento Real: </b>  {{order.realExpireDate}}</!--label><br-->
-                      <label><b>Idioma: </b> {{order.language === 'E' ? 'Español' : 'Inglés'}}
-                        <span class="{{order.language === 'E' ? 'fi fi-es' : 'fi fi-us'}}"></span>
-                      </label>
-                    </div>
-                    <br>
-                  </div>
+                
                 </div>
                 <br>
               </div>
@@ -414,7 +421,7 @@
         </tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[ 10,25,50]" aria-label="Seleccionar página de Pedidos"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[ 50,100,150]" aria-label="Seleccionar página de Pedidos"></mat-paginator>
     </div>
   </div>
 

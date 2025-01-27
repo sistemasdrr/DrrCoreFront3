@@ -189,6 +189,7 @@ export interface Asignacion{
   hasBalance : boolean | null
   sendZip : boolean
   attachmentRefCom : boolean
+  procedureTypeAgent:string
 }
 
 export interface ListTicket2{
@@ -451,4 +452,5 @@ export interface GetTicketUserResponseDto{
   code : string
   type : string
   flag : boolean
+  procedureType:string
 }

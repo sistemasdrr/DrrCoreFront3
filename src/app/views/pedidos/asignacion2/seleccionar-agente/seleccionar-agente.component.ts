@@ -32,6 +32,7 @@ export class SeleccionarAgenteComponent implements OnInit {
   activeList = 0
   estado = "agregar"
   idEditarAsignacion = 0
+   procedureType = ""
   idEditarTrabajador = 0
   fechaAsignacionDate : Date | null = null
   fechaVencimientoDate : Date | null = null
@@ -100,6 +101,8 @@ export class SeleccionarAgenteComponent implements OnInit {
       this.quality=data.quality
       this.qualityTypist=data.qualityTypist
       this.qualityTranslator=data.qualityTranslator
+      console.log(this.procedureType)
+      this.procedureType=data.procedureType
       this.hasBalance=data.hasBalance
       this.assginFromCode=data.assginFromCode
       this.referencias = this.reportType.trim() === "RV" ? true : false
@@ -128,7 +131,7 @@ export class SeleccionarAgenteComponent implements OnInit {
       (response) => {
         if(response.isSuccess === true){
           this.ticketValidation = response.data
-          console.log(this.ticketValidation)
+         
         }
       }
     )
@@ -400,7 +403,8 @@ private agregarAsignacion(code: string, tipo: string) {
         hasBalance: this.hasBalance,
         sendZip: this.sendZip,
         forceSupervisor: this.forceSupervisor,
-        attachmentRefCom : this.attachmentRefCom
+        attachmentRefCom : this.attachmentRefCom,
+        procedureTypeAgent:this.procedureType,
     };
 
     this.asignacion.push(asign);

@@ -3,7 +3,7 @@
     <div class="card shadow " style="border-radius: 0; background-color: #dae1f3;">
       <div class="row">
         <div class="col-md-4">
-          <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+          <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
             <mat-label>Nombres y Apellidos</mat-label>
             <input matInput placeholder="" [(ngModel)]="nombreCompleto" (keypress)="filtrar($event);">
             <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="nombreCompleto !== ''" (click)="nombreCompleto = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -18,7 +18,7 @@
           </mat-radio-group>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;">
+          <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;">
             <mat-label>País</mat-label>
             <input type="text" matInput [formControl]="controlPaises" [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
             <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
@@ -133,6 +133,6 @@
         class=""></tr>
       <!--[ngClass]="empresa.rc === 'NN' ? 'bg-cyan' : ''"-->
     </table>
-    <mat-paginator [pageSizeOptions]="[25, 50, 100]" aria-label="Seleccionar página de Pedidos" class="w-100"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[25, 50, 100]" aria-label="Seleccionar página de Pedidos" class="w-100 form-red"></mat-paginator>
   </div>
 </div>

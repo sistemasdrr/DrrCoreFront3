@@ -4,14 +4,14 @@
       <div class="w-100 d-flex justify-content-between align-items-center">
         <h4>Datos del Domicilio</h4>
         <div>
-          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
             <mat-icon class="col-white">save</mat-icon>
           </button>
         </div>
       </div>
       <hr>
       <div class="col-md-3">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>¿Vivienda Propia?</mat-label>
           <mat-select [(ngModel)]="ownHome">
             <mat-option [value]="null">
@@ -26,26 +26,26 @@
         </mat-form-field>
       </div>
       <div class="col-md-5">
-        <mat-form-field class="w-100" >
+        <mat-form-field class="w-100 form-red" >
           <mat-label>Valor del Domicilio (Español)</mat-label>
           <input matInput type="text" [(ngModel)]="value">
         </mat-form-field>
       </div>
       <div class="col-md-4">
-        <mat-form-field class="w-100" >
+        <mat-form-field class="w-100 form-red" >
           <mat-label>Valor del Domicilio (Inglés)</mat-label>
           <input matInput type="text" [(ngModel)]="valueEng">
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100" >
+        <mat-form-field class="w-100 form-red" >
           <mat-label>Domicilio (Español)</mat-label>
           <textarea matInput type="text" [(ngModel)]="homeCommentary" style="min-height: 8rem;"></textarea>
           <mat-hint>(Con quien vive, tiempo, zona, descripción del inmueble)</mat-hint>
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100" >
+        <mat-form-field class="w-100 form-red" >
           <mat-label>Residence (Inglés)</mat-label>
           <textarea matInput type="text" [(ngModel)]="homeCommentaryEng" style="min-height: 8rem;"></textarea>
         </mat-form-field>

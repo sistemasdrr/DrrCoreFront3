@@ -15,7 +15,7 @@
             <div class="left">
               <div class="row">
                 <div class="col-md-2">
-                  <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+                  <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                     <mat-label>Tipo de Informe</mat-label>
                     <mat-select [(ngModel)]="about" (ngModelChange)="dataSourceSelect.data = []" placeholder="">
                         <mat-option [value]="'E'">Empresa</mat-option>
@@ -24,7 +24,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-2">
-                  <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+                  <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                     <mat-label>Buscar Por</mat-label>
                     <mat-select [(ngModel)]="typeSearch" placeholder="">
                         <mat-option [value]="'N'">{{about === 'E' ? 'Razón Social': 'Nombre'}}</mat-option>
@@ -35,7 +35,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+                  <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                     <mat-label *ngIf="typeSearch === 'N'">
                       {{about === 'E' ? 'Nombre de la Empresa': 'Nombre de la Persona'}}
                     </mat-label>
@@ -58,7 +58,7 @@
                   </mat-radio-group>
                 </div>
                 <div  class="col-md-2 p-0">
-                  <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;">
+                  <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;">
                     <mat-label>País</mat-label>
                     <input type="text" matInput [formControl]="controlPaises" [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
                     <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
@@ -200,7 +200,9 @@
           <ng-container matColumnDef="Acciones" >
             <th mat-header-cell *matHeaderCellDef  class="text-center" style="width: 10rem;"> Acciones </th>
             <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 8rem;">
-
+              <button mat-icon-button (click)="$event.stopPropagation();agregarAdjuntos(order.id,'0')" #tooltip="matTooltip" matTooltip="Adjuntos">
+                <mat-icon style='color: red;'>attach_file</mat-icon>
+              </button>
               <button *ngIf="order.id > 0" mat-icon-button class="tbl-action-btn " (click)="$event.stopPropagation();verHistorial(order.id)" matTooltip="Ver Historial">
                 <app-feather-icons [icon]="'clock'" [class]="'tbl-fav-edit'"></app-feather-icons>
               </button>

@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 import { DatosEmpresaService } from 'app/services/informes/empresa/datos-empresa.service';
 import { AdjuntarArchivosComponent } from '@shared/components/adjuntar-archivos/adjuntar-archivos.component';
 import { DetalleComponent } from './detalle/detalle.component';
+import { ComentarioComponent } from '@shared/components/comentario/comentario.component';
+import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 
 
 
@@ -114,6 +116,29 @@ export class ListaComponent implements OnInit {
 
   
   }
+    agregarComentario(id : string,cupon : string,comentario : string) {
+      const dialogRef = this.dialog.open(ComentarioComponent, {
+      data: {
+        id: id,
+        cupon : cupon,
+        comentario : comentario
+  
+        },
+      });
+      dialogRef.afterClosed().subscribe(
+        () => {
+          this.ngOnInit
+        }
+      )
+  
+    console.log(dialogRef)
+      // dialogRef.afterClosed().subscribe((codAbonado) => {
+      //   if (codAbonado) {
+      //     this.codAbonado = codAbonado.codigoAbonado
+      //     this.asignarDatosAbonado()
+      //   }
+      // });
+    }
   // enviarInforme(id : number){
   //   const loader = document.getElementById('loader-lista-despacho') as HTMLElement | null;
 
@@ -188,6 +213,32 @@ export class ListaComponent implements OnInit {
   consultar(ticket : ListTicket){
 
   }
+    verInforme(language : string,about : string, idCompany:number,idPerson:number,idTicket:number){
+      if(about="E"){
+        const dialogRef = this.dialog.open(VerPdfComponent,{
+          data: {
+            type : "E",
+            idCompany : idCompany,
+            idTicket : idTicket,
+            section : "ALL",
+            language : language
+          },
+        });
+      }else{
+        const dialogRef = this.dialog.open(VerPdfComponent,{
+          data: {
+            type : "P",
+            idPerson : idPerson,
+            idTicket : idTicket,
+            section : "ALL",
+            language : language
+          },
+        });
+      }
+  
+  
+  
+    }
   descargarDocumento(idTicket : number, oldCode : string, idioma : string, formato:string){
     const listaEmpresas = document.getElementById('loader-lista-despacho') as HTMLElement | null;
     if(listaEmpresas){

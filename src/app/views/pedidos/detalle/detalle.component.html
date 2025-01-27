@@ -51,7 +51,7 @@
                   <mat-icon class="col-white">arrow_back</mat-icon>
                 </button>
                 <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow"
-               (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar"
+               (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar"
                   [class]="idSubscriber === 0 || language === '' && idContinent === 0 || idCountry === 0 || procedureType === '' || reportType === ''|| requestedName === '' ? 'bg-grey' : ''"
                   [disabled]="idSubscriber === 0 || language === '' || idContinent === 0 || idCountry === 0 || procedureType === '' || reportType === '' || requestedName === ''  ? true : false">
                   <mat-icon class="col-white">save</mat-icon>
@@ -78,13 +78,13 @@
               style="width:10rem; margin-left: 1rem;">Revelar Nombre: {{nombre_abonado}}</mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nombre del Cliente</mat-label>
               <input matInput placeholder="" [(ngModel)]="nameRevealed" [readonly]="!revealName">
             </mat-form-field>
           </div>
           <div class="col-md-2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nro. Referencia</mat-label>
               <input matInput placeholder="" [(ngModel)]="referenceNumber" value="">
             </mat-form-field>
@@ -102,7 +102,7 @@
           </div>
 
           <div class="col-md-2">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Idioma</mat-label>
               <mat-select [(ngModel)]="language">
                 <mat-option [value]="'E'">
@@ -130,13 +130,13 @@
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-12">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Crédito Consultado</mat-label>
                   <input matInput placeholder="" value="" [(ngModel)]="queryCredit">
                 </mat-form-field>
               </div>
               <div class="col-md-12">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Plazos</mat-label>
                   <input matInput placeholder="" value="" [(ngModel)]="timeLimit">
                 </mat-form-field>
@@ -146,14 +146,14 @@
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-6">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Indicaciones del Abonado</mat-label>
                   <textarea matInput placeholder="" style="min-height: 7rem;"
                     [(ngModel)]="indicacionesAbonado"></textarea>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Comentarios del Cupón</mat-label>
                   <textarea matInput placeholder="" style="min-height: 7rem;" [(ngModel)]="aditionalData"></textarea>
                 </mat-form-field>
@@ -174,7 +174,7 @@
                 <h4 *ngIf="about === 'P'">Datos de la Persona a Investigar</h4>
                 <div class="row">
                   <div class="col-md-4">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Informe de</mat-label>
                       <mat-select [(ngModel)]="about"
                       (ngModelChange)="busineesName = ''; requestedName = ''; idContinent = 0; idCountry = 0; city = '';
@@ -185,9 +185,9 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-7" *ngIf="about === 'E'">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Razón Social</mat-label>
-                      <input matInput [(ngModel)]="busineesName">
+                      <input matInput [(ngModel)]="busineesName" style="text-transform: uppercase;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-1" *ngIf="about === 'E'">
@@ -196,7 +196,7 @@
                     </button>
                   </div>
                   <div class="col-md-7" *ngIf="about === 'P'">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Nombres y Apellidos</mat-label>
                       <input matInput [(ngModel)]="busineesName">
                     </mat-form-field>
@@ -208,7 +208,7 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>Tal Cual fue Solicitado (*)</mat-label>
                     <input matInput [(ngModel)]="requestedName">
                   </mat-form-field>
@@ -216,7 +216,7 @@
                 <div class="row">
 
                   <div class="col-md-4">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Continente</mat-label>
                       <mat-select [(ngModel)]="idContinent" (selectionChange)="selectContinente()">
                         <mat-option [value]="continente.id"
@@ -229,7 +229,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>País</mat-label>
                       <mat-select [(ngModel)]="idCountry" (selectionChange)="mostrarBandera()">
                         <mat-option *ngFor="let item of paisesAbonado" [value]="item.id">
@@ -246,7 +246,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Ciudad</mat-label>
                       <input matInput placeholder="" [(ngModel)]="city">
                       <button matSuffix *ngIf="city !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="city = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -271,7 +271,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Email</mat-label>
                       <input matInput [(ngModel)]="email">
                       <button matSuffix *ngIf="email !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="email = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -280,7 +280,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Teléfono</mat-label>
                       <input matInput placeholder="" [(ngModel)]="telephone">
                       <button matSuffix *ngIf="telephone !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="telephone = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -289,7 +289,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-8">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Dirección</mat-label>
                       <input matInput placeholder="" [(ngModel)]="address">
                       <button matSuffix *ngIf="address !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="address = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -298,7 +298,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-12" >
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Pagina Web</mat-label>
                       <input matInput placeholder="" [(ngModel)]="webPage">
                       <button matSuffix *ngIf="webPage !== ''" mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);"  (click)="webPage = ''" #tooltip="matTooltip" matTooltip="Limpiar">
@@ -309,7 +309,7 @@
                 </div>
                 <!--div class="row">
                   <div class="col-md-12">
-                    <mat-form-field class="w-100">
+                   <mat-form-field class="w-100 form-red">
                       <mat-label>Riesgo Crediticio</mat-label>
                       <mat-select [(ngModel)]="idCreditRisk">
                         <mat-option *ngFor="let cCrediticia of calificacionCrediticia" [value]="cCrediticia.id">
@@ -327,7 +327,7 @@
               <div class="row">
                 <h4>Datos Generales</h4>
                 <div class="col-md-6">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>Tipo de Trámite </mat-label>
                     <mat-select [(ngModel)]="procedureType" (selectionChange)="tipotramite()">
                       <mat-option *ngFor="let precio of listaPrecio" [value]="precio.name">{{precio.name}}</mat-option>
@@ -369,10 +369,16 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-md-2">
-                  <mat-form-field class="w-100">
+                <div class="col-md-3">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>Tipo </mat-label>
-                    <input matInput type="text" [(ngModel)]="reportType">
+                    <mat-select [(ngModel)]="reportType">
+                      <mat-option  [value]="'OR'">OR</mat-option>
+                      <mat-option  [value]="'RV'">RV</mat-option>
+                      <mat-option  [value]="'EF'">EF</mat-option>
+                      <mat-option  [value]="'Df'">DF</mat-option>
+                      </mat-select>
+                  
                   </mat-form-field>
 
                 </div>
@@ -392,7 +398,7 @@
               <div class="row">
                 <h4>Comentarios</h4>
                 <div class="col-md-12">
-                  <mat-form-field class="w-100">
+                 <mat-form-field class="w-100 form-red">
                     <mat-label>Comentario </mat-label>
                     <textarea matInput type="text" [(ngModel)]="commentary" style="min-height: 6rem;"></textarea>
                   </mat-form-field>
@@ -478,7 +484,7 @@
                 <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
               </table>
               <mat-paginator [pageSizeOptions]="[10,20,30]" aria-label="Seleccionar página"
-                class="w-100"></mat-paginator>
+                class="w-100 form-red"></mat-paginator>
             </div>
           </div>
         </div>

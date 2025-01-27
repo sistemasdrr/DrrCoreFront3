@@ -16,7 +16,7 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-5">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="" (ngModelChange)="selectQuery()">
                 <mat-option [value]="1">5.1.2 INFORMES ATENDIDOS POR PAISES DE MAYOR A MENOR</mat-option>
@@ -49,7 +49,7 @@
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query5_1_2_year" (ngModelChange)="selectQuery5_1_2()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -57,7 +57,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 2 || idQuery === 3|| idQuery === 4|| idQuery === 5|| idQuery === 6|| idQuery === 8|| idQuery === 7">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Ordenar Por </mat-label>
               <mat-select [(ngModel)]="query6_1_7_orderBy" placeholder=""
                 (ngModelChange)="selectQuery6_1_7()">
@@ -76,7 +76,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 10">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_10_year" (ngModelChange)="query1_10Cambio()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -84,7 +84,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 10">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Ordenar Por </mat-label>
               <mat-select [(ngModel)]="query1_10_orderBy" (ngModelChange)="query1_10Cambio()">
                 <mat-option [value]="'C'" >Código</mat-option>
@@ -103,7 +103,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 11">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query6_3_10_year" (ngModelChange)="query6_3_10()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -111,7 +111,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 11">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Agente </mat-label>
               <mat-select [(ngModel)]="query6_3_10_code" placeholder=""
               (ngModelChange)="query6_3_10()">
@@ -129,7 +129,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 12">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Desde </mat-label>
               <mat-select [(ngModel)]="query7_1_start" (ngModelChange)="selectQuery7_1()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -137,7 +137,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 12">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Hasta </mat-label>
               <mat-select [(ngModel)]="query7_1_end" (ngModelChange)="selectQuery7_1()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -153,7 +153,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 13">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Reportero </mat-label>
               <mat-select [(ngModel)]="query7_3_code" placeholder=""
               (ngModelChange)="selectQuery7_3()">
@@ -162,7 +162,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 13">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_3_year" (ngModelChange)="selectQuery7_3()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -179,7 +179,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 14">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_4_year" (ngModelChange)="selectQuery7_4()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -196,7 +196,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 17">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>N° de Veces Solicitados Mayor a </mat-label>
               <mat-select [(ngModel)]="query7_10_1_number" (ngModelChange)="selectQuery7_10_1()">
                 <mat-option [value]="1" >1</mat-option>
@@ -215,7 +215,7 @@
 
 
           <div class="col-md-2" *ngIf="idQuery === 18">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Abonado </mat-label>
               <mat-select [(ngModel)]="query7_11_code" placeholder=""
               (ngModelChange)="selectQuery7_11()">
@@ -224,7 +224,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 18">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_11_year" (ngModelChange)="selectQuery7_11()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -241,7 +241,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 19">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Reportero </mat-label>
               <mat-select [(ngModel)]="query7_12_1_code" placeholder=""
               (ngModelChange)="selectQuery7_12_1()">
@@ -250,7 +250,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 19">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query7_12_1_month" (ngModelChange)="selectQuery7_12_1()">
                   <mat-option [value]="1">Enero</mat-option>
@@ -269,7 +269,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-1" *ngIf="idQuery === 19">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_12_1_year" (ngModelChange)="selectQuery7_12_1()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -285,7 +285,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 20">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Reportero </mat-label>
               <mat-select [(ngModel)]="query7_12_2_code" placeholder=""
               (ngModelChange)="selectQuery7_12_2()">
@@ -295,7 +295,7 @@
           </div>
 
           <div class="col-md-1" *ngIf="idQuery === 20">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_12_2_year" (ngModelChange)="selectQuery7_12_2()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -313,7 +313,7 @@
 
 
           <div class="col-md-2" *ngIf="idQuery === 21">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Agente </mat-label>
               <mat-select [(ngModel)]="query7_13_1_code" placeholder=""
               (ngModelChange)="selectQuery7_13_1()">
@@ -322,7 +322,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 21">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query7_13_1_month" (ngModelChange)="selectQuery7_13_1()">
                   <mat-option [value]="1">Enero</mat-option>
@@ -341,7 +341,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-1" *ngIf="idQuery === 21">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_13_1_year" (ngModelChange)="selectQuery7_13_1()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -357,7 +357,7 @@
             </button>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 22">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Agente </mat-label>
               <mat-select [(ngModel)]="query7_13_2_code" placeholder=""
               (ngModelChange)="selectQuery7_13_2()">
@@ -367,7 +367,7 @@
           </div>
 
           <div class="col-md-1" *ngIf="idQuery === 22">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_13_2_year" (ngModelChange)="selectQuery7_13_2()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -392,7 +392,7 @@
           </div>
 
           <div class="col-md-2" *ngIf="idQuery === 31">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query7_5_1_month" (ngModelChange)="selectQuery7_5_1()">
                   <mat-option [value]="1">Enero</mat-option>
@@ -411,7 +411,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-1" *ngIf="idQuery === 31">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_5_1_year" (ngModelChange)="selectQuery7_5_1()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -430,7 +430,7 @@
 
 
           <div class="col-md-2" *ngIf="idQuery === 32">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Abonado </mat-label>
               <mat-select [(ngModel)]="query7_5_2_code" placeholder=""
               (ngModelChange)="selectQuery7_5_2()">
@@ -439,7 +439,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 32">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query7_5_2_month" (ngModelChange)="selectQuery7_5_2()">
                   <mat-option [value]="1">Enero</mat-option>
@@ -458,7 +458,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-1" *ngIf="idQuery === 32">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_5_2_year" (ngModelChange)="selectQuery7_5_2()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -475,7 +475,7 @@
           </div>
 
           <div class="col-md-1" *ngIf="idQuery === 33">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_5_3_year" (ngModelChange)="selectQuery7_5_3()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -492,7 +492,7 @@
           </div>
 
           <div class="col-md-1" *ngIf="idQuery === 34">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query7_5_4_year" (ngModelChange)="selectQuery7_5_4()">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>

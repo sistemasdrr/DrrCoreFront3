@@ -40,7 +40,7 @@ export class IPListaComponent implements OnInit{
   idPais = 0
   filtroRB = 'C'
   filterBy='N'
-  chkConInforme = true
+  chkConInforme = false
 
   breadscrums = [
     {
@@ -85,27 +85,6 @@ export class IPListaComponent implements OnInit{
           this.paises = response.data;
         }
       }
-    ).add(
-      () => {
-        if(localStorage.getItem('busquedaPersonas')){
-          const busqueda = JSON.parse(localStorage.getItem('busquedaPersonas')+'')
-          this.nombreCompleto = busqueda.nombreCompleto
-          this.filtroRB = busqueda.filtro
-          if(busqueda.idCountry > 0){
-            this.idPais = busqueda.idCountry
-            this.paisSeleccionado = this.paises.filter(x => x.id === busqueda.idCountry)[0]
-            this.iconoSeleccionado = this.paisSeleccionado.bandera
-          }else{
-            this.limpiarSeleccionPais()
-          }
-          this.paisSeleccionado = this.paises.filter(x => x.id === busqueda.idPais)[0]
-          this.chkConInforme = busqueda.conInforme
-          this.loading = false
-          if(this.nombreCompleto!= null && this.nombreCompleto !== ''){
-            this.filtrarPersonas()
-          }
-        }
-      }
     )
     this.filterPais = this.controlPaises.valueChanges.pipe(
       startWith(''),
@@ -139,7 +118,7 @@ export class IPListaComponent implements OnInit{
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       this.idPais = 0
@@ -169,7 +148,7 @@ export class IPListaComponent implements OnInit{
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarPersonas()
   }

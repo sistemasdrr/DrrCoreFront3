@@ -33,7 +33,7 @@ export class SeleccionarPersonaComponent implements OnInit{
   nombreCompleto = ''
   idPais = 0
   filtroRB = 'C'
-  chkConInforme = true
+  chkConInforme = false
 
   columnsToDisplay = ['creditRisk', 'language', 'name', 'taxNumber', 'lastReportDate', 'country', 'traductionPercentage', 'quality','birthDate','profession','acciones' ];
   dataSource: MatTableDataSource<TPersona>;
@@ -120,7 +120,7 @@ export class SeleccionarPersonaComponent implements OnInit{
         this.colorMsgPais = "red"
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
       }
     } else {
       this.idPais = 0
@@ -146,7 +146,7 @@ export class SeleccionarPersonaComponent implements OnInit{
       regtrib: '',
       codCel: '',
     }
-    this.chkConInforme = true
+    this.chkConInforme = false
 
     this.filtrarPersonas()
   }

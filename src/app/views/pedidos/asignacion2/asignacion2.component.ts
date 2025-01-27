@@ -48,7 +48,7 @@ export class Asignacion2Component implements OnInit {
 
   //TABLA
   dataSource: MatTableDataSource<ListTicket2>;
-  columnsToDisplay = ['number','subscriber','country', 'busineesName','status','subscriberCode', 'reportType', 'procedureType', 'quality', 'orderDate', 'expireDate', 'Acciones' ];
+  columnsToDisplay = ['number','subscriber','country', 'busineesName','status','subscriberCode', 'reportType', 'procedureType', 'quality', 'orderDate','Acciones' ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedOrder: ListTicket2 | null = null;
     selection = new SelectionModel<ListTicket2>(true, []);
@@ -161,6 +161,7 @@ export class Asignacion2Component implements OnInit {
                           reportType: order.reportType,
                           numberAssign : order.numberAssign,
                           assginFromCode : order.asignedTo,
+                          procedureType:order.procedureType,
                           quality : order.quality,
                           qualityTypist : order.qualityTypist,
                           qualityTranslator :  order.qualityTranslator,
@@ -184,6 +185,7 @@ export class Asignacion2Component implements OnInit {
                     id : order.id,
                     idTicket: order.idTicket,
                     reportType: order.reportType,
+                    procedureType:order.procedureType,
                     numberAssign : order.numberAssign,
                     assginFromCode : order.asignedTo,
                     quality : order.quality,
@@ -211,6 +213,7 @@ export class Asignacion2Component implements OnInit {
             numberAssign : order.numberAssign,
             assginFromCode : order.asignedTo,
             quality : order.quality,
+            procedureType:order.procedureType,
                 qualityTypist : order.qualityTypist,
                 qualityTranslator :  order.qualityTranslator,
             hasBalance : quality  ? order.hasBalance : false,

@@ -65,6 +65,12 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
   dataSourcePedido2 = new MatTableDataSource<InvoiceDetailsSubcriberToCollect>()
   dataSourcePedido3 = new MatTableDataSource<InvoiceDetailsSubcriberToCollect>()
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator2!: MatPaginator;
+  @ViewChild(MatPaginator) paginator3!: MatPaginator;
+  @ViewChild(MatPaginator) paginatorBill1!: MatPaginator;
+  @ViewChild(MatPaginator) paginatorBill2!: MatPaginator;
+  @ViewChild(MatPaginator) paginatorBill3!: MatPaginator;
+
   @ViewChild(MatSort) sort!: MatSort;
   columnsByBill : string[] = ['subscriberCode','subscriberName','opciones']
   columnsToCollect : string[] = ['invoiceCode','opciones']
@@ -169,6 +175,7 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
   ){
     this.dataSource1 = new MatTableDataSource()
     this.dataSourcePedido1.sort = this.sort
+    this.dataSourcePedido1.paginator=this.paginatorBill1
 
   }
   ngOnInit(): void {
@@ -196,8 +203,9 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSourcePedido1.paginator = this.paginator;
+    this.dataSourcePedido1.paginator = this.paginatorBill1;
     this.dataSourcePedido1.sort = this.sort;
+  
   }
   formatDate(date: moment.Moment): string {
     const formattedDate = date.format('DD/MM/YYYY');
@@ -213,7 +221,7 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
         distinctInvoices.push(invoice);
       }
     }
-    return distinctInvoices;
+    return distinctInvoices.sort((a,b) => a.subscriberCode.localeCompare(b.subscriberCode));
   }
 
   descargarTramo(){
@@ -302,6 +310,7 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
     this.selection1.clear()
     this.dataSourcePedido1.data = this.datos.filter(x => x.idSubscriber === idSubscriber)
     this.dataSourcePedido1.sort = this.sort;
+  
     this.abonadoService.getAbonadoPorId(idSubscriber).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
@@ -318,16 +327,18 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
         }
       }
     )
+    this.dataSourcePedido1.paginator = this.paginatorBill1;
     console.log(idSubscriber)
     console.log(this.datos)
   }
   selectInvoiceToCollect(obj : InvoiceSubcriberListToCollect){
     this.dataSourcePedido2.data = obj.details
-    //this.dataSourcePedido2.sort = this.sort
+    this.dataSourcePedido2.sort = this.sort
     this.totalSelectedPrice2 = 0
     this.dataSourcePedido2.data.forEach(element => {
       this.totalSelectedPrice2 += element.price
     });
+    this.dataSourcePedido2.paginator = this.paginatorBill2;
     this.idSubscriberInvoice = obj.id
     this.abonadoService.getAbonadoPorId(obj.idSubscriber).subscribe(
       (response) => {
@@ -348,6 +359,7 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
         }
       }
     )
+    this.dataSourcePedido2.paginator = this.paginatorBill2;
   }
   idSubscriberInvoice = 0
 
@@ -365,8 +377,9 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
 
   selectInvoicePaids(obj : InvoiceSubcriberListToCollect){
     this.dataSourcePedido3.data = obj.details
-    //his.dataSourcePedido3.sort = this.sort
+    this.dataSourcePedido3.sort = this.sort
     this.totalSelectedPrice3 = 0
+    this.dataSourcePedido3.paginator=this.paginatorBill3;
     this.dataSourcePedido3.data.forEach(element => {
       this.totalSelectedPrice3 += element.price
     });
@@ -398,6 +411,7 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
         this.loading = false
       }
     )
+    this.dataSourcePedido3.paginator = this.paginatorBill3;
   }
   buscarPorFacturar(){
     this.loading = true
@@ -407,10 +421,12 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
           this.datos = response.data
           if(this.datos !== null){
             this.dataSource1 = new MatTableDataSource<InvoiceSubcriberListByBill>(this.filterByDistinctSubscriber(this.datos))
+          
           }else{
             this.dataSource1.data = []
           }
           this.dataSource1.sort = this.sort
+           this.dataSource1.paginator=this.paginator
         }
       },(error) => {
         this.loading = false
@@ -427,7 +443,8 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.dataSource2 = new MatTableDataSource<InvoiceSubcriberListToCollect>(response.data)
-          //this.dataSource2.sort = this.sort
+          this.dataSource2.sort = this.sort
+          this.dataSource2.paginator=this.paginator2
         }
       },
       (error) => {
@@ -445,7 +462,8 @@ export class FacturacionMensualComponent implements OnInit, AfterViewInit {
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.dataSource3.data = response.data
-          //this.dataSource3.sort = this.sort
+          this.dataSource3.sort = this.sort
+          this.dataSource3.paginator=this.paginator3
         }
       },
       (error) => {

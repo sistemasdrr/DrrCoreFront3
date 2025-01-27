@@ -28,7 +28,7 @@
           <div class="body">
             <div class="row">
               <div class="col-md-12" *ngIf="accion === 'ACTIVIDAD'">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Ramo de Negocio</mat-label>
                   <input type="text" matInput [matAutocomplete]="auto">
                   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"  (optionSelected)="seleccionarRamo($event);" >
@@ -129,13 +129,13 @@
                     <div class="body">
                       <div class="row">
                         <div class="col-md-6">
-                          <mat-form-field class="w-100">
+                         <mat-form-field class="w-100 form-red">
                             <mat-label>Nombre Español</mat-label>
                             <input matInput placeholder="" [(ngModel)]="nombre">
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
-                          <mat-form-field class="w-100" >
+                          <mat-form-field class="w-100 form-red" >
                             <mat-label>Nombre Inglés</mat-label>
                             <input matInput placeholder="" [(ngModel)]="nombreIng">
                           </mat-form-field>

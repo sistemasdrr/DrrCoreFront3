@@ -6,6 +6,7 @@ import { AgentesComponent } from './agentes/agentes.component';
 import { DigitadoresComponent } from './digitadores/digitadores.component';
 import { TraductorasComponent } from './traductoras/traductoras.component';
 import { SupervisoresComponent } from './supervisores/supervisores.component';
+import { ReferencistasComponent } from './referencistas/referencistas.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     component: SupervisoresComponent,
     data: { title: 'Cuadro de Supervisores - DRR Core V1' }
   },
+  {
+    path: 'referencistas',
+    component: ReferencistasComponent,
+    data: { title: 'Cuadro de Referencistas - DRR Core V1' }
+  }
 ];
 
 @NgModule({

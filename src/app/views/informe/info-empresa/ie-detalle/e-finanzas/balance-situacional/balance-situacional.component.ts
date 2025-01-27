@@ -151,7 +151,98 @@ export class BalanceSituacionalComponent implements OnInit {
   displayFn(moneda: ComboData): string {
     return moneda && moneda.valor ? moneda.valor : '';
   }
+ eliminarBalance(){
+    console.log(this.id)
+    Swal.fire({
+      title: '¿Está seguro de eliminar este balance?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText : 'No',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      width: '20rem',
+      heightAuto : true
+    }).then((result) => {
+      if (result.value) {
+        this.balanceService.deleteBalance(this.id).subscribe(
+          (response) => {
+            if(response.isSuccess === true && response.isWarning === false){
+              Swal.fire({
+                title :'¡Se eliminó el balance correctamente!',
+                text : '',
+                icon : 'success',
+                width: '20rem',
+                heightAuto : true
+              }).then(() => {
+                this.balanceService.getBalances(this.idCompany, 'SITUACIONAL').subscribe(
+                  (response) => {
+                    if(response.isSuccess === true && response.isWarning === false){
+                      this.listaBalances = response.data
+                      this.limpiarBalance()
+                      if(this.listaBalances.length > 0 ){
+                        this.balanceSeleccionado = this.listaBalances[0].id
+                      }
+                      this.agregar = false
+                    }
+                  }
+                )
+              });
+            }
+          }
+        )
+      }
+    });
 
+  }
+  limpiarBalance(){
+    this.id = 0
+    this.date = ""
+    this.dateD = null
+    this.balanceType = "GENERAL"
+    this.duration = ""
+    this.idCurrency = 0
+    this.exchangeRate = 0
+    this.sales = 0
+    this.utilities = 0
+    //ACTIVOS
+    this.totalAssets = 0
+    //ACTIVOS CORRIENTES
+    this.totalCurrentAssets = 0
+    this.aCashBoxBank = 0
+    this.aToCollect = 0
+    this.aInventory = 0
+    this.aOtherCurrentAssets = 0
+    //ACTIVOS NO CORRIENTES
+    this.totalNonCurrentAssets = 0
+    this.aFixed = 0
+    this.aOtherNonCurrentAssets = 0
+    //PASIVOS
+    this.totalLliabilities = 0
+    //PASIVOS CORRIENTES
+    this.totalCurrentLiabilities = 0
+    this.lCashBoxBank = 0
+    this.lOtherCurrentLiabilities = 0
+    //PASIVOS NO CORRIENTES
+    this.totalNonCurrentLiabilities = 0
+    this.lLongTerm = 0
+    this.lOtherNonCurrentLiabilities = 0
+    //PATRIMONIO
+    this.totalPatrimony = 0
+    this.pCapital = 0
+    this.pStockPile = 0
+    this.pUtilities = 0
+    this.pOther = 0
+
+    this.totalLiabilitiesPatrimony = 0
+    //RATIOS
+    this.liquidityRatio = 0
+    this.debtRatio = 0
+    this.profitabilityRatio = 0
+    this.workingCapital = 0
+    this.editar = false
+  }
   private _filter(name: string): ComboData[] {
     return this.listaMonedas.filter(option => option.valor.toLowerCase().includes(name.toLowerCase()));
   }

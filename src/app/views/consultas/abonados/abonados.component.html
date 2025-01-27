@@ -15,7 +15,7 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-5">
-            <mat-form-field class="w-100">
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="">
                   <mat-option [value]="1">1.- Informes Facturados de Abonados de Mayor a Menor</mat-option>
@@ -35,7 +35,7 @@
           <div class="col-md-1"></div>
           <!--1_1-->
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_1_year" placeholder="">
                   <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -50,7 +50,7 @@
 
           <!--1_2-->
           <div class="col-md-2" *ngIf="idQuery === 2">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_2_year" placeholder="">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -65,7 +65,7 @@
 
           <!--1_3-->
           <div class="col-md-2" *ngIf="idQuery === 3">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_3_year" placeholder="" [disabled]="query1_3_idSubscriber === 0">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -81,7 +81,7 @@
 
           <!--1_4-->
           <div class="col-md-2" *ngIf="idQuery === 4">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_4_year" placeholder="" [disabled]="query1_4_idSubscriber === 0">
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -120,7 +120,7 @@
 
           <!--1_7-->
           <div class="col-md-2" *ngIf="idQuery === 7">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_7ByYear" placeholder="" >
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -128,7 +128,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 7">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query1_7ByMonth" placeholder="">
                   <mat-option [value]="1">Enero</mat-option>
@@ -154,7 +154,7 @@
 
           <!--1_8-->
           <div class="col-md-2" *ngIf="idQuery === 8">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_8ByYear" placeholder="" >
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -162,7 +162,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 8">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query1_8ByMonth" placeholder="">
                   <mat-option [value]="1">Enero</mat-option>
@@ -188,7 +188,7 @@
 
           <!--1_9-->
           <div class="col-md-2" *ngIf="idQuery === 9">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_9ByYear" placeholder="" >
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -196,7 +196,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 9">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Mes</mat-label>
               <mat-select [(ngModel)]="query1_9ByMonth" placeholder="">
                   <mat-option [value]="1">Enero</mat-option>
@@ -245,7 +245,7 @@
 
           <!--1_11-->
           <div class="col-md-2" *ngIf="idQuery === 11">
-            <mat-form-field class="w-100" >
+            <mat-form-field class="w-100 form-red" >
               <mat-label>Año </mat-label>
               <mat-select [(ngModel)]="query1_11ByYear" placeholder="" >
                 <mat-option [value]="item" *ngFor="let item of years">{{item}}</mat-option>
@@ -311,7 +311,7 @@
 
                 <tr mat-footer-row style="background-color:  rgba(1,1,1,0.1);"  *matFooterRowDef="columnsQuery1_1ByYear; sticky: true"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
 
             </div>
 
@@ -413,7 +413,7 @@
                 <tr mat-footer-row style="background-color:  rgba(1,1,1,0.1);" *matFooterRowDef="columnsQuery1_2ByYear; sticky: true"></tr>
 
               </table>
-              <mat-paginator *ngIf="idQuery === 2" [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+              <mat-paginator *ngIf="idQuery === 2" [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
             </div>
 
             <!--QUERY 3-->
@@ -1004,7 +1004,7 @@
 
                 <tr mat-footer-row style="background-color:  rgba(1,1,1,0.1);"  *matFooterRowDef="columnsQuery1_11; sticky: true"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100"></mat-paginator>
+              <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="" class="w-100 form-red"></mat-paginator>
 
             </div>
 

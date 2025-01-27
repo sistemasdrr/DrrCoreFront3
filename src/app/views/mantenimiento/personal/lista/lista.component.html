@@ -13,7 +13,7 @@
         <div class="card shadow" style="border-radius: 0; background-color: #dae1f3;">
           <div class="row">
             <div class="col-md-4">
-              <mat-form-field class="w-100" style="padding-top: 1rem; padding-left: 1rem;" >
+              <mat-form-field class="w-100 form-red" style="padding-top: 1rem; padding-left: 1rem;" >
                 <mat-label>Nombre</mat-label>
                 <input matInput [(ngModel)]="filtroNombre"  (keypress)="enter($event)" >
                 <button matSuffix mat-icon-button color="primary" style="background-color: rgba(0,0,0,0);" *ngIf="filtroNombre !== ''" (click)="filtroNombre = ''" #tooltip="matTooltip" matTooltip="Limpiar">

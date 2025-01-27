@@ -3,7 +3,9 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 import { PersonPhoto } from 'app/models/informes/persona/imagenes-p';
+import { ImagenesService } from 'app/services/informes/empresa/imagenes.service';
 import { ImagenesPService } from 'app/services/informes/persona/imagenes-p.service';
 import { ImageEditorComponent } from 'app/views/informe/info-empresa/ie-detalle/e-imagenes/image-editor/image-editor.component';
 import Swal from 'sweetalert2';
@@ -24,20 +26,34 @@ import Swal from 'sweetalert2';
     standalone: false
 })
 export class PImagenesComponent implements OnInit {
-  id = -1
+  id1 = 0
+  id2 = 0
+  id3= 0
+  id4 = 0
   idPerson = 0
-  numImg = -1
+  imgDesc1 = ""
+  imgDesc2 = ""
+  imgDesc3 = ""
+  imgDesc4 = ""
+  imgDescEng1 = ""
+  imgDescEng2 = ""
+  imgDescEng3 = ""
+  imgDescEng4 = ""
+  img1 = ""
+  imgPrint1 = true
+  img2 = ""
+  imgPrint2 = true
+  img3 = ""
+  imgPrint3 = true
+  img4 = ""
+  imgPrint4 = true
+
+
+
   base64 = ""
-  description = ""
-  descriptionEng = ""
-  printImg = false
-
-  modeloNuevo : PersonPhoto[] = []
-  modeloModificado : PersonPhoto[] = []
-
-  listaFotos : PersonPhoto[] = []
-
-files : any = []
+  desc : string = ""
+  descIng : string = ""
+  print = true
 
   imgSeleccionadaCheck : boolean = false
   imgSeleccionada : string = ""
@@ -48,9 +64,7 @@ files : any = []
   cardSeleccionada : number = 0
 
   tituloSeleccion : string = ""
-
-  constructor(private activatedRoute: ActivatedRoute, private imagenesService : ImagenesPService,
-    private dialog : MatDialog) {
+  constructor(private dialog : MatDialog, private activatedRoute: ActivatedRoute, private imagenesService : ImagenesService) {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id?.includes('nuevo')) {
       this.idPerson = 0
@@ -58,126 +72,51 @@ files : any = []
       this.idPerson = parseInt(id + '')
     }
   }
-  ngOnInit(): void {
+  
+
+ngOnInit(): void {
 
     if(this.idPerson !== 0){
-      const loader = document.getElementById('pagina-detalle-persona') as HTMLElement | null;
-      if(loader){
-        loader.classList.remove('hide-loader');
+      const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
+      if(paginaDetalleEmpresa){
+        paginaDetalleEmpresa.classList.remove('hide-loader');
       }
-      this.imagenesService.getListPhoto(this.idPerson).subscribe(
+      this.imagenesService.getPersonImgByIdPerson(this.idPerson).subscribe(
         (response) => {
           if(response.isSuccess === true && response.isWarning === false){
-            if(response.data.length > 0){
-              this.listaFotos = response.data
-              console.log(response.data)
+            const personImg = response.data
+            if(personImg){
+              this.id1 = personImg.id1
+              this.id2 = personImg.id2
+              this.id3 = personImg.id3
+              this.id4 = personImg.id4
+              this.img1 = personImg.img1 !== null && personImg.img1.includes('data:image/png;base64,') ? personImg.img1 : 'data:image/png;base64,' + personImg.img1
+              this.imgPrint1 = personImg.imgPrint1
+              this.imgDesc1 = personImg.imgDesc1
+              this.imgDescEng1 = personImg.imgDescEng1
+              this.img2 = personImg.img2 !== null && personImg.img2.includes('data:image/png;base64,') ? personImg.img2 : 'data:image/png;base64,' + personImg.img2
+              this.imgPrint2 = personImg.imgPrint2
+              this.imgDesc2 = personImg.imgDesc2
+              this.imgDescEng2 = personImg.imgDescEng2
+              this.img3 = personImg.img3 !== null && personImg.img3.includes('data:image/png;base64,') ? personImg.img3 : 'data:image/png;base64,' + personImg.img3
+              this.imgPrint3 = personImg.imgPrint3
+              this.imgDesc3 = personImg.imgDesc3
+              this.imgDescEng3 = personImg.imgDescEng3
+              this.img4 = personImg.img4 !== null && personImg.img4.includes('data:image/png;base64,') ? personImg.img4 : 'data:image/png;base64,' + personImg.img4
+              this.imgPrint4 = personImg.imgPrint4
+              this.imgDesc4 = personImg.imgDesc4
+              this.imgDescEng4 = personImg.imgDescEng4
             }
           }
         }
       ).add(
         () => {
-          const loader = document.getElementById('pagina-detalle-persona') as HTMLElement | null;
-          if(loader){
-            loader.classList.add('hide-loader');
+          if(paginaDetalleEmpresa){
+            paginaDetalleEmpresa.classList.add('hide-loader');
           }
-        });
-    }
-  }
-  armarModeloNuevo(){
-    let num = 0
-    if(this.listaFotos.length > 0){
-      num = this.listaFotos[this.listaFotos.length-1].numImg +1
-    }else{
-      num = 1;
-    }
-    this.modeloNuevo[0] = {
-      id : 0,
-      idPerson : this.idPerson,
-      numImg : num,
-      base64 : this.base64,
-      description : this.description,
-      descriptionEng : this.descriptionEng,
-      printImg : this.printImg,
-    }
-  }
-  armarModeloModificado(){
-    this.modeloModificado[0] = {
-      id : this.id,
-      idPerson : this.idPerson,
-      numImg : this.numImg,
-      base64 : this.base64,
-      description : this.description,
-      descriptionEng : this.descriptionEng,
-      printImg : this.printImg,
-    }
-  }
-  onSelect(event : any) {
-    this.imgSeleccionadaCheck = false
-
-    console.log(...event.addedFiles)
-  }
-  onPaste(event: any) {
-    if(this.id !== 0){
-      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-      for (const item of items) {
-        if (item.type.indexOf('image') === 0) {
-          const blob = item.getAsFile();
-
-          const reader = new FileReader();
-          reader.onload = () => {
-            const base64String = reader.result as string;
-            this.base64 = base64String;
-
-          };
-          reader.readAsDataURL(blob);
         }
-      }
+      )
     }
-  }
-  eliminarFoto(id : number){
-    Swal.fire({
-      title: '¿Está seguro de eliminar esta imagen?',
-      text: "",
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText : 'No',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí',
-      width: '20rem',
-      heightAuto : true
-    }).then((result) => {
-      if (result.value) {
-        this.imagenesService.deletePhoto(id).subscribe(
-          (response) => {
-            if(response.isSuccess === true && response.isWarning === false){
-              Swal.fire({
-                title :'¡Eliminado!',
-                text : 'El registro se eliminó correctamente.',
-                icon : 'success',
-                width: '20rem',
-                heightAuto : true
-              }).then(() => {
-                this.listaFotos = this.listaFotos.filter(x => x.id !== id)
-              })
-            }
-          }
-        )
-      }
-    })
-  }
-
-
-  seleccionarCard(id : number){
-    const card = this.listaFotos.filter(x => x.id === id)[0]
-    console.log(card)
-    this.id = card.id
-    this.idPerson = card.idPerson
-    this.numImg = card.numImg
-    this.base64 = card.base64
-    this.description = card.description
-    this.descriptionEng = card.descriptionEng
-    this.printImg = card.printImg
   }
   seleccionarImagen() {
     const input = document.createElement('input');
@@ -188,9 +127,10 @@ files : any = []
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = () => {
-          const base64String = reader.result as string;
-          this.base64 = base64String;
+        reader.onload = (e: any) => {
+          const base64String: string = e.target.result;
+          console.log('Base64 de la imagen:', base64String);
+          this.base64 = base64String
         };
         reader.readAsDataURL(file);
       }
@@ -199,6 +139,28 @@ files : any = []
     input.click();
   }
 
+  verPdf(){
+    const dialogRef = this.dialog.open(VerPdfComponent,{
+      data: {
+        type : "E",
+        idPerson : this.idPerson,       
+        section : "IMAGENES",
+        language : "E",
+        idTicket : 0
+      },
+    });
+  }
+  verPdfIngles(){
+    const dialogRef = this.dialog.open(VerPdfComponent,{
+      data: {
+        type : "E",
+        idPerson : this.idPerson,
+        section : "IMAGENES",
+        language : "I",
+        idTicket : 0
+      },
+    });
+  }
   pegarImagen() {
     const clipboardData = navigator.clipboard;
     if (!clipboardData) {
@@ -240,6 +202,19 @@ files : any = []
         console.error("Error al leer el portapapeles:", err);
       });
   }
+  fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        resolve(base64String);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   editarImagen(){
     const dialogRef = this.dialog.open(ImageEditorComponent, {
@@ -255,77 +230,134 @@ files : any = []
       }
     )
   }
-  borrarImagen(card : number){
+  onSelect(event : any) {
+    this.imgSeleccionadaCheck = false
   }
 
-  nuevo(){
-    this.id = 0
-    this.numImg = 0
-    this.base64 = ""
-    this.description = ""
-    this.descriptionEng = ""
-    this.printImg = false
+  onPaste(event: any) {
+    this.imgSeleccionadaCheck = false
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    let blob = null;
+    for (const item of items) {
+      if (item.type.indexOf('image') === 0) {
+        blob = item.getAsFile();
+      }
+    }
+ 
   }
-  guardar(id : number){
 
+  agregarImagen(card : number){
+    const reader = new FileReader();
+    reader.onload = (event) => {
+    const base64String = event.target?.result as string;
+    this.imgSeleccionada = base64String
+      console.log('Base64 de la imagen:', base64String);
+      if(card === 1){
+        this.img1 = base64String;
+        this.imgDesc1 = this.desc
+        this.imgDescEng1 = this.descIng
+      }else if(card === 2){
+        this.img2 = base64String;
+        this.imgDesc2 = this.desc
+        this.imgDescEng2 = this.descIng
+      }else if(card === 3){
+        this.img3 = base64String;
+        this.imgDesc3 = this.desc
+        this.imgDescEng3 = this.descIng
+      }else if(card === 4){
+        this.img4 = base64String;
+        this.imgDesc4 = this.desc
+        this.imgDescEng4 = this.descIng
+      }
+      this.cardSeleccionada = 0
+      this.tituloSeleccion = ""
+      this.desc = ""
+      this.descIng = ""
+    };
+  }
 
-    if(this.id === 0){
-      this.armarModeloNuevo()
-      console.log(this.modeloNuevo[0])
-      Swal.fire({
-        title: '¿Está seguro de guardar este registro?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText : 'No',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        width: '20rem',
-        heightAuto : true
-      }).then((result) => {
-        if (result.value) {
-          const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
-          if(paginaDetalleEmpresa){
-            paginaDetalleEmpresa.classList.remove('hide-loader');
-          }
-          this.imagenesService.addPhoto(this.modeloNuevo[0]).subscribe(
-            (response) => {
-              if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'',
-                  text : 'El registro se agregó correctamente.',
-                  icon : 'success',
-                  width: '30rem',
-                  heightAuto : true
-                })
-              }
-            }
-          ).add(
-            () => {
-              if(paginaDetalleEmpresa){
-                paginaDetalleEmpresa.classList.add('hide-loader');
-              }
-              this.imagenesService.getListPhoto(this.idPerson).subscribe(
-                (response) =>{
-                  if(response.isSuccess === true && response.isWarning === false){
-                    this.listaFotos = response.data
-                  }
-                }
-              )
-              this.id = -1
-              this.numImg = 0
-              this.base64 = ""
-              this.description = ""
-              this.descriptionEng = ""
-              this.printImg = false
-            }
-          )
-        }
-      });
+  seleccionarCard(card : number){
+    this.cardSeleccionada = card
+    this.imgSeleccionadaCheck = true
+    if(card == 1){
+      this.tituloSeleccion = "Imagén 1"
+      this.desc = this.imgDesc1
+      this.descIng = this.imgDescEng1
+      this.print = this.imgPrint1
+      this.base64 = this.img1
+    }else if(card == 2){
+      this.tituloSeleccion = "Imagén 2"
+      this.desc = this.imgDesc2
+      this.descIng = this.imgDescEng2
+      this.print = this.imgPrint2
+      this.base64 = this.img2
+    }else if(card == 3){
+      this.tituloSeleccion = "Imagén 3"
+      this.desc = this.imgDesc3
+      this.descIng = this.imgDescEng3
+      this.print = this.imgPrint3
+      this.base64 = this.img3
+    }else if(card == 4){
+      this.tituloSeleccion = "Imagén 4"
+      this.desc = this.imgDesc4
+      this.descIng = this.imgDescEng4
+      this.print = this.imgPrint4
+      this.base64 = this.img4
+    }
+  }
+  borrarImagen(card : number){    
+    if(card == 1){
+      this.img1 = ""
+      this.imgDesc1 = ""
+      this.imgDescEng1 = ""
+      this.base64 = this.img1
+    }else if(card == 2){
+      this.img2 = ""
+      this.imgDesc2 = ""
+      this.imgDescEng2 = ""
+      this.base64 = this.img2
+    }else if(card == 3){
+      this.img3 = ""
+      this.imgDesc3 = ""
+      this.imgDescEng3 = ""
+      this.base64 = this.img3
+    }else if(card == 4){
+      this.img4 = ""
+      this.imgDesc4 = ""
+      this.imgDescEng4 = ""
+      this.base64 = this.img4
+    }
+   this.guardar(card,'','')
+  }
+ 
+  dataURItoBlob(dataURI: string): Blob {
+    console.log(dataURI)
+    if(dataURI !== "" && dataURI !== null){
+      const byteString = atob(dataURI.split(',')[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: 'image/png' });
     }else{
-      this.armarModeloModificado()
-      console.log(this.modeloModificado[0])
+      return new Blob([])
+    }
+  }
+  base64ToFile(base64: string, filename: string, mimeType: string): File {
+    console.log(base64)
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: mimeType });
+    return new File([blob], filename, { type: mimeType });
+  }
+  guardar(card : number, desc : string, descIng : string){
+
       Swal.fire({
         title: '¿Está seguro de modificar este registro?',
         text: "",
@@ -343,40 +375,58 @@ files : any = []
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.remove('hide-loader');
           }
-          this.imagenesService.addPhoto(this.modeloModificado[0]).subscribe(
-            (response) => {
-              if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'',
-                  text : 'El registro se guardo correctamente.',
-                  icon : 'success',
-                  width: '30rem',
-                  heightAuto : true
-                })
-              }
-            }
-          ).add(
-            () => {
-              if(paginaDetalleEmpresa){
-                paginaDetalleEmpresa.classList.add('hide-loader');
-              }
-              this.imagenesService.getListPhoto(this.idPerson).subscribe(
-                (response) =>{
-                  if(response.isSuccess === true && response.isWarning === false){
-                    this.listaFotos = response.data
-                  }
+
+            const imageName = 'name.png';
+            const imageBlob = this.dataURItoBlob(this.base64);
+            const file = new File([imageBlob], imageName, { type: 'image/png' });
+            this.imagenesService.updatPerson(this.idPerson, card,desc, descIng,this.print,file).subscribe(
+              (response) => {
+                if(response.isSuccess === true && response.isWarning === false){
+                  Swal.fire({
+                    title: 'Se realizó la operación con exito',
+                    text: "",
+                    icon: 'success',
+                    width: '20rem',
+                    heightAuto : true
+                  }).then(
+                    () => {
+                      if(paginaDetalleEmpresa){
+                        paginaDetalleEmpresa.classList.add('hide-loader');
+                      }
+                      if(card === 1){                        
+                        this.img1 = this.base64
+                        this.imgPrint1 = this.print
+                        this.imgDesc1 = this.desc
+                        this.imgDescEng1 = this.descIng
+                      }else if(card === 2){
+                        this.img2 = this.base64
+                        this.imgPrint2 = this.print
+                        this.imgDesc2 = this.desc
+                        this.imgDescEng2 = this.descIng
+                      }else if(card === 3){
+                        this.img3 = this.base64
+                        this.imgPrint3 = this.print
+                        this.imgDesc3 = this.desc
+                        this.imgDescEng3 = this.descIng
+                      }else if(card === 4){
+                        this.img4 = this.base64
+                        this.imgPrint4 = this.print
+                        this.imgDesc4 = this.desc
+                        this.imgDescEng4 = this.descIng
+                      }
+                      this.base64 = ""
+                      this.print = true
+                      this.cardSeleccionada = 0
+                      this.tituloSeleccion = ""
+                      this.desc = ""
+                      this.descIng = ""
+                    }
+                  )
                 }
-              )
-              this.id = -1
-              this.numImg = 0
-              this.base64 = ""
-              this.description = ""
-              this.descriptionEng = ""
-              this.printImg = false
-            }
-          )
+              }
+            )
           }
         })
-    }
+
   }
 }

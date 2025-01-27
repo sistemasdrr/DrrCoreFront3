@@ -14,20 +14,20 @@
             <mat-icon class="col-white">picture_as_pdf</mat-icon>
             <span class="fi fi-us"></span>
           </button>
-          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Grabar" (click)="guardar()">
             <mat-icon class="col-white">save</mat-icon>
           </button>
         </div>
       </div>
       <hr>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+        <mat-form-field class=" w-100 form-red">
           <mat-label>Entrevistado(s)</mat-label>
           <input matInput placeholder="" [(ngModel)]="interviewed">
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+        <mat-form-field class=" w-100 form-red">
           <mat-label>Cargo(s)</mat-label>
           <input matInput placeholder="" [(ngModel)]="workPosition">
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="workPositionEng === '' ? 'sin-traduccion' : ''" (click)="agregarTraduccion(tituloCargo,'',workPosition,workPositionEng,'cargos')">
@@ -36,7 +36,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Grado de Colaboración</mat-label>
           <button matSuffix mat-mini-fab color="primary" *ngIf="idCollaborationDegree !== 0" style="background-color: rgba(0,0,0,0);" (click)="idCollaborationDegree = 0"  #tooltip="matTooltip" matTooltip="Limpiar">
             <i class="fa-solid fa-xmark" style="color: black; font-size: 20px;"></i>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Auditor(es)</mat-label>
           <input matInput placeholder="" [(ngModel)]="auditors">
         </mat-form-field>
@@ -104,7 +104,7 @@
                     <tr mat-header-row *matHeaderRowDef="columnToDisplayHistoricoVentas"></tr>
                     <tr mat-row *matRowDef="let row; columns: columnToDisplayHistoricoVentas;"></tr>
                   </table>
-                  <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar página de Pedidos" class="w-100"></mat-paginator>
+                  <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar página de Pedidos" class="w-100 form-red"></mat-paginator>
 
                 </div>
               </div>
@@ -127,7 +127,7 @@
   <div class="col-md-8">
     <div class="row counter-box shadow mb-2">
       <div class="col-md-7">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field class="w-100 form-red">
           <mat-label>Situación Financiera</mat-label>
           <mat-select [(ngModel)]="idFinancialSituacion" (selectionChange)="selectSituacionFinanciera($event.value)">
             <mat-option *ngFor="let item of listaSituacionFinanciera" [value]="item.id">
@@ -148,7 +148,7 @@
         </button>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Comentario de Informe con Balance</mat-label>
           <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="reportCommentWithBalance"></textarea>
         </mat-form-field>
@@ -159,7 +159,7 @@
         </mat-slide-toggle>
       </div>
       <div class="col-md-6">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Comentario de Informe sin Balance</mat-label>
           <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="reportCommentWithoutBalance"></textarea>
         </mat-form-field>
@@ -170,7 +170,7 @@
         </mat-slide-toggle>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Comentario Financiero Elegido</mat-label>
           <textarea matInput placeholder="" style="min-height:9rem;" [(ngModel)]="financialCommentarySelected"></textarea>
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="financialCommentarySelectedEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentarioFinanciero,'',financialCommentarySelected,financialCommentarySelectedEng , 'comentarioElegido')">
@@ -186,7 +186,7 @@
     <div class="row counter-box shadow mb-2">
       <h5>Comentarios</h5>
       <div class="col-md-12">
-        <mat-form-field class="w-100 mb-4">
+        <mat-form-field class="w-100 form-red mb-4">
           <mat-label>Comentario de la Entrevista.</mat-label>
           <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="interviewCommentary"></textarea>
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="interviewCommentaryEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentarioEntrevista,'',interviewCommentary,interviewCommentaryEng, 'comentarioEntrevista')">
@@ -196,7 +196,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Comentario del Analista</mat-label>
           <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="analystCommentary"></textarea>
           <button class="btn-traduccion" matSuffix mat-icon-button [class]="analystCommentaryEng === '' ? 'sin-traduccion' : ''"  (click)="agregarComentario(tituloComentarioAnalista,'',analystCommentary,analystCommentaryEng,'comentarioAnalista')">
@@ -205,7 +205,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <mat-form-field class="w-100">
+       <mat-form-field class="w-100 form-red">
           <mat-label>Riesgo Crediticio</mat-label>
           <input matInput placeholder="" [readonly]="true" [(ngModel)]="riskCenter" >
         </mat-form-field>

@@ -20,7 +20,7 @@
             </li>
             <li class="tbl-header-btn">
               <div class="m-l-10" >
-                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="realizarEnvioCodigo()">
+                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Grabar" (click)="realizarEnvioCodigo()">
                   <mat-icon class="col-white">save</mat-icon>
                 </button>
               </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col-md-5 mb-3">
-      <mat-form-field class="w-100">
+      <mat-form-field class=" w-100 form-red">
         <mat-label>Moneda del País</mat-label>
         <span matSuffix style="margin-right: .5rem; color:gray;">
           <i class="fa-solid fa-coins"></i>
@@ -51,7 +51,7 @@
       </mat-form-field>
     </div>
     <div class="col-md-7 mb-3">
-      <mat-form-field class="w-100">
+      <mat-form-field class=" w-100 form-red">
         <mat-label>Monto</mat-label>
         <input matInput placeholder="" mask="separator.2" thousandSeparator="," [(ngModel)]="capital">
         <span matSuffix style="margin-right: .5rem; color:gray;">
@@ -62,14 +62,14 @@
     <h4>Observación</h4>
     <hr>
     <div class="col-md-12 mb-3">
-      <mat-form-field class="w-100">
+      <mat-form-field class=" w-100 form-red">
         <mat-label>(Español)</mat-label>
         <textarea matInput placeholder="" [(ngModel)]="commentary"></textarea>
         <span matSuffix  class="fi fi-es" style="font-size: 24px;"></span>
       </mat-form-field>
     </div>
     <div class="col-md-12 mb-3">
-      <mat-form-field class="w-100">
+      <mat-form-field class=" w-100 form-red">
         <mat-label>(Inglés)</mat-label>
         <textarea matInput placeholder="" [(ngModel)]="commentaryEng"></textarea>
         <span matSuffix class="fi fi-us" style="font-size: 24px;"></span>

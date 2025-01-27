@@ -33,6 +33,7 @@ import { FeatherIconsModule } from '@shared/components/feather-icons/feather-ico
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComentarioComponent } from './asignacion/comentario/comentario.component';
 import { StopPropagationDirective } from './asignacion2/stop-propagation.directive';
+import { AnulacionComponent } from './anulacion/anulacion.component';
 @NgModule({
   declarations: [
     ListaComponent,
@@ -46,7 +47,8 @@ import { StopPropagationDirective } from './asignacion2/stop-propagation.directi
     ListaPersonasComponent,
     ReferenciasComercialesComponent,
     ComentarioComponent,
-    StopPropagationDirective
+    StopPropagationDirective,
+    AnulacionComponent
   ],
   imports: [
     CommonModule,

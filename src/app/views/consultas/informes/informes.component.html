@@ -15,7 +15,7 @@
       <div class="card card-body shadow " style="padding-bottom: 0px;">
         <div class="row">
           <div class="col-md-3">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Consulta de </mat-label>
               <mat-select [(ngModel)]="idQuery" placeholder="" (selectionChange)="limpiar1(); limpiar2();">
                   <mat-option [value]="1">1.1.- Informes en Proceso</mat-option>
@@ -26,7 +26,7 @@
           <div class="col-md-1"></div>
           <!--QUERY 1-->
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Abonado </mat-label>
               <mat-select [(ngModel)]="query5_1_1_idSubscriber" placeholder="" (selectionChange)="query5_1_1_selectSubscriber(query5_1_1_idSubscriber)">
                   <mat-option  *ngFor="let item of abonados" [value]="item.id" >
@@ -36,13 +36,13 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Cupón</mat-label>
               <input matInput placeholder="" [(ngModel)]="query5_1_1_number">
             </mat-form-field>
           </div>
           <div class="col-md-3" *ngIf="idQuery === 1">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nombre Solicitado</mat-label>
               <input matInput placeholder="" [(ngModel)]="query5_1_1_name">
             </mat-form-field>
@@ -61,7 +61,7 @@
           </div>
           <!--QUERY 2-->
           <div class="col-md-2" *ngIf="idQuery === 2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Abonado </mat-label>
               <mat-select [(ngModel)]="query5_1_2_idSubscriber" placeholder="" (selectionChange)="query5_1_2_selectSubscriber(query5_1_2_idSubscriber)">
                   <mat-option  *ngFor="let item of abonados2" [value]="item.id" >
@@ -71,13 +71,13 @@
             </mat-form-field>
           </div>
           <div class="col-md-2" *ngIf="idQuery === 2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Cupón</mat-label>
               <input matInput placeholder="" [(ngModel)]="query5_1_2_number">
             </mat-form-field>
           </div>
           <div class="col-md-3" *ngIf="idQuery === 2">
-            <mat-form-field class="w-100">
+           <mat-form-field class="w-100 form-red">
               <mat-label>Nombre Solicitado</mat-label>
               <input matInput placeholder="" [(ngModel)]="query5_1_2_name">
             </mat-form-field>

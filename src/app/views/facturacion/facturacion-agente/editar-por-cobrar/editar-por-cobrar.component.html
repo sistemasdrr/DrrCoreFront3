@@ -24,7 +24,7 @@
             </li>
             <li class="tbl-header-btn">
               <div class="m-l-10" >
-                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+                <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Grabar" (click)="guardar()">
                   <mat-icon class="col-white">save</mat-icon>
                 </button>
               </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="col-md-8 mb-3">
-      <mat-form-field class="w-100">
+     <mat-form-field class="w-100 form-red">
         <mat-label>Informe</mat-label>
         <input matInput placeholder="" [(ngModel)]="requestedName">
       </mat-form-field>
@@ -48,7 +48,7 @@
       </mat-form-field>
     </div>
     <div class="col-md-4 mb-3">
-      <mat-form-field class="w-100">
+     <mat-form-field class="w-100 form-red">
         <mat-label>Tipo de Trámite</mat-label>
         <mat-select [(ngModel)]="procedureType" placeholder="">
             <mat-option [value]="'T1'">T1</mat-option>
@@ -58,7 +58,7 @@
       </mat-form-field>
     </div>
     <div class="col-md-4 mb-3">
-      <mat-form-field class="w-100">
+     <mat-form-field class="w-100 form-red">
         <mat-label>Precio</mat-label>
         <input matInput type="number" placeholder="" [(ngModel)]="price">
       </mat-form-field>

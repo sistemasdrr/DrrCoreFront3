@@ -314,7 +314,7 @@ export class AgregarSocioPersonaComponent implements OnInit {
         this.idCountry = 0
       } else {
         this.msgPais = "Opción Seleccionada"
-        this.colorMsgPais = "green"
+        this.colorMsgPais = "blue"
         this.iconoSeleccionado =pais.bandera
         this.idCountry = pais.id
       }

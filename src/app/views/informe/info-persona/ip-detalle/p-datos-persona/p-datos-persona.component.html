@@ -7,7 +7,7 @@
             <button mat-mini-fab color="warn" style="margin: 0 .5rem .5rem .5rem;" (click)="salir()" #tooltip="matTooltip" matTooltip="Volver">
               <mat-icon class="col-white">arrow_back</mat-icon>
             </button>
-            <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Guardar">
+            <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar">
               <mat-icon class="col-white">save</mat-icon>
             </button>
           </div>
@@ -17,7 +17,7 @@
           <div class="col-md-9">
             <div class="row">
               <div class="col-md-4">
-                <mat-form-field color="primary" style="width: 100%;" >
+                <mat-form-field color="primary" class="w-100 form-red" >
                   <mat-label >Informe Investigado el</mat-label>
                   <input matInput [matDatepicker]="fecha__investigado_informe" #fechaInput [(ngModel)]="lastSearchedD" [readonly]="true" (dateChange)="selectFechaInforme($event)">
                   <mat-datepicker-toggle matIconSuffix [for]="fecha__investigado_informe"></mat-datepicker-toggle>
@@ -25,7 +25,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 d-flex justify-content-center">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field class="w-100 form-red">
                   <mat-label>Idioma</mat-label>
                   <mat-select [(ngModel)]="language" (selectionChange)="selectIdioma($event.value)">
                     <mat-option [value]="'E'">
@@ -49,7 +49,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 d-flex justify-content-center">
-                <mat-form-field style="width: 100%;">
+                <mat-form-field class="w-100 form-red">
                   <mat-label>Situación</mat-label>
                   <mat-select [(ngModel)]="idPersonSituation">
                     <mat-option *ngFor="let item of situacionPersona" [value]="item.id">
@@ -59,13 +59,13 @@
                 </mat-form-field>
               </div>
               <div class="col-md-8">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Apellidos y Nombres</mat-label>
                   <input matInput placeholder="" [(ngModel)]="fullname">
                 </mat-form-field>
               </div>
               <div class="col-md-4">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>País</mat-label>
                   <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
                   <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
@@ -81,7 +81,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>Nacionalidad</mat-label>
                   <input matInput placeholder="" [(ngModel)]="nationality">
                   <button class="btn-traduccion" [class]="nationalityEng === '' || nationalityEng === null ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion('Traducción de Nacionalidad','', nationality, nationalityEng, 'nacionalidad')">
@@ -90,7 +90,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-3">
-                <mat-form-field color="primary" style="width: 100%;" >
+                <mat-form-field color="primary" class="w-100 form-red" >
                   <mat-label >Nacido el</mat-label>
                   <input matInput [matDatepicker]="fecha_nacimiento" #fechaInput [(ngModel)]="birthDateD" [readonly]="true" (dateChange)="selectFechaNacimiento($event)">
                   <mat-datepicker-toggle matIconSuffix [for]="fecha_nacimiento"></mat-datepicker-toggle>
@@ -98,7 +98,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-5">
-                <mat-form-field class="w-100">
+               <mat-form-field class="w-100 form-red">
                   <mat-label>En</mat-label>
                   <input matInput placeholder="" [(ngModel)]="birthPlace">
                   <button class="btn-traduccion" [class]="birthPlaceEng === '' || birthPlaceEng === null ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion('Traducción de Lugar de Nacimiento','', birthPlace,birthPlaceEng, 'nacimiento')">
@@ -111,7 +111,7 @@
           <div class="col-md-3">
             <div class="row m-0 p-0">
               <div class="col-md-12">
-                <mat-card class="w-100">
+                <mat-card class="w-100 form-red">
                   <img mat-card-image>
                   <mat-card-content style="height: 10rem; border-radius: 10px 10px 0 0;" [ngClass]="quality === 'A' ? 'bg-green' : quality === 'B' ? 'bg-blue' : quality === 'C' ? 'bg-orange' : quality === 'D' ? 'bg-red' : ''">
                     <div class="row h-100">
@@ -123,7 +123,7 @@
                     </div>
                   </mat-card-content>
                   <mat-divider></mat-divider>
-                  <mat-card-actions class="w-100" style="display: unset;">
+                  <mat-card-actions class="w-100 form-red" style="display: unset;">
                     <div fxLayout="row">
                       <div class="w-100 d-flex justify-content-between align-items-center">
                         <h6 style="margin-top: .5rem;">Calidad del Informe</h6>
@@ -147,7 +147,7 @@
           </mat-form-field>
         </!--div-->
         <div class="col-md-5 d-flex">
-          <mat-form-field class="" style="width: 60%;">
+          <mat-form-field class="" style="width: 60%;" class="form-red">
             <mat-label>Tipo de Doc.</mat-label>
             <mat-select [(ngModel)]="idDocumentType" >
                 <mat-option [value]="item.id" *ngFor="let item of tipoDocumento">
@@ -155,23 +155,23 @@
                 </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field style="width: 40%;">
+          <mat-form-field style="width: 40%;" class="form-red">
             <mat-label>Código de Documento</mat-label>
             <input matInput placeholder="" [(ngModel)]="codeDocumentType">
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="" style="width: 40%;">
+          <mat-form-field style="width: 40%;" class="form-red">
             <mat-label>Registro Tributario (Tipo)</mat-label>
             <input matInput placeholder="" [(ngModel)]="taxTypeName">
           </mat-form-field>
-          <mat-form-field class="" style="width: 60%;">
+          <mat-form-field class="" style="width: 60%;"  class="form-red">
             <mat-label>Registro Tributario (Código)</mat-label>
             <input matInput placeholder="" [(ngModel)]="taxTypeCode">
           </mat-form-field>
         </div>
         <div class="col-md-3">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Situación RUC</mat-label>
             <input type="text" matInput [formControl]="controlSituacionRUC"  [matAutocomplete]="auto2" [(ngModel)]="situacionRucInforme" (ngModelChange)="cambioSituacionRuc(situacionRucInforme)">
             <mat-hint [ngClass]="idLegalRegisterSituation === 0 ? 'col-red': 'col-green'" >
@@ -196,33 +196,33 @@
         <h4>Información de Contacto</h4>
         <hr>
         <div class="col-md-8">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Dirección Completa</mat-label>
             <input matInput placeholder="" [(ngModel)]="address">
             <mat-hint>Domicilio, Distrito, Ciudad, Prov.</mat-hint>
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>C.P.</mat-label>
             <input matInput placeholder="" [(ngModel)]="cp">
           </mat-form-field>
         </div>
         <div class="col-md-12">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Dpto. / Estado</mat-label>
             <input matInput placeholder="" [(ngModel)]="city">
           </mat-form-field>
         </div>
 
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Otras Direcciones Ubicadas</mat-label>
             <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="otherDirecctions"></textarea>
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Nombre Comercial</mat-label>
             <textarea matInput placeholder="" style="min-height: 8rem;" [(ngModel)]="tradeName"></textarea>
           </mat-form-field>
@@ -233,7 +233,7 @@
             <mat-label>Código</mat-label>
             <input matInput placeholder="" [(ngModel)]="codePhone">
           </mat-form-field>
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Telefono</mat-label>
             <input matInput placeholder="" [(ngModel)]="numberPhone">
           </mat-form-field>
@@ -245,7 +245,7 @@
       <div class="row counter-box shadow">
         <h4></h4>
         <div class="col-md-2">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Estado Civil </mat-label>
             <mat-select [(ngModel)]="idCivilStatus" placeholder="">
                 <mat-option [value]="item.id" *ngFor="let item of estadoCivil">
@@ -255,7 +255,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Con</mat-label>
             <input matInput placeholder  [(ngModel)]="relationshipWith">
             <button class="btn-traduccion" [class]="relationshipWithEng === '' || relationshipWithEng === null ? 'sin-traduccion' : ''" matSuffix mat-icon-button (click)="agregarTraduccion('Traducción de Relación Con','', relationshipWith,relationshipWithEng, 'relacion')">
@@ -264,7 +264,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="" style="width: 40%;">
+          <mat-form-field class="" style="width: 40%;" class="form-red">
             <mat-label>Tipo de Doc.</mat-label>
             <mat-select [(ngModel)]="relationshipDocumentType" >
               <mat-option [value]="item.id" *ngFor="let item of tipoDocumento">
@@ -272,25 +272,25 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="" style="width: 60%;">
+          <mat-form-field class="" style="width: 60%;" class="form-red">
             <mat-label>Código de Documento</mat-label>
             <input matInput placeholder  [(ngModel)]="relationshipCodeDocument">
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Nombre del Padre</mat-label>
             <input matInput placeholder="" [(ngModel)]="fatherName">
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Nombre de la Madre</mat-label>
             <input matInput placeholder="" [(ngModel)]="motherName">
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Profesión</mat-label>
             <input type="text" matInput [formControl]="ctrlProfesion" [matAutocomplete]="auto" [(ngModel)]="profesionInforme" (ngModelChange)="seleccionarProfesion($event)">
             <mat-hint [ngClass]="profession === '' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="profession === ''"></i><i class="fa-solid fa-circle-check" *ngIf="profession !== ''"></i>&nbsp;{{msgProfesion}}</mat-hint>
@@ -306,26 +306,26 @@
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Socio de Club</mat-label>
             <input matInput placeholder="" [(ngModel)]="clubMember">
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Email</mat-label>
             <input matInput placeholder="" [(ngModel)]="email">
           </mat-form-field>
         </div>
         <div class="col-md-8">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Seguros</mat-label>
             <input matInput placeholder="" [(ngModel)]="insurance">
           </mat-form-field>
         </div>
 
         <div class="col-md-4">
-          <mat-form-field class="w-100">
+         <mat-form-field class="w-100 form-red">
             <mat-label>Celular</mat-label>
             <input matInput placeholder="" [(ngModel)]="cellphone">
           </mat-form-field>
@@ -338,7 +338,7 @@
         <hr>
         <div class="col-md-8">
           <div class="col-md-12">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Riesgo Crediticio</mat-label>
               <mat-select [(ngModel)]="riesgoCrediticioSeleccionado" (selectionChange)="selectRiesgoCrediticio($event)" >
                 <mat-option *ngFor="let cCrediticia of calificacionCrediticia" [value]="cCrediticia">
@@ -348,7 +348,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-12">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Política de Pagos</mat-label>
               <mat-select [(ngModel)]="politicaPagoSeleccionada" (selectionChange)="selectPoliticaPagos($event)">
                 <mat-option *ngFor="let pPagos of politicaPagos" [value]="pPagos">
@@ -361,7 +361,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-12">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field class="w-100 form-red">
               <mat-label>Reputación</mat-label>
               <mat-select [(ngModel)]="reputacionSeleccionada" (selectionChange)="selectReputacion($event)">
                 <mat-option *ngFor="let reputacion of reputaciones" [value]="reputacion">
@@ -398,7 +398,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <mat-form-field class="w-100 mt-2" >
+          <mat-form-field class="w-100 mt-2 form-red"  >
             <mat-label>Comentario de Reputación</mat-label>
             <textarea matInput type="text" [(ngModel)]="reputationCommentary" style="min-height: 8rem;"></textarea>
             <mat-hint *ngIf="idReputation >= 8" class="col-red"><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i>&nbsp;Explicar mala reputación</mat-hint>
@@ -408,7 +408,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100 mt-2">
+         <mat-form-field class="w-100 mt-2 form-red"  >
             <mat-label>Comentarios Diversos / Prensa</mat-label>
             <textarea matInput type="text" [(ngModel)]="newsCommentary" style="min-height: 8rem;"></textarea>
             <button class="btn-traduccion" matSuffix mat-icon-button [class]="newsCommentaryEng === '' || newsCommentaryEng === null ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentarioPrensa,'', newsCommentary,newsCommentaryEng,'prensa')">
@@ -418,7 +418,7 @@
           <mat-slide-toggle [(ngModel)]="printNewsCommentary" class="mb-3" (click)="!printNewsCommentary" style="margin-left: 1rem;">¿Imprimir Comentario de Prensa? <div *ngIf="printNewsCommentary === true">SÍ</div><div *ngIf="printNewsCommentary === false">NO</div></mat-slide-toggle>
         </div>
         <div class="col-md-6">
-          <mat-form-field class="w-100 mt-2">
+         <mat-form-field class="w-100 mt-2 form-red"  >
             <mat-label>Comentario Privado (No se Imprime)</mat-label>
             <textarea matInput type="text" [(ngModel)]="privateCommentary" style="min-height: 8rem;"></textarea>
           </mat-form-field>

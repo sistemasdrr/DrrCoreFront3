@@ -13,12 +13,12 @@
     <div class="row m-0  ">
       <div class="col-md-4">
         <div class="row">
-          <p class="w-100">
-            <mat-button-toggle-group class="w-100" [(ngModel)]="type" (ngModelChange)="filterType(type)" appearance="standard" aria-label="Font Style">
-              <mat-button-toggle class="w-100" value="RP">REPORTERO</mat-button-toggle>
-              <mat-button-toggle class="w-100" value="DI">DIGITADOR</mat-button-toggle>
-              <mat-button-toggle class="w-100" value="TR">TRADUCTORA</mat-button-toggle>
-              <mat-button-toggle class="w-100" value="RF">REFERENCISTA</mat-button-toggle>
+          <p class="w-100 form-red">
+            <mat-button-toggle-group class="w-100 form-red" [(ngModel)]="type" (ngModelChange)="filterType(type)" appearance="standard" aria-label="Font Style">
+              <mat-button-toggle class="w-100 form-red" value="RP">REPORTERO</mat-button-toggle>
+              <mat-button-toggle class="w-100 form-red" value="DI">DIGITADOR</mat-button-toggle>
+              <mat-button-toggle class="w-100 form-red" value="TR">TRADUCTORA</mat-button-toggle>
+              <mat-button-toggle class="w-100 form-red" value="RF">REFERENCISTA</mat-button-toggle>
             </mat-button-toggle-group>
           </p>
           <mat-form-field color="primary" style="width: 100%;">
@@ -58,7 +58,7 @@
           <button mat-flat-button class="" [ngClass]="codeUserSelected === '' ? 'bg-gray' : 'bg-green'" style="width: 10rem; margin: 0 .5rem .5rem .5rem;" (click)="enviarReporte()" [disabled]="codeUserSelected === ''">
             Enviar Informe
           </button>
-          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Guardar" (click)="guardar()">
+          <button mat-mini-fab class="bg-cyan" style="margin: 0 .5rem .5rem .5rem;" #tooltip="matTooltip" matTooltip="Grabar" (click)="guardar()">
             <i style="font-size: 20px;" class="fa-solid fa-floppy-disk"></i>
           </button>
         </div>
