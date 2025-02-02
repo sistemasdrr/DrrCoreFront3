@@ -167,6 +167,7 @@ export class Asignacion2Component implements OnInit {
                           qualityTranslator :  order.qualityTranslator,
                           hasBalance :  order.hasBalance,
                           otherUserCode : order.otherUserCode,
+                          specialPriceBalance: order.specialPriceBalance,
                           order : order
                         },
                       }).afterClosed().subscribe(() => {
@@ -193,6 +194,7 @@ export class Asignacion2Component implements OnInit {
                         qualityTranslator :  order.qualityTranslator,
                     hasBalance : quality  ? order.hasBalance : false,
                     otherUserCode : order.otherUserCode,
+                    specialPriceBalance: order.specialPriceBalance,
                     order : order
                   },
                 }).afterClosed().subscribe(() => {
@@ -218,6 +220,7 @@ export class Asignacion2Component implements OnInit {
                 qualityTranslator :  order.qualityTranslator,
             hasBalance : quality  ? order.hasBalance : false,
             otherUserCode : order.otherUserCode,
+            specialPriceBalance: order.specialPriceBalance,
             order : order
           },
         }).afterClosed().subscribe(() => {

@@ -63,6 +63,7 @@ export class SeleccionarAgenteComponent implements OnInit {
   observaciones = ""
   userFrom = ''
   numberAssign:number = 0
+  specialPriceBalance: number=0
   loading=false;
   forceSupervisor=false;
   assginFromCode: any;
@@ -105,6 +106,7 @@ export class SeleccionarAgenteComponent implements OnInit {
       this.procedureType=data.procedureType
       this.hasBalance=data.hasBalance
       this.assginFromCode=data.assginFromCode
+      this.specialPriceBalance=data.specialPriceBalance,
       this.referencias = this.reportType.trim() === "RV" ? true : false
       this.fechaAsignacionDate=new Date()
       this.fechaVencimientoDate=new Date()
@@ -174,10 +176,7 @@ export class SeleccionarAgenteComponent implements OnInit {
   }
   numAsig = 0
   enviarDespachar(){
-    console.log(this.quality)
-    console.log(this.qualityTranslator)
-    console.log(this.qualityTypist)
-    console.log(this.supervisorCode)
+   
     const supervisor = this.order[0].otherUserCode.filter(x => x.code.includes("S") && x.active === true)[0]
     console.log(supervisor)
     if(this.supervisorCode === "" && supervisor === null){
@@ -401,6 +400,8 @@ private agregarAsignacion(code: string, tipo: string) {
         qualityTypist: this.qualityTypist !== '' ? this.qualityTypist : null,
         qualityTranslator: this.qualityTranslator !== '' ? this.qualityTranslator : null,
         hasBalance: this.hasBalance,
+        specialPriceBalance: this.specialPriceBalance,
+        traduccion:this.traduccion,
         sendZip: this.sendZip,
         forceSupervisor: this.forceSupervisor,
         attachmentRefCom : this.attachmentRefCom,

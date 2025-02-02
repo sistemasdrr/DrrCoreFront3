@@ -55,6 +55,9 @@
                   <mat-slide-toggle style="margin-top: .6rem;" class="example-margin" [(ngModel)]="isComplement">
                     Es Complemento?
                   </mat-slide-toggle>
+                  <mat-slide-toggle style="margin-top: .6rem;" class="example-margin" [(ngModel)]="directTranslate">
+                    Traducción Directa?
+                  </mat-slide-toggle>
                 </div>
               </div>
               <div class="col-md-4 m-0 pt-0 pb-0">
@@ -76,6 +79,7 @@
                     <mat-option [value]="'A'">A</mat-option>
                     <mat-option [value]="'B'">B</mat-option>
                     <mat-option [value]="'C'">C</mat-option>
+                    <mat-option [value]="'D'">D</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

@@ -57,7 +57,7 @@ export class FacturacionInternaComponent implements OnInit{
   dataSource = new MatTableDataSource<GetPersonalToInvoice>();
   columnsDS = ['code','firstName','select']
 
-  abonados2 : Query5_1_2ByCycle[] = []
+  abonados2 : Query5_1_2Tickets[] = []
   dataSource2= new MatTableDataSource<Query5_1_2Tickets>;
   contador : Query5_1_2Tickets[] = [];
   columnsToDisplay2 = ['number','requestedName','status','country','reportType','procedureType','price','orderDate', 'expireDate', 'Acciones' ];
@@ -102,15 +102,16 @@ export class FacturacionInternaComponent implements OnInit{
     this.dataSource2.data = []
   }
   selectPersonal(idUser : number, code : string){
+    this.loading=true;
     this.idUserSelected = idUser
     console.log(idUser)
     this.codeUserSelected = code
-    this.consultaService.GetQuery5_1_2MonthlyByCycle(this.idUserSelected+'',this.cycle, code.trim()).subscribe(
+    this.consultaService.GetInternalInvoice(this.idUserSelected+'',this.cycle, code.trim()).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.abonados2 = []
           this.abonados2 = response.data
-
+          this.loading=false;
         console.log(response.data)
         }
       }
@@ -118,9 +119,9 @@ export class FacturacionInternaComponent implements OnInit{
       () => {
         let tickets : Query5_1_2Tickets[] = []
         this.abonados2.forEach(element => {
-          element.tickets.forEach(ticket => {
-            tickets.push(ticket)
-          });
+         
+            tickets.push(element)
+         
         });
         tickets.sort((a, b) => {
           let numberA = parseInt(a.number, 10);

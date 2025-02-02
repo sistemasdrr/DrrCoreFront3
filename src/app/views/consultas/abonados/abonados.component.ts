@@ -80,12 +80,13 @@ export class AbonadosComponent implements OnInit{
         if(response.isSuccess === true && response.isWarning === false){
           this.DTQuery1_6_base = response.data
           this.DTQuery1_6.data = this.filterByDistinct(response.data)
+          
           this.DTQuery1_6.sort = this.sort
-          this.DTQuery1_6.paginator = this.paginator
+          //this.DTQuery1_6.paginator = this.paginator
         }
       }
     )
-    this.abonadoService.getAbonados('','','A').subscribe(
+    this.abonadoService.getAbonadosSolicitados().subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.DTQuery1_7.data = response.data.filter(x => x.facturationType === 'CC')
@@ -94,7 +95,7 @@ export class AbonadosComponent implements OnInit{
 
           this.DTQuery1_10.data = response.data
           this.DTQuery1_10.sort = this.sort
-          this.DTQuery1_10.paginator = this.paginator
+         // this.DTQuery1_10.paginator = this.paginator
         }
       }
     )
@@ -706,7 +707,7 @@ export class AbonadosComponent implements OnInit{
   columnsQuery1_6 : string[] = ['name', 'options']
 
   DTQuery1_6ByIdSubscriber = new MatTableDataSource<Query1_6ByIdSubscriber>()
-  columnsQuery1_6ByIdSubscriber : string[] = ['orderDate','expireDate','requestedName','country','procedureType','reportType','subscriberCode','price']
+  columnsQuery1_6ByIdSubscriber : string[] = ['number','orderDate','expireDate','requestedName','status','country','procedureType','reportType','subscriberCode','price']
 
   private filterByDistinct(querys: Query1_6ByIdSubscriber[]): Query1_6ByIdSubscriber[] {
     const uniqueSubscribers = new Set();
@@ -877,7 +878,7 @@ export class AbonadosComponent implements OnInit{
   columnsQuery1_10 : string[] = ['name', 'options']
 
   DTQuery1_10Tickets = new MatTableDataSource<Query1_10>()
-  columnsQuery1_10Tickets : string[] = ['orderDate','expireDate', 'dispatchDate','requestedName','country','procedureType','reportType','price']
+  columnsQuery1_10Tickets : string[] = ['number','orderDate','expireDate', 'dispatchDate','requestedName','status','country','procedureType','reportType','price']
 
   selectStartDate_1_10(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
@@ -892,9 +893,9 @@ export class AbonadosComponent implements OnInit{
     }
   }
 
-  searchQuery1_10(){
+  searchQuery1_10(idSubscriber:number) {
     this.loading = true
-    this.consultaService.GetQuery1_10(this.query1_10_idSubscriber,this.query1_10startDate, this.query1_10endDate).subscribe(
+    this.consultaService.GetQuery1_10(idSubscriber,this.query1_10startDate, this.query1_10endDate).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
           this.query1_10totalReports = 0

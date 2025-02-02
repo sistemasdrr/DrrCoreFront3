@@ -175,6 +175,7 @@ export interface Asignacion{
   startDate : string
   endDate : string
   balance : boolean
+  traduccion : boolean
   references : boolean
   forceSupervisor:boolean
   observations : string
@@ -190,6 +191,7 @@ export interface Asignacion{
   sendZip : boolean
   attachmentRefCom : boolean
   procedureTypeAgent:string
+  specialPriceBalance: number
 }
 
 export interface ListTicket2{
@@ -258,6 +260,7 @@ export interface ListTicket2{
   complementQuality : string
   complementQualityTranslator : string
   complementQualityTypist : string
+  specialPriceBalance:number
 }
 export interface OtherUserCode{
   code : string

@@ -521,6 +521,9 @@ export interface Query5_1_2Tickets{
   price : number
   id : number
   idTicket : number
+  idTicketHistory:number
+  startDate: string
+  endDate: string
   idCompany : number
   idPerson : number
   number : string

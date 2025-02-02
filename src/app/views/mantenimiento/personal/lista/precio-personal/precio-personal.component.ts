@@ -25,7 +25,7 @@ export class PrecioPersonalComponent implements OnInit{
 
   @ViewChild(MatSort) sort!: MatSort;
   dataSource = new MatTableDataSource<BillingPersonal>()
-  columns : string[] = ['code','commission','reportType','quality','isComplement','amount','accion']
+  columns : string[] = ['code','commission','reportType','quality','isComplement','directTranslate','amount','accion']
 
   constructor(public dialogRef: MatDialogRef<PrecioPersonalComponent>,private dialog : MatDialog,
     private personalService : PersonalService,@Inject(MAT_DIALOG_DATA) public data: any){

@@ -1,4 +1,4 @@
-<div mat-dialog-content class="row" style="min-width: 50rem; min-height: 65rem; overflow-y: auto; overflow-x: none;">
+<div mat-dialog-content class="row" style="min-width: 50rem; min-height: 50rem; overflow-y: scroll; overflow-x: scroll;">
   <div id="loader-detalle-cupon" class="d-flex justify-content-center align-items-center loader-container" [ngClass]="{'hide-loader': !loading}">
     <span class="loader"></span><br>
     <h2 style="color: white;">&nbsp;Cargando...</h2>
@@ -12,8 +12,8 @@
     </div>
   </div>
   <div class="col-md-12" >
-    <div >
-      <table mat-table [dataSource]="dataSourcePartners" class="table" style="width: 100%; table-layout: auto;" matSort>
+    <div class="shadow m-1" >
+      <table mat-table [dataSource]="dataSourcePartners"  style="width: 100%;  display: block; height: 400px;overflow-y: scroll;" matSort>
         <ng-container matColumnDef="numeration">
           <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px; "> N° </th>
           <td mat-cell *matCellDef="let partner" class="text-center">
@@ -91,7 +91,7 @@
   </div>
   <div class="col-md-12" >
     <div class="shadow m-1" >
-      <table mat-table [dataSource]="dataSourceShareHolder" class="table" style="width: 100%; table-layout: auto;" matSort>
+      <table mat-table [dataSource]="dataSourceShareHolder"  style="width: 100%;  display: block; height: 400px;overflow-y: scroll;" matSort>
         <ng-container matColumnDef="name">
           <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-center" style="font-size: 18px;"> Razón Social </th>
           <td mat-cell *matCellDef="let shareHolder" class="text-center" >{{shareHolder.name}}</td>

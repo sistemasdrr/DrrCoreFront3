@@ -219,3 +219,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   top: 50%;
   transform: translateY(-50%);
 }
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+  padding: 0 4px 0 4px;
+}

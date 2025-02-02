@@ -21,6 +21,10 @@ export class AbonadoService {
   getAbonados(code : string, name : string, enable : string): Observable<Response<AbonadoT[]>>{
     return this.http.get<Response<AbonadoT[]>>(this.url + this.controllerAbonado + '/get?code='+code+'&name='+name+'&enable='+enable);
   }
+  getAbonadosSolicitados(): Observable<Response<AbonadoT[]>>{
+    return this.http.get<Response<AbonadoT[]>>(this.url + this.controllerAbonado + '/getSolicitados');
+  }
+
   getAbonadoPorId(idAbonado : number): Observable<Response<Abonado>>{
     return this.http.get<Response<Abonado>>(this.url + this.controllerAbonado + '/getById?id='+idAbonado);
   }

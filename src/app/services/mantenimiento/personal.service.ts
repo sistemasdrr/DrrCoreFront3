@@ -18,6 +18,7 @@ export interface BillingPersonal{
   quality : string
   isComplement : boolean
   amount : number
+  directTranslate:boolean
 }
 
 @Injectable({

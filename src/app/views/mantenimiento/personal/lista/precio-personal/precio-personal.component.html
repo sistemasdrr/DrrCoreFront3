@@ -73,6 +73,12 @@
                     <mat-checkbox [(ngModel)]="personal.isComplement" value="" color="primary" disabled></mat-checkbox>
                   </td>
                 </ng-container>
+                <ng-container matColumnDef="directTranslate" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Trad. Directa? </th>
+                  <td mat-cell *matCellDef="let personal" class="text-center">
+                    <mat-checkbox [(ngModel)]="personal.directTranslate" value="" color="primary" disabled></mat-checkbox>
+                  </td>
+                </ng-container>
                 <ng-container matColumnDef="amount" >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Precio </th>
                   <td mat-cell *matCellDef="let personal" class="text-center"> {{personal.amount}} </td>

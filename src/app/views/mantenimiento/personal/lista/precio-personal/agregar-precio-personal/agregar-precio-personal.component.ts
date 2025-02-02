@@ -15,6 +15,7 @@ export class AgregarPrecioPersonalComponent  implements OnInit{
   idEmployee = 0
   code = ""
   commission = false
+  directTranslate = false
   reportType = ""
   quality = ""
   isComplement = false
@@ -53,6 +54,7 @@ export class AgregarPrecioPersonalComponent  implements OnInit{
             this.quality = response.data.quality
             this.isComplement = response.data.isComplement
             this.amount = response.data.amount
+            this.directTranslate = response.data.directTranslate
           }
         }
       )
@@ -67,7 +69,9 @@ export class AgregarPrecioPersonalComponent  implements OnInit{
       reportType : this.reportType,
       quality : this.quality,
       isComplement : this.isComplement,
-      amount : this.amount
+      amount : this.amount,
+      directTranslate:this.directTranslate
+ 
     }
   }
   guardar(){

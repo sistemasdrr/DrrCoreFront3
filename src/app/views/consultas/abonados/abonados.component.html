@@ -237,11 +237,7 @@
               <mat-datepicker #end_Date2 color="primary"></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-md-1"  *ngIf="idQuery === 10">
-            <button mat-mini-fab style="margin-top: .4rem;" color="primary" (click)="searchQuery1_10()">
-              <mat-icon class="col-white">search</mat-icon>
-            </button>
-          </div>
+         
 
           <!--1_11-->
           <div class="col-md-2" *ngIf="idQuery === 11">
@@ -708,12 +704,12 @@
             </div>
             <div class="mb-3" *ngIf="idQuery === 6">
               <div class="row">
-                <div class="col-md-3" style="overflow-y: scroll; overflow-x: hidden; max-height: 30rem;">
+                <div class="col-md-3" style="overflow-y: scroll; overflow-x: hidden; ">
                   <table mat-table [dataSource]="DTQuery1_6"  class="mat-elevation-z8 w-100"  matSort>
 
                     <ng-container matColumnDef="name">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> Abonado </th>
-                      <td mat-cell *matCellDef="let query" class="text-left" ><b>{{query.subscriberCode}}</b> || {{query.subscriberCountry}}<span class="fi fi-{{query.subscriberFlagCountry}}" style="font-size: 20px;"></span> - {{query.subscriberName}}</td>
+                      <td mat-cell *matCellDef="let query" class="text-left" ><b>{{query.subscriberCode}}</b> || {{query.subscriberName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="options">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;">  </th>
@@ -730,7 +726,10 @@
                 </div>
                 <div class="col-md-9"  >
                   <table mat-table [dataSource]="DTQuery1_6ByIdSubscriber"  class="mat-elevation-z8 w-100"  matSort>
-
+                    <ng-container matColumnDef="number">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> Cupón </th>
+                      <td mat-cell *matCellDef="let query" class="text-center" ><b>{{query.number}}</b></td>
+                    </ng-container>
                     <ng-container matColumnDef="orderDate">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> F. Pedido </th>
                       <td mat-cell *matCellDef="let query" class="text-center" ><b>{{query.orderDate}}</b></td>
@@ -742,6 +741,18 @@
                     <ng-container matColumnDef="requestedName">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-left" style="font-size: 18px;"> Informe </th>
                       <td mat-cell *matCellDef="let query" class="text-left" ><b>{{query.requestedName}}</b></td>
+                    </ng-container>
+                    <ng-container matColumnDef="status" >
+                      <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Estado </th>
+                      <td mat-cell *matCellDef="let query" class="text-center "   style="min-width: 6rem;">
+                        <div class="d-flex">
+                          <span class="float-end progress-percent label {{query.statusColor}}  shadow" style="width: 150px;{{query.statusColor === 'label' ? 'color : black;' : ''}}" >
+                            {{query.status}}
+                          </span>
+                         
+                        </div>
+              
+                       </td>
                     </ng-container>
                     <ng-container matColumnDef="country">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> País </th>
@@ -896,15 +907,16 @@
             <div class="row" *ngIf="idQuery === 10">
               <div class="col-md-3">
                 <table mat-table [dataSource]="DTQuery1_10"  class="mat-elevation-z8 w-100"  matSort>
-
                   <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-left" style="font-size: 18px;"> Abonado </th>
                     <td mat-cell *matCellDef="let query" class="text-left" ><b>{{query.code}}</b> || {{query.name}}</td>
                   </ng-container>
+                 
+                  
                   <ng-container matColumnDef="options">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;">  </th>
                     <td mat-cell *matCellDef="let query" class="text-center" >
-                      <button  mat-mini-fab class="bg-white" matTooltip="Seleccionar"  (click)="query1_10_idSubscriber = query.id; DTQuery1_10Tickets.data = [];">
+                      <button  mat-mini-fab class="bg-white" matTooltip="Seleccionar"  (click)="searchQuery1_10(query.id); DTQuery1_10Tickets.data = [];">
                         <app-feather-icons [icon]="'check-circle'" class="tbl-fav-web"></app-feather-icons>
                       </button>
                     </td>
@@ -913,9 +925,15 @@
                   <tr mat-header-row *matHeaderRowDef="columnsQuery1_10"></tr>
                   <tr style="{{query1_10_idSubscriber === row.id ? 'background-color : rgba(1,1,1,0.2);' : '' }}"  mat-row *matRowDef="let row; columns: columnsQuery1_10;"></tr>
                 </table>
+               
               </div>
               <div class="col-md-9">
+                
                 <table mat-table [dataSource]="DTQuery1_10Tickets" class="mat-elevation-z8 w-100" matSort>
+                  <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> Cupón </th>
+                    <td mat-cell *matCellDef="let query" class="text-center" ><b>{{query.number}}</b></td>
+                  </ng-container>
                   <ng-container matColumnDef="orderDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> F. Pedido </th>
                     <td mat-cell *matCellDef="let query" class="text-left" >{{query.orderDate}}</td>
@@ -931,6 +949,18 @@
                   <ng-container matColumnDef="requestedName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> Informe </th>
                     <td mat-cell *matCellDef="let query" class="text-left" >{{query.requestedName}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="status" >
+                    <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Estado </th>
+                    <td mat-cell *matCellDef="let query" class="text-center "   style="min-width: 6rem;">
+                      <div class="d-flex">
+                        <span class="float-end progress-percent label {{query.statusColor}}  shadow" style="width: 150px;{{query.statusColor === 'label' ? 'color : black;' : ''}}" >
+                          {{query.status}}
+                        </span>
+                       
+                      </div>
+            
+                     </td>
                   </ng-container>
                   <ng-container matColumnDef="country">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center" style="font-size: 18px;"> País </th>
