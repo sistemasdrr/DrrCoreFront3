@@ -276,8 +276,15 @@ export class Asignacion2Component implements OnInit {
     //   }
     // });
   }
-  eliminarPorId(id : number){
-    console.log(id)
+  eliminarPorId(id : number,specialPrice:any[]){
+    var model: object[] = [];
+
+    specialPrice.forEach(element => {
+      model[element.id] = element.description;
+   });
+
+   var idSpecialPrice=0;
+    console.log(specialPrice.length)
     Swal.fire({
       title: '¿El agente a entregado la información complementaria?',
       text: "",
@@ -291,23 +298,66 @@ export class Asignacion2Component implements OnInit {
       heightAuto : true,
     }).then((result) => {
       if(result.value){
-        this.ticketService.ConfirmAgentHistory(id).subscribe(
-          (response) => {
-            if(response.isSuccess === true && response.isWarning === false){
-              Swal.fire({
-                title: 'Por favor, avisar al analista que la documentación ha sido actualizada.',
-                text: "",
-                icon: 'success',
-                width: '20rem',
-                heightAuto : true
-              }).then(
-                () => {
-                  this.ngOnInit();
+        if(specialPrice.length>0){
+          Swal.fire({
+            title: 'El agente tiene precios especiales, por favor seleccionar uno',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            input:'select',
+            inputOptions: model,
+            cancelButtonText : 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ok',
+            width: '30rem',
+            heightAuto : true,
+          }).then((result) => {
+             idSpecialPrice=result.value;
+            this.ticketService.ConfirmAgentHistory(id,idSpecialPrice).subscribe(
+              (response) => {
+                if(response.isSuccess === true && response.isWarning === false){
+                  Swal.fire({
+                    title: 'Por favor, avisar al analista que la documentación ha sido actualizada.',
+                    text: "",
+                    icon: 'success',
+                    width: '20rem',
+                    
+                    heightAuto : true
+                  }).then(
+                    () => {
+                      this.ngOnInit();
+                    }
+                  )
                 }
-              )
+              }
+            )
+
+          });
+        }else{
+
+          this.ticketService.ConfirmAgentHistory(id,0).subscribe(
+            (response) => {
+              if(response.isSuccess === true && response.isWarning === false){
+                Swal.fire({
+                  title: 'Por favor, avisar al analista que la documentación ha sido actualizada.',
+                  text: "",
+                  icon: 'success',
+                  width: '20rem',
+                  
+                  heightAuto : true
+                }).then(
+                  () => {
+                    this.ngOnInit();
+                  }
+                )
+              }
             }
-          }
-        )
+          )
+        }
+
+
+
       }
     })
   }

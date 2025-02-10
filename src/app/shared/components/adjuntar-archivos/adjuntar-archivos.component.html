@@ -2,7 +2,7 @@
   <span class="loader"></span><br>
   <h2 style="color: white;">&nbsp;Cargando...</h2>
 </div>
-<div class="container" style="min-width: 55rem;" >
+<div class="container" style="min-width: 65rem;" >
   <div class="row ">
     <div class="card">
       <div class="materialTableHeader mt-3" >
@@ -95,8 +95,9 @@
                   <i class="fa-regular fa-file-code" style="font-size: 24px;"></i>
                 </span>
                 <div class="set-flex">
-                  <h5 class="font-14 mb-1">{{attachment.name}}</h5>
+                  <h5 class="font-14 mb-1">{{attachment.name}} (Subido el : {{attachment.uploadDate}})</h5>
                 </div>
+                
                 <div class="ms-auto">
                   <td class="d-flex">
                     <button mat-icon-button #tooltip="matTooltip" class="btn bg-teal shadow" matTooltip="Descargar" (click)="downloadFile(attachment.id, attachment.name)">

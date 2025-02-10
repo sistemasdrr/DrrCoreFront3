@@ -289,7 +289,7 @@
             <button mat-icon-button *ngIf="order.comment !== ''" (click)="$event.stopPropagation();agregarComentario(order.idTicket, order.number, order.commentary)" #tooltip="matTooltip" matTooltip="Comentario">
               <mat-icon style="{{order.commentary !== null && order.commentary !== '' ? 'color: red;' : 'color: gray;'}}">chat</mat-icon>
             </button>
-            <button mat-icon-button *ngIf="order.status === 'ASIG AGE ESPERA'" (click)="$event.stopPropagation();eliminarPorId(order.id)" class="tbl-action-btn"  matTooltip="Trabajo Entregado">
+            <button mat-icon-button *ngIf="order.status === 'ASIG AGE ESPERA'" (click)="$event.stopPropagation();eliminarPorId(order.id,order.specialAgentBalancePrices)" class="tbl-action-btn"  matTooltip="Trabajo Entregado">
                 <app-feather-icons [icon]="'check'" [class]="'tbl-fav-success'"></app-feather-icons>
             </button>
             <button mat-icon-button *ngIf="order.status !== 'ASIG AGE ESPERA'" (click)="$event.stopPropagation();eliminar(order.idTicket,order.asignedTo,order.numberAssign, order.number)" class="tbl-action-btn"  matTooltip="Eliminar">

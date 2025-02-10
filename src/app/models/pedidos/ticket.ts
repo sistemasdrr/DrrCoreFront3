@@ -336,6 +336,7 @@ export interface TicketFile{
   path : string
   extension : string
   flag : boolean
+  uploadDate:string
 }
 export interface TicketHistorySubscriber{
   id : number

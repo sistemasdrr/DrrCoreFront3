@@ -229,8 +229,8 @@ export class TicketService {
   SendComplementRefCom(idUser : number, idTicket : number,asignedTo : string, numOrder : string, message : string) : Observable<Response<boolean>>{
     return this.http.post<Response<boolean>>(this.url + this.controllerTicket + '/SendComplementRefCom?idUser='+idUser+'&idTicket='+idTicket+'&asignedTo='+asignedTo+'&numOrder='+numOrder+'&message='+message,'');
   }
-  ConfirmAgentHistory(idTicketHistory: number) : Observable<Response<boolean>>{
-    return this.http.post<Response<boolean>>(this.url + this.controllerTicket + '/ConfirmAgentHistory?idTicketHistory='+idTicketHistory,'');
+  ConfirmAgentHistory(idTicketHistory: number,idSpecialPrice:number) : Observable<Response<boolean>>{
+    return this.http.post<Response<boolean>>(this.url + this.controllerTicket + '/ConfirmAgentHistory?idTicketHistory='+idTicketHistory+'&idSpecialPrice='+idSpecialPrice,'');
   }
 
   GetTicketAssignedValidation(idTicket : number) : Observable<Response<GetTicketUserResponseDto[]>>{
