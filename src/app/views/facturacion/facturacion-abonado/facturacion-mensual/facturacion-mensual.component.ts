@@ -17,6 +17,7 @@ import { CancelarFacturaAbonadoComponent } from './cancelar-factura-abonado/canc
 import { EditarPorFacturarComponent } from './editar-por-facturar/editar-por-facturar.component';
 import { EditarPorCobrarAbonadoComponent } from './editar-por-cobrar/editar-por-cobrar.component';
 import * as XLSX from 'xlsx';
+import { ReportService } from 'app/services/report.service';
 export interface dataAbonado{
   id : number
   code : string
@@ -84,6 +85,7 @@ export class FacturacionMensualComponent implements OnInit {
   fechaHasta : Date = new Date()
 
   //FACTURACION
+  selectInvoiceCode="*"
   invoiceNumber = ""
   invoiceDate : Date | null = new Date()
   idSubscriber = 0
@@ -171,7 +173,8 @@ export class FacturacionMensualComponent implements OnInit {
   }
 
   constructor(private invoiceService : InvoiceService, private abonadoService : AbonadoService,
-    private comboService : ComboService, private dialog : MatDialog
+    private comboService : ComboService, private dialog : MatDialog,
+    private reportService: ReportService
   ){
     this.dataSource1 = new MatTableDataSource()
     this.dataSourcePedido1.sort = this.sort
@@ -334,6 +337,9 @@ export class FacturacionMensualComponent implements OnInit {
  
   }
   selectInvoiceToCollect(obj : InvoiceSubcriberListToCollect){
+    console.log(this.selectInvoiceCode)
+    this.selectInvoiceCode=obj.invoiceCode
+    console.log(this.selectInvoiceCode)
     this.dataSourcePedido2.data = obj.details
     this.dataSourcePedido2.paginator = this.paginatorBill2;
     this.dataSourcePedido2.sort = this.sort
@@ -669,6 +675,24 @@ export class FacturacionMensualComponent implements OnInit {
         }
       }
     )
+  }
+  downloadListtoCollect(){
+    this.loading=true;
+    this.reportService
+    .DownloadListtoCollect(
+      this.selectInvoiceCode
+    )
+    .subscribe((response) => {
+      const blob: Blob = response.body as Blob;
+      const a = document.createElement('a');
+      a.download =
+        'LISTA_FACTURA_'+this.selectInvoiceCode + '.xlsx';
+      a.href = window.URL.createObjectURL(blob);
+      a.click();
+    })
+    .add(() => {
+      this.loading = false;
+    });
   }
 
 }

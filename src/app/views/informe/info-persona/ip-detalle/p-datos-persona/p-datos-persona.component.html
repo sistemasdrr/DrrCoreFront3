@@ -91,10 +91,8 @@
               </div>
               <div class="col-md-3">
                 <mat-form-field color="primary" class="w-100 form-red" >
-                  <mat-label >Nacido el</mat-label>
-                  <input matInput [matDatepicker]="fecha_nacimiento" #fechaInput [(ngModel)]="birthDateD" [readonly]="true" (dateChange)="selectFechaNacimiento($event)">
-                  <mat-datepicker-toggle matIconSuffix [for]="fecha_nacimiento"></mat-datepicker-toggle>
-                  <mat-datepicker #fecha_nacimiento color="primary"></mat-datepicker>
+                  <mat-label>Nacido el</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="birthDate">
                 </mat-form-field>
               </div>
               <div class="col-md-5">

@@ -85,7 +85,7 @@
                     <input matInput placeholder="" [(ngModel)]="socialName">
                   </mat-form-field>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-5">
                   <mat-form-field class="form-red w-100">
                     <mat-label>Personería Jurídica</mat-label>
                     <input type="text" matInput [formControl]="controlPersoneriaJuridica" [ngClass]="colorMsgPersonaJuridica === 'red' ? 'error': ''" [matAutocomplete]="auto1" [(ngModel)]="personeriaJuridicaInforme" (ngModelChange)="cambioPersoneriaJuridica(personeriaJuridicaInforme)" >
@@ -100,7 +100,23 @@
                     </mat-autocomplete>
                   </mat-form-field>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
+                  <mat-form-field class="form-red w-100">
+                    <mat-label>País</mat-label>
+                    <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
+                    <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
+                    <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
+                      <span class="fi fi-{{iconoSeleccionado}}" style="font-size: 20px;"></span>
+                    </button>
+                    <mat-autocomplete #auto6="matAutocomplete" [displayWith]="displayPais" >
+                      <mat-option *ngFor="let pais of filterPais | async" [value]="pais">
+                        <span class="fi fi-{{pais.bandera}}"></span>
+                        {{pais.valor}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
                   <mat-form-field class="form-red w-100">
                     <mat-label>Año de Fundación</mat-label>
                     <input matInput placeholder="" type="number" mask="9999"  [(ngModel)]="yearFundation">
@@ -212,22 +228,7 @@
               <input matInput placeholder  [(ngModel)]="place">
             </mat-form-field>
           </div>
-          <div class="col-md-3">
-            <mat-form-field class="form-red w-100">
-              <mat-label>País</mat-label>
-              <input type="text" matInput [formControl]="controlPaises"  [matAutocomplete]="auto6" [(ngModel)]="paisSeleccionado" (ngModelChange)="cambioPais(paisSeleccionado)">
-              <mat-hint [ngClass]="colorMsgPais === 'red' ? 'col-red': 'col-green'" ><i class="fa-solid fa-circle-exclamation" *ngIf="colorMsgPais === 'red'"></i><i class="fa-solid fa-circle-check" *ngIf="colorMsgPais === 'green'"></i>&nbsp;{{msgPais}}</mat-hint>
-              <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
-                <span class="fi fi-{{iconoSeleccionado}}" style="font-size: 20px;"></span>
-              </button>
-              <mat-autocomplete #auto6="matAutocomplete" [displayWith]="displayPais" >
-                <mat-option *ngFor="let pais of filterPais | async" [value]="pais">
-                  <span class="fi fi-{{pais.bandera}}"></span>
-                  {{pais.valor}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
+         
           <div class="col-md-6 d-flex">
             <mat-form-field style="width: 50%;" class="form-red">
               <mat-label>Código</mat-label>
@@ -338,7 +339,7 @@
           <div class="col-md-6">
             <mat-form-field class="w-100 form-red mt-2"  >
               <mat-label>Comentario de Reputación</mat-label>
-              <textarea matInput type="text" [(ngModel)]="reputationComentary" style="min-height: 8rem;"></textarea>
+              <textarea matInput type="text" [(ngModel)]="reputationComentary" style="min-height: 15rem;"></textarea>
               <button class="btn-traduccion" matSuffix mat-icon-button [class]="reputationComentaryEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentarioReputacion,'', reputationComentary, reputationComentaryEng,'comentarioReputacion')">
                 <span class="fi fi-us" style="font-size: 24px;"></span>
               </button>
@@ -347,7 +348,7 @@
           <div class="col-md-6">
             <mat-form-field class="w-100 form-red mt-2" >
               <mat-label>Comentario de Prensa</mat-label>
-              <textarea matInput type="text" [(ngModel)]="newsComentary" style="min-height: 8rem;"></textarea>
+              <textarea matInput type="text" [(ngModel)]="newsComentary" style="min-height: 15rem;"></textarea>
               <button class="btn-traduccion" matSuffix mat-icon-button [class]="newsComentaryEng === '' ? 'sin-traduccion' : ''" (click)="agregarComentario(tituloComentarioPrensa,'', newsComentary, newsComentaryEng,'comentarioPrensa')">
                 <span class="fi fi-us" style="font-size: 24px;"></span>
               </button>

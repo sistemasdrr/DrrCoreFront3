@@ -108,16 +108,37 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tipo de Informe</th>
           <td mat-cell *matCellDef="let order" class="text-center"  style="min-width: 3rem;">
             <div *ngIf="order.reportType === 'OR'">
-              <div class="badge badge-solid-orange" style="font-size: 18px;">OR - {{order.lastSearched}}</div>
+              <div class="badge badge-solid-orange" style="font-size: 18px;">                 
+                OR - {{order.lastSearched}}
+                <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
+                  <mat-icon class="col-white">history</mat-icon>
+                </button>
+              </div>
             </div>
             <div *ngIf="order.reportType === 'RV'">
-              <div class="badge badge-solid-green" style="font-size: 18px">RV - {{order.lastSearched}}</div>
+              <div class="badge badge-solid-green" style="font-size: 18px">               
+                  RV - {{order.lastSearched}}
+                  <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
+                    <mat-icon class="col-white">history</mat-icon>
+                  </button>
+               </div>
             </div>
             <div *ngIf="order.reportType === 'EF'">
-              <div class="badge badge-solid-brown" style="font-size: 18px;">EF - {{order.lastSearched}}</div>
+              <div class="badge badge-solid-brown" style="font-size: 18px;">
+                     EF - {{order.lastSearched}}
+                  <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
+                    <mat-icon class="col-white">history</mat-icon>
+                  </button>
+              </div>
             </div>
             <div *ngIf="order.reportType === 'DF'">
-              <div class="badge badge-solid-blue" style="font-size: 18px;">DF - {{order.lastSearched}}</div>
+              <div class="badge badge-solid-blue" style="font-size: 18px;">
+               
+                  DF - {{order.lastSearched}}
+                  <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
+                    <mat-icon class="col-white">history</mat-icon>
+                  </button>
+                </div>
             </div>
           </td>
         </ng-container>

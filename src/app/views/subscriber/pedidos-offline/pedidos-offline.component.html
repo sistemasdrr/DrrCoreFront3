@@ -15,10 +15,7 @@
           <div class="d-flex justify-content-between  justify-content-between ">
             <h5>Caracteristicas y Detalles de su Pedido</h5>
             <div>
-              <button mat-mini-fab color="warn"  #tooltip="matTooltip"
-                matTooltip="Volver" (click)="volver()">
-                <mat-icon class="col-white">arrow_back</mat-icon>
-              </button>
+             
               <button id="btn-guardar-datos-empresa" mat-mini-fab class="bg-cyan shadow"
              (click)="guardar()" #tooltip="matTooltip" matTooltip="Grabar"
                 [class]="idSubscriber === 0 || language === '' || idCountry === 0 || procedureType === '' ? 'bg-grey' : ''"

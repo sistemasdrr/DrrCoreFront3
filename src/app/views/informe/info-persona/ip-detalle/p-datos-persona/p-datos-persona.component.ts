@@ -764,6 +764,8 @@ compararModelosF : any
   calificacionRiesgoCrediticio = ""
   descripcionRiesgoCrediticio = ""
   colorReputacion = "white"
+  
+ 
   guardar() {
     this.armarModeloModificado()
     if(this.id > 0){

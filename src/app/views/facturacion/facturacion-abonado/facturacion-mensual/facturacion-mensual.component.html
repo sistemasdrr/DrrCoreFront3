@@ -193,7 +193,8 @@
               <button mat-mini-fab [ngClass]="selection1.selected.length > 0 ? 'bg-cyan' : 'bg-grey'" [disabled]="selection1.selected.length === 0" style="margin: 0 .5rem 0 .5rem;" *ngIf="byBill" matTooltip="Grabar Factura" (click)="grabarFactura()">
                 <mat-icon class="col-white">save</mat-icon>
               </button>
-            
+              <button mat-raised-button style="margin: 0 .5rem 0 .5rem;" [ngClass]="this.selectInvoiceCode==='*' ?  'bg-grey':'bg-green'" *ngIf="toCollect" (click)="downloadListtoCollect()" [disabled]="this.selectInvoiceCode==='*'"> Descargar Lista
+              </button>
               <button mat-raised-button class="bg-red" style="margin: 0 .5rem 0 .5rem;" *ngIf="toCollect" (click)="cancelarFactura()"> Cancelar Factura
               </button>
             </div>

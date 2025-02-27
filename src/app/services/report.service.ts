@@ -150,6 +150,9 @@ export class ReportService {
   DownloadReport6_1_7Ger(orderBy : string, type : string, format : string){
     return this.http.get(this.url + this.controller + '/DownloadReport6_1_7Ger?orderBy='+orderBy+'&type='+type+'&format='+format,{observe:'response',responseType:'blob'});
   }
+  DownloadListtoCollect(invoiceCode : string){
+    return this.http.get(this.url + this.controller + '/DownloadListToCollect?invoiceCode='+invoiceCode,{observe:'response',responseType:'blob'});
+  }
   DownloadReport6_3_10(code : string, year : number, format : string){
     return this.http.get(this.url + this.controller + '/DownloadReport6_3_10?code='+code+'&year='+year+'&format='+format,{observe:'response',responseType:'blob'});
   }

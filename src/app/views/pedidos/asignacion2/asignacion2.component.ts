@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 import { ReferenciasComercialesComponent } from './referencias-comerciales/referencias-comerciales.component';
 import { UsuarioService } from 'app/services/usuario.service';
 import { HistorialPedidoComponent } from 'app/views/situacion/lista/historial-pedido/historial-pedido.component';
+import { HistoricoPedidosComponent } from 'app/views/informe/info-empresa/ie-detalle/e-datos-empresa/historico-pedidos/historico-pedidos.component';
 
 
 @Component({
@@ -450,7 +451,14 @@ export class Asignacion2Component implements OnInit {
 
 
   }
-
+ historicoPedidos(idCompany:number) {
+    const dialog = this.dialog.open(HistoricoPedidosComponent, {
+      data: {
+        titulo: "Histórico de Pedidos",
+        id : idCompany
+      }
+    });
+  }
   entregarTrabajo(id : number){
     console.log(id)
     Swal.fire({

@@ -156,6 +156,7 @@
         </mat-form-field>
        </div>
        <div class="col-md-3">
+        
         <mat-form-field class="w-100 form-red">
            <mat-label>Nacionalidad</mat-label>
            <input matInput placeholder="" [(ngModel)]="nationality">
@@ -171,13 +172,15 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-md-2">
-        <mat-form-field color="primary" style="width: 100%;" >
-          <mat-label >Nacido el</mat-label>
-          <input matInput [matDatepicker]="fecha_nacimiento" #fechaInput [(ngModel)]="birthDateD" [readonly]="true" (dateChange)="selectFechaNacimiento($event)">
-          <mat-datepicker-toggle matIconSuffix [for]="fecha_nacimiento"></mat-datepicker-toggle>
-          <mat-datepicker #fecha_nacimiento color="primary"></mat-datepicker>
-        </mat-form-field>
+      <div class="col-md-2">      
+          <mat-form-field color="primary" class="w-100 form-red" >
+            <mat-label>Nacido el</mat-label>
+            <input matInput [(ngModel)]="birthDate" (keyup)="newFormatDateBirth()" maxlength="10" >
+            <!--input matInput [matDatepicker]="fecha_desde" #fechaInput [(ngModel)]="startDateD" [readonly]="true" (dateChange)="selectFechaInicio($event)">
+            <mat-datepicker-toggle matIconSuffix [for]="fecha_desde"></mat-datepicker-toggle>
+            <mat-datepicker #fecha_desde color="primary"></mat-datepicker-->
+          </mat-form-field>
+         
       </div>
       <div class="col-md-4">
        <mat-form-field class="w-100 form-red">
@@ -254,7 +257,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-2">
-        <mat-form-field color="primary" style="width: 100%;" >
+        <mat-form-field color="primary" class="w-100 form-red" >
           <mat-label >Desde</mat-label>
           <input matInput [(ngModel)]="startDate" (keyup)="newFormatDate()" maxlength="10" >
           <!--input matInput [matDatepicker]="fecha_desde" #fechaInput [(ngModel)]="startDateD" [readonly]="true" (dateChange)="selectFechaInicio($event)">

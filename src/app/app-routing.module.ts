@@ -8,6 +8,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 import { AuthSubscriberGuard } from './authentication/auth/auth-subscriber.guard';
+import { MainPageComponent } from './views/subscriber/main-page/main-page.component';
 
 const routes: Routes = [
   {
@@ -105,21 +106,16 @@ const routes: Routes = [
     ],
   },
   {
-    path: '',
+    path: 'intranet',
     component: MainLayoutComponent,
-    canActivate: [AuthSubscriberGuard],
-    children: [
-      { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
-      {
-        path: 'intranet',
-        loadChildren: () =>
-          import('./views/subscriber/subscriber.module')
-          .then((m) => m.SubscriberModule)
-          ,canActivate: [AuthSubscriberGuard],
-        title: 'Solicitud de Informes - DRR Core'
-      },
-    ]
+    loadChildren: () =>
+      import('./views/subscriber/subscriber.module').then(
+        (m) => m.SubscriberModule
+      ),
+      canActivate:[AuthSubscriberGuard],
+       title: 'Solicitud de Informes - DRR Core'
   },
+ 
   {
     path: 'authentication',
     component: AuthLayoutComponent,

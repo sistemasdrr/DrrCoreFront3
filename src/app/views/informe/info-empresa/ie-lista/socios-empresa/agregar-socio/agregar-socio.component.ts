@@ -243,6 +243,7 @@ export class AgregarSocioComponent implements OnInit {
                     this.taxTypeName = persona.taxTypeName
                     this.taxTypeCode = persona.taxTypeCode
                     this.idLegalRegisterSituation = persona.idLegalRegisterSituation
+                    this.paisNewSeleccionado = this.paises.filter(x => x.id === persona.idCountry)[0]
                     if(persona.lastSearched !== null && persona.lastSearched !== ""){
                       const fecha = persona.lastSearched.split("/")
                       if(fecha.length > 0){
@@ -511,6 +512,18 @@ private _filterPais(description: string): Pais[] {
 
     this.startDate = value;
   }
+  newFormatDateBirth() {
+    let value = this.birthDate.replace(/[^0-9]/g, '');
+
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + '/' + value.substring(2);
+    }
+    if (value.length >= 5) {
+      value = value.substring(0, 5) + '/' + value.substring(5);
+    }
+
+    this.birthDate = value;
+  }
   selectIdioma(idioma: string) {
     this.language = idioma;
   }
@@ -604,6 +617,7 @@ private _filterPais(description: string): Pais[] {
                   this.taxTypeName = persona.taxTypeName
                   this.taxTypeCode = persona.taxTypeCode
                   this.idLegalRegisterSituation = persona.idLegalRegisterSituation
+                  this.paisNewSeleccionado.id=persona.idCountry
                   if(persona.lastSearched !== null && persona.lastSearched !== ""){
                     const fecha = persona.lastSearched.split("/")
                     if(fecha.length > 0){
