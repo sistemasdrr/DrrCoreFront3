@@ -234,7 +234,7 @@ export class RamoComponent implements OnInit, OnDestroy{
                 let numberA = parseInt(a.numberYear.toString(), 10);
                 let numberB = parseInt(b.numberYear.toString(), 10);
 
-                return numberA - numberB;
+                return numberB - numberA;
               });
               this.workerNumber = this.dataSourceWorkerHistory.data[0].numberWorker
             }
