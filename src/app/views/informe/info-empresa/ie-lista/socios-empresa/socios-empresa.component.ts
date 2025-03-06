@@ -11,6 +11,7 @@ import { AgregarAccionistaComponent } from './agregar-accionista/agregar-accioni
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import Swal from 'sweetalert2';
+import { DatosEmpresaService } from 'app/services/informes/empresa/datos-empresa.service';
 
 @Component({
     selector: 'app-socios-empresa',
@@ -39,7 +40,7 @@ export class SociosEmpresaComponent implements OnInit{
   columnasPartners : string[] = ['numeration','name','nationality','birthDate','identificationDocument','mainExecutive','print','profession','participation','startDate','acciones']
   columnasShareHolder : string[] = ['name','country','taxTypeCode','relation','participation','startDate','acciones']
 
-  constructor(private dialog : MatDialog,private sociosEmpresaService : SociosEmpresaService,@Inject(MAT_DIALOG_DATA) public data: any){
+  constructor(private dialog : MatDialog,private sociosEmpresaService : SociosEmpresaService,private companyService : DatosEmpresaService,@Inject(MAT_DIALOG_DATA) public data: any){
     this.dataSourcePartners = new MatTableDataSource()
     this.dataSourceShareHolder = new MatTableDataSource()
     if(data){
@@ -114,6 +115,17 @@ export class SociosEmpresaComponent implements OnInit{
             console.log(error)
           }
         )
+      }
+    )
+  }
+  changeOrder(){
+    this.loading=true;
+    this.companyService.orderPartnerNumeration(this.dataSourcePartners.data).subscribe(
+      (response) => {
+        if(response.isSuccess === true && response.isWarning === false){
+           this.ngOnInit();
+           this.loading=false;
+        }
       }
     )
   }

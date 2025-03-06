@@ -261,6 +261,7 @@ export interface ListTicket2{
   complementQualityTranslator : string
   complementQualityTypist : string
   specialPriceBalance:number
+  lastReporterAgent:string
 }
 export interface OtherUserCode{
   code : string

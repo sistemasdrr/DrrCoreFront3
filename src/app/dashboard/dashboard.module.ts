@@ -5,7 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MainComponent } from './main/main.component';
 
 import { NgChartsModule } from 'ng2-charts';
-import { NgxEchartsModule } from 'ngx-echarts';
+
 import { NgxGaugeModule } from 'ngx-gauge';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -35,9 +35,6 @@ import { ListaObservadosComponent } from './lista-observados/lista-observados.co
     NgChartsModule,
     NgScrollbarModule,
     NgApexchartsModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
     NgxGaugeModule,
     ComponentsModule,
     SharedModule,

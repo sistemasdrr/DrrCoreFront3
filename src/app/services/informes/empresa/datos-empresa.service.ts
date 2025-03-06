@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Company, StatusCompany, TCompany, WCompany} from 'app/models/informes/empresa/datos-empresa';
+import { SociosEmpresaT } from 'app/models/informes/empresa/socios-empresa';
 import { Response } from 'app/models/response';
 
 import { environment } from 'environments/environment';
@@ -20,6 +21,10 @@ export class DatosEmpresaService {
     return this.http.post<Response<TCompany[]>>(this.url + this.controllerCompany + '/getbyname?name='+razonSocial+'&form='+tipoFiltro+'&idCountry='+idPais+'&filterBy='+filterBy+'&haveReport='+conInforme+'&quality='+quality+'&indicador='+indicador,'')
     .pipe(catchError(this.handleErrorGet));
   }
+  getDatosEmpresasQuery(razonSocial : string, tipoFiltro : string, idPais : number, conInforme : boolean, filterBy:string, quality : string,indicador:number ): Observable<Response<TCompany[]>>{
+    return this.http.post<Response<TCompany[]>>(this.url + this.controllerCompany + '/getbynameQuery?name='+razonSocial+'&form='+tipoFiltro+'&idCountry='+idPais+'&filterBy='+filterBy+'&haveReport='+conInforme+'&quality='+quality+'&indicador='+indicador,'')
+    .pipe(catchError(this.handleErrorGet));
+  }
   getCompanySearch(name : string, taxCode : string, idCountry : number): Observable<Response<WCompany[]>>{
     return this.http.get<Response<WCompany[]>>(this.url + this.controllerCompany + '/getCompanySearch?name='+name+'&taxCode='+taxCode+'&idCountry='+idCountry)
   }
@@ -28,6 +33,11 @@ export class DatosEmpresaService {
   }
   activarWebEmpresa(id : number) :Observable<Response<boolean>>{
     return this.http.post<Response<boolean>>(this.url + this.controllerCompany + '/activeweb?id='+id,'')
+  }
+
+  orderPartnerNumeration(socios : SociosEmpresaT[]) :Observable<Response<number>>{
+    return this.http.post<Response<number>>(this.url + this.controllerCompany + '/orderPartnerNumeration', socios)
+    .pipe(catchError(this.handleErrorUpd));
   }
   desactivarWebEmpresa(id : number) :Observable<Response<boolean>>{
     return this.http.post<Response<boolean>>(this.url + this.controllerCompany + '/desactiveweb?id='+id,'')

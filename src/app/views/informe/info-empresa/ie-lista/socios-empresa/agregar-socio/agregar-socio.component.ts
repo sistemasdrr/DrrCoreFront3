@@ -70,7 +70,7 @@ export class AgregarSocioComponent implements OnInit {
   startDate = ""
   startDateD : Date | null = null;
 
-  numeration = 0;
+  numeration = 1;
   print = true;
 
   loading = false;
@@ -81,7 +81,7 @@ export class AgregarSocioComponent implements OnInit {
   controlSituacionRUC = new FormControl<string | ComboData>('');
   filterSituacionRuc: Observable<ComboData[]>
   situacionRuc: ComboData[] = []
-  
+
   controlPaises = new FormControl<string | Pais>('')
   situacionRucInforme: ComboData = {
     id: 0,
@@ -384,12 +384,12 @@ private _filterPais(description: string): Pais[] {
         idPais : this.idPais,
         conInforme : this.chkConInforme
       }
-     
+
       this.personaService.getDatosPersonas(this.nombreCompleto.trim(), this.filtroRB, this.idPais, this.chkConInforme,'N','T').subscribe(
         (response) => {
           if(response.isSuccess === true && response.isWarning === false){
             this.dataSource = new MatTableDataSource<TPersona>(response.data);
-  
+
             this.dataSource.sort = this.sort
             this.dataSource.paginator = this.paginator
           }
@@ -471,7 +471,7 @@ private _filterPais(description: string): Pais[] {
       idPaymentPolicy : 0,
       idReputation : 0,
       idPersonSituation : this.idPersonSituation,
-      quality : '',    
+      quality : '',
       traductions : [
         {
           key : "S_P_NACIONALITY",
@@ -639,8 +639,8 @@ private _filterPais(description: string): Pais[] {
               }
             }
           )}
-      
-    
+
+
   }
   borrarSeleccion(){
     this.idPerson = 0
@@ -687,7 +687,7 @@ private _filterPais(description: string): Pais[] {
           this.loading = true
           this.personaService.addPerson(this.modeloPersona[0]).subscribe((response) => {
             if(response.isSuccess === true && response.isWarning === false){
-            
+
                this.idPerson=response.data;
             }
           });
@@ -728,10 +728,10 @@ private _filterPais(description: string): Pais[] {
          this.loading = false
         })
         }
-      
+
       }
       });
-  
+
     }else{
       console.log(this.modeloNuevo[0])
       Swal.fire({
@@ -750,10 +750,10 @@ private _filterPais(description: string): Pais[] {
           this.loading = true
           this.personaService.addPerson(this.modeloPersona[0]).subscribe((response) => {
             if(response.isSuccess === true && response.isWarning === false){
-            
+
                this.idPerson=response.data;
                //this.armarModelo();
-         
+
                this.modeloNuevo[0].idPerson=response.data;
                console.log(this.modeloNuevo[0]);
           this.sociosEmpresaService.addCompanyPartner(this.modeloNuevo[0]).subscribe((response) => {

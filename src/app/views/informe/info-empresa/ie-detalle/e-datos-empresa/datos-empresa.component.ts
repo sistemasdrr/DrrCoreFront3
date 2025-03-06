@@ -9,7 +9,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { HistoricoPedidosComponent } from './historico-pedidos/historico-pedidos.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatSelectChange } from '@angular/material/select';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Event } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Duracion, Traduction } from 'app/models/informes/empresa/datos-empresa';
 import { DatosEmpresaService } from 'app/services/informes/empresa/datos-empresa.service';
@@ -20,6 +20,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
+import { eventDragMutationMassager } from '@fullcalendar/core/internal';
 
 @Component({
     selector: 'app-datos-empresa',
@@ -106,6 +107,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
   durationEng = ""
   place = ""
   __subTel=""
+  __idCountry=0
   idCountry = 0
   subTelephone = ""
   cellphone = ""
@@ -159,6 +161,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
   tituloComentarioPrensa = 'Comentario de Prensa'
 
   loading = false
+
 
   constructor(
     private dialog: MatDialog,
@@ -249,7 +252,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
        console.log(this.subTelephone);
       this.getComboReputacion()
     })
-   
+
   }
   getComboReputacion(){
     this.comboService.getReputacion().subscribe((response) => {
@@ -330,6 +333,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
             this.place = DatosEmpresa.place == null ? "" : DatosEmpresa.place
             if(DatosEmpresa.idCountry > 0 && DatosEmpresa.idCountry !== null){
               this.idCountry = DatosEmpresa.idCountry
+              this.__idCountry = DatosEmpresa.idCountry
               this.paisSeleccionado = this.paises.filter(x => x.id === this.idCountry)[0]
               this.taxTypeName = this.paisSeleccionado.regtrib
               this.subTelephone = DatosEmpresa.subTelephone
@@ -573,10 +577,10 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
     this.idCountry = 0
     this.iconoSeleccionado = ""
     this.taxTypeName = ""
-    
+
   }
-  async cambioPais(pais: Pais) {
-   
+  async cambioPais(event:any,pais: Pais) {
+
     if (pais !== null) {
       if (typeof pais === 'string' || pais === null || this.paisSeleccionado.id === 0) {
         this.msgPais = "Seleccione una opción."
@@ -584,19 +588,21 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
         this.iconoSeleccionado = ""
         this.idCountry = 0
         this.taxTypeName = ""
-       
+
       } else {
+
         this.msgPais = "Opción Seleccionada"
         this.colorMsgPais = "blue"
         this.iconoSeleccionado = pais.bandera
         this.idCountry = pais.id
         this.taxTypeName = pais.regtrib
-        if(this.__subTel.length >=2) {
-        if(this.__subTel.substring(0,2)!=pais.codCel){
-          this.subTelephone = pais.codCel
-        }
-      }
-      
+
+       if(this.__subTel!='' && this.__idCountry==pais.id){
+        this.subTelephone = this.__subTel;
+       }else{
+        this.subTelephone = pais.codCel
+       }
+
       }
     } else {
       this.idCountry = 0
@@ -817,7 +823,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
       })
       return false;
     }
-   
+
     return true;
  }
   guardar() {
@@ -908,7 +914,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
               heightAuto: true
             }).then((result) => {
               if (result.value) {
-      
+
                 const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
                 this.datosEmpresaService.AddDatosEmpresa(this.datosEmpresaModificado[0]).subscribe((response) => {
                   if(paginaDetalleEmpresa){
@@ -969,7 +975,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
             });
           }
         }
-      
+
         }
       });
     }else{
@@ -1045,7 +1051,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
           heightAuto: true
         }).then((result) => {
           if (result.value) {
-  
+
             const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
             this.datosEmpresaService.AddDatosEmpresa(this.datosEmpresaModificado[0]).subscribe((response) => {
               if(paginaDetalleEmpresa){
@@ -1106,10 +1112,10 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
         });
       }
     }
-  
+
     }
-   
-  
+
+
   }
   salir() {
     this.armarModeloModificado();

@@ -49,7 +49,7 @@ export class Asignacion2Component implements OnInit {
 
   //TABLA
   dataSource: MatTableDataSource<ListTicket2>;
-  columnsToDisplay = ['number','subscriber','country', 'busineesName','status','subscriberCode', 'reportType', 'procedureType', 'quality', 'orderDate','Acciones' ];
+  columnsToDisplay = ['number','subscriber','procedureType','country', 'busineesName','status','subscriberCode', 'reportType', 'lastReporterAgent', 'quality', 'orderDate','Acciones' ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedOrder: ListTicket2 | null = null;
     selection = new SelectionModel<ListTicket2>(true, []);
@@ -323,7 +323,7 @@ export class Asignacion2Component implements OnInit {
                     text: "",
                     icon: 'success',
                     width: '20rem',
-                    
+
                     heightAuto : true
                   }).then(
                     () => {
@@ -345,7 +345,7 @@ export class Asignacion2Component implements OnInit {
                   text: "",
                   icon: 'success',
                   width: '20rem',
-                  
+
                   heightAuto : true
                 }).then(
                   () => {

@@ -44,14 +44,22 @@
         <ng-container matColumnDef="number" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Cupón </th>
         <td mat-cell *matCellDef="let order" class="text-center"  style="min-width: 6rem; white-space: nowrap;" [style]="order.number.includes('(C)') ? 'color: red;' : ''">
-          <span [ngClass]="order.language == 'E' ? 'fi fi-es' : 'fi fi-us'"></span>
+          <span [ngClass]="order.language === 'E' ? 'fi fi-es' : 'fi fi-us'"></span>
           {{order.number}} </td>
         </ng-container>
-      
+
         <ng-container matColumnDef="subscriber" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Abonado </th>
         <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;"> {{order.subscriberCode}} </td>
         </ng-container>
+        <ng-container matColumnDef="lastReporterAgent" >
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> R/A </th>
+          <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;">
+            <div class="badge badge-solid-red" style="font-size: 18px;">
+              {{order.lastReporterAgent}}
+            </div>
+            </td>
+          </ng-container>
         <ng-container matColumnDef="country" >
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> País </th>
         <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 3rem;">
@@ -97,10 +105,10 @@
             </span>
           </div>
           <div  class="float-end progress-percent label  shadow" style="background-color: rgb(235, 235, 121); color: black; display: inline;"  (click)="$event.stopPropagation();" *ngIf="!order.asignedTo.includes('PA') && !order.asignedTo.includes('CR') && !order.asignedTo.includes('D') && !order.asignedTo.includes('T')">
-         
-           <mat-checkbox style="display: inline-block;"  *ngFor="let item of order.otherUserCode" [(ngModel)]="item.active" (click)="$event.stopPropagation();" [disabled]="item.code.trim() === order.asignedTo.trim()" >{{item.code}}</mat-checkbox> 
+
+           <mat-checkbox style="display: inline-block;"  *ngFor="let item of order.otherUserCode" [(ngModel)]="item.active" (click)="$event.stopPropagation();" [disabled]="item.code.trim() === order.asignedTo.trim()" >{{item.code}}</mat-checkbox>
           </div>
-         
+
 
          </td>
         </ng-container>
@@ -108,7 +116,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tipo de Informe</th>
           <td mat-cell *matCellDef="let order" class="text-center"  style="min-width: 3rem;">
             <div *ngIf="order.reportType === 'OR'">
-              <div class="badge badge-solid-orange" style="font-size: 18px;">                 
+              <div class="badge badge-solid-orange" style="font-size: 18px;">
                 OR - {{order.lastSearched}}
                 <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
                   <mat-icon class="col-white">history</mat-icon>
@@ -116,7 +124,7 @@
               </div>
             </div>
             <div *ngIf="order.reportType === 'RV'">
-              <div class="badge badge-solid-green" style="font-size: 18px">               
+              <div class="badge badge-solid-green" style="font-size: 18px">
                   RV - {{order.lastSearched}}
                   <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
                     <mat-icon class="col-white">history</mat-icon>
@@ -133,7 +141,7 @@
             </div>
             <div *ngIf="order.reportType === 'DF'">
               <div class="badge badge-solid-blue" style="font-size: 18px;">
-               
+
                   DF - {{order.lastSearched}}
                   <button mat-mini-fab color="primary" style="margin: 0 .5rem .5rem .5rem;" (click)="this.historicoPedidos(order.idCompany);$event.stopPropagation();" #tooltip="matTooltip" matTooltip="Historial">
                     <mat-icon class="col-white">history</mat-icon>
@@ -142,7 +150,7 @@
             </div>
           </td>
         </ng-container>
-       
+
         <ng-container matColumnDef="procedureType" >
           <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Tipo de Trámite</th>
           <td mat-cell *matCellDef="let order" class="text-center">
@@ -291,9 +299,9 @@
           <th mat-header-cell *matHeaderCellDef  mat-sort-header class="text-center"> Ingreso-Vencimiento </th>
           <td mat-cell *matCellDef="let order" class="text-center" style="min-width: 10rem;"> {{order.orderDate}}-{{order.expireDate}} </td>
 
-        
+
         </ng-container>
-      
+
 
         <ng-container matColumnDef="Acciones" >
           <th mat-header-cell *matHeaderCellDef  class="text-center" style="min-width: 14rem;"> Acciones </th>
@@ -372,7 +380,7 @@
                       <label><b>Observaciones: </b> {{order.observations}}</label>
                     </div>
                   </div>
-                  
+
                   <br>
                 </div>
                 <div class="card-header " style="background-color: rgb(180, 204, 252);">
@@ -384,12 +392,12 @@
                       <label><b>Abonado: </b>{{ order.subscriberCode }}</label><br>
                       <label><b>País: </b>{{ order.subscriberCountry }} <span class="fi fi-{{order.subscriberFlag}}"></span></label><br>
                       <label><b>Crédito Consultado:</b>  {{order.queryCredit}}   |  <b>Periodo:</b>  {{order.timeLimit}} </label><br>
-                      
+
                     </div>
                     <div class="col-md-4">
                       <label><b>Revelar Nombre:</b><span *ngIf="order.revealName === true"> SI</span><span *ngIf="order.revealName === false"> NO</span></label><br>
                       <label><b>Nro. de Referencia: </b> {{order.referenceNumber}}</label>
-                     
+
                     </div>
                     <div class="col-md-4">
                       <label><b>Indicaciones del Abonado: </b> {{order.subscriberIndications}}</label><br>
@@ -426,7 +434,7 @@
                   <h5>Datos del Informe</h5>
                 </div>
                 <div class="card-body">
-                
+
                 </div>
                 <br>
               </div>

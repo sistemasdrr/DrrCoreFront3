@@ -42,7 +42,7 @@ export class AgregarSocioPersonaComponent implements OnInit {
   participation = 0
   startDate = ""
   startDateD : Date | null = null;
-  numeration = 0;
+  numeration = 1;
   print = true
 
   name = ""
