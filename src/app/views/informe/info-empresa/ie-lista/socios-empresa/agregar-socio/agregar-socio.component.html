@@ -137,13 +137,13 @@
       <div class="col-md-5">
         <mat-form-field class="w-100 form-red">
            <mat-label>Apellidos y Nombres</mat-label>
-           <input matInput placeholder="" [(ngModel)]="fullname" style="text-transform:uppercase">
+           <input matInput placeholder="" [(ngModel)]="this.modeloPersona[0].fullname" style="text-transform:uppercase">
          </mat-form-field>
        </div>
        <div class="col-md-4">
         <mat-form-field class="w-100 form-red">
           <mat-label>País</mat-label>
-          <input type="text" matInput [formControl]="controlPaises" [matAutocomplete]="auto6" [(ngModel)]="paisNewSeleccionado" (ngModelChange)="cambioPais(paisNewSeleccionado)">
+          <input type="text" matInput [formControl]="controlPaises" [matAutocomplete]="auto6" [(ngModel)]="this.paisNewSeleccionado" (ngModelChange)="cambioPais(paisNewSeleccionado)">
           <button class="btn-traduccion" matSuffix mat-icon-button (click)="limpiarSeleccionPais()">
             <span class="fi fi-{{iconoSeleccionado}}" style="font-size: 20px;"></span>
           </button>
@@ -159,13 +159,13 @@
 
         <mat-form-field class="w-100 form-red">
            <mat-label>Nacionalidad</mat-label>
-           <input matInput placeholder="" [(ngModel)]="nationality">
+           <input matInput placeholder="" [(ngModel)]="this.modeloPersona[0].nationality">
          </mat-form-field>
        </div>
       <div class="col-md-3 d-flex justify-content-center">
         <mat-form-field class="w-100 form-red">
           <mat-label>Situación</mat-label>
-          <mat-select [(ngModel)]="idPersonSituation">
+          <mat-select [(ngModel)]="this.modeloPersona[0].idPersonSituation">
             <mat-option *ngFor="let item of situacionPersona" [value]="item.id">
               {{item.valor}}
             </mat-option>
@@ -175,7 +175,7 @@
       <div class="col-md-2">
           <mat-form-field color="primary" class="w-100 form-red" >
             <mat-label>Nacido el</mat-label>
-            <input matInput [(ngModel)]="birthDate" maxlength="10" >
+            <input matInput [(ngModel)]="this.modeloPersona[0].birthDate" maxlength="10" >
             <!--input matInput [matDatepicker]="fecha_desde" #fechaInput [(ngModel)]="startDateD" [readonly]="true" (dateChange)="selectFechaInicio($event)">
             <mat-datepicker-toggle matIconSuffix [for]="fecha_desde"></mat-datepicker-toggle>
             <mat-datepicker #fecha_desde color="primary"></mat-datepicker-->
@@ -202,7 +202,7 @@
       <div class="col-md-3 d-flex">
        <mat-form-field class="w-100 form-red">
           <mat-label>Tipo de Doc.</mat-label>
-          <mat-select [(ngModel)]="idDocumentType" >
+          <mat-select [(ngModel)]="this.modeloPersona[0].idDocumentType" >
               <mat-option [value]="item.id" *ngFor="let item of tipoDocumento">
                 {{item.valor}}
               </mat-option>
@@ -212,19 +212,19 @@
       <div class="col-md-3 d-flex">
         <mat-form-field class="w-100 form-red" >
           <mat-label>Código de Documento</mat-label>
-          <input matInput placeholder="" [(ngModel)]="codeDocumentType">
+          <input matInput placeholder="" [(ngModel)]="this.modeloPersona[0].codeDocumentType">
         </mat-form-field>
       </div>
       <div class="col-md-3">
        <mat-form-field class="w-100 form-red">
           <mat-label>Registro Tributario (Tipo)</mat-label>
-          <input matInput placeholder="" [(ngModel)]="taxTypeName">
+          <input matInput placeholder="" [(ngModel)]="this.modeloPersona[0].taxTypeName">
         </mat-form-field>
       </div>
       <div class="col-md-3">
        <mat-form-field class="w-100 form-red">
           <mat-label>Registro Tributario (Código)</mat-label>
-          <input matInput placeholder="" [(ngModel)]="taxTypeCode">
+          <input matInput placeholder="" [(ngModel)]="this.modeloPersona[0].taxTypeCode">
         </mat-form-field>
       </div>
 

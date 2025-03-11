@@ -234,7 +234,8 @@ export class AgregarSocioComponent implements OnInit {
                 if(response.isSuccess === true && response.isWarning === false){
                   const persona = response.data
                   if(persona){
-                    this.fullname = persona.fullname
+                    this.armarModeloPersonaActualizar(persona);
+                  /*  this.fullname = persona.fullname
                     this.language = persona.language
                     this.idPersonSituation = persona.idPersonSituation
                     this.nationality = persona.nationality
@@ -242,20 +243,20 @@ export class AgregarSocioComponent implements OnInit {
                     this.codeDocumentType = persona.codeDocumentType
                     this.taxTypeName = persona.taxTypeName
                     this.taxTypeCode = persona.taxTypeCode
-                    this.idLegalRegisterSituation = persona.idLegalRegisterSituation
-                    this.paisNewSeleccionado = this.paises.filter(x => x.id === persona.idCountry)[0]
-                    if(persona.lastSearched !== null && persona.lastSearched !== ""){
-                      const fecha = persona.lastSearched.split("/")
+                    this.idLegalRegisterSituation = persona.idLegalRegisterSituation*/
+                    this.paisNewSeleccionado = this.paises.filter(x => x.id === this.modeloPersona[0].idCountry)[0]
+                    if(this.modeloPersona[0].lastSearched !== null && this.modeloPersona[0].lastSearched !== ""){
+                      const fecha = this.modeloPersona[0].lastSearched.split("/")
                       if(fecha.length > 0){
                         this.lastSearchedD = new Date(parseInt(fecha[2]),parseInt(fecha[1])-1,parseInt(fecha[0]))
-                        this.lastSearched = persona.lastSearched
+                        this.lastSearched = this.modeloPersona[0].lastSearched
                       }
                     }
-                    if(persona.birthDate !== null && persona.birthDate !== ""){
-                      const fecha = persona.birthDate.split("/")
+                    if(this.modeloPersona[0].birthDate !== null && this.modeloPersona[0].birthDate !== ""){
+                      const fecha = this.modeloPersona[0].birthDate.split("/")
                       if(fecha.length > 0){
                         this.birthDateD = new Date(parseInt(fecha[2]),parseInt(fecha[1])-1,parseInt(fecha[0]))
-                        this.birthDate = persona.birthDate
+                        this.birthDate = this.modeloPersona[0].birthDate
                       }
                     }
                   }
@@ -263,8 +264,8 @@ export class AgregarSocioComponent implements OnInit {
               }
             ).add(
               () => {
-                if(this.idLegalRegisterSituation !== null && this.idLegalRegisterSituation !== 0){
-                  this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.idLegalRegisterSituation)[0]
+                if(this.modeloPersona[0].idLegalRegisterSituation !== null && this.modeloPersona[0].idLegalRegisterSituation !== 0){
+                  this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.modeloPersona[0].idLegalRegisterSituation)[0]
                 }
               }
             )
@@ -427,7 +428,80 @@ private _filterPais(description: string): Pais[] {
       print : this.print
     }
   }
-  armarModeloPersona(){
+  armarModeloPersonaActualizar(person:Persona){
+    this.modeloPersona[0]={
+      id : person.id,
+      oldCode : person.oldCode,
+      fullname : person.fullname,
+      lastSearched : person.lastSearched,
+      language : person.language,
+      nationality : person.nationality,
+      birthDate : person.birthDate,
+      birthPlace : person.birthPlace,
+      idDocumentType : person.idDocumentType,
+      codeDocumentType : person.codeDocumentType,
+      taxTypeName : person.taxTypeName,
+      taxTypeCode : person.taxTypeCode,
+      idLegalRegisterSituation : person.idLegalRegisterSituation,
+      address : person.address,
+      cp : person.cp,
+      city : person.city,
+      otherDirecctions : person.otherDirecctions,
+      tradeName : person.tradeName,
+      idCountry : person.idCountry,
+      idContinent : person.idContinent,
+      taxTypeByCountry :person.taxTypeByCountry,
+      codePhone : person.codePhone,
+      numberPhone : person.numberPhone,
+      idCivilStatus : person.idCivilStatus,
+      relationshipWith : person.relationshipWith,
+      relationshipDocumentType : person.relationshipDocumentType,
+      relationshipCodeDocument : person.relationshipCodeDocument,
+      fatherName : person.fatherName,
+      motherName : person.motherName,
+      email : person.email,
+      cellphone : person.cellphone,
+      profession : person.profession,
+      clubMember : person.clubMember,
+      insurance : person.insurance,
+      newsCommentary : person.newsCommentary,
+      printNewsCommentary : person.printNewsCommentary,
+      privateCommentary : person.privateCommentary,
+      reputationCommentary : person.reputationCommentary,
+      idCreditRisk : person.idCreditRisk,
+      idPaymentPolicy : person.idPaymentPolicy,
+      idReputation : person.idReputation,
+      idPersonSituation : person.idPersonSituation,
+      quality : person.quality,
+      traductions : [
+        {
+          key : "S_P_NACIONALITY",
+          value : person.traductions.filter(x=>x.key=="S_P_NACIONALITY")[0].value
+        },
+        {
+          key : "S_P_BIRTHPLACE",
+          value :  person.traductions.filter(x=>x.key=="S_P_BIRTHPLACE")[0].value
+        },
+        {
+          key : "S_P_MARRIEDTO",
+          value :  person.traductions.filter(x=>x.key=="S_P_MARRIEDTO")[0].value
+        },
+        {
+          key : "S_P_PROFESSION",
+          value :  person.traductions.filter(x=>x.key=="S_P_PROFESSION")[0].value
+        },
+        {
+          key : "L_P_NEWSCOMM",
+          value :  person.traductions.filter(x=>x.key=="L_P_NEWSCOMM")[0].value
+        },
+        {
+          key : "L_P_REPUTATION",
+          value :  person.traductions.filter(x=>x.key=="L_P_REPUTATION")[0].value
+        },
+      ]
+    }
+  }
+  /*armarModeloPersona(){
     this.modeloPersona[0]={
       id : this.idPerson,
       oldCode : '',
@@ -499,7 +573,7 @@ private _filterPais(description: string): Pais[] {
         },
       ]
     }
-  }
+  }*/
   newFormatDate() {
     let value = this.startDate.replace(/[^0-9]/g, '');
 
@@ -608,7 +682,9 @@ private _filterPais(description: string): Pais[] {
               if(response.isSuccess === true && response.isWarning === false){
                 const persona = response.data
                 if(persona){
-                  this.fullname = persona.fullname
+                  this.armarModeloPersonaActualizar(persona);
+                  this.paisNewSeleccionado.id=this.modeloPersona[0].idCountry
+                  /*this.fullname = persona.fullname
                   this.language = persona.language
                   this.idPersonSituation = persona.idPersonSituation
                   this.nationality = persona.nationality
@@ -617,23 +693,23 @@ private _filterPais(description: string): Pais[] {
                   this.taxTypeName = persona.taxTypeName
                   this.taxTypeCode = persona.taxTypeCode
                   this.idLegalRegisterSituation = persona.idLegalRegisterSituation
-                  this.paisNewSeleccionado.id=persona.idCountry
-                  if(persona.lastSearched !== null && persona.lastSearched !== ""){
-                    const fecha = persona.lastSearched.split("/")
+                  this.paisNewSeleccionado.id=persona.idCountry*/
+                  if(this.modeloPersona[0].lastSearched !== null && this.modeloPersona[0].lastSearched !== ""){
+                    const fecha = this.modeloPersona[0].lastSearched.split("/")
                     if(fecha.length > 0){
                       this.lastSearchedD = new Date(parseInt(fecha[2]),parseInt(fecha[1])-1,parseInt(fecha[0]))
-                      this.lastSearched = persona.lastSearched
+                      this.lastSearched =this.modeloPersona[0].lastSearched
                     }
                   }
-                  if(persona.birthDate !== null && persona.birthDate !== ""){
-                    const fecha = persona.birthDate.split("/")
+                  if(this.modeloPersona[0].birthDate !== null && this.modeloPersona[0].birthDate !== ""){
+                    const fecha = this.modeloPersona[0].birthDate.split("/")
                     if(fecha.length > 0){
                       this.birthDateD = new Date(parseInt(fecha[2]),parseInt(fecha[1])-1,parseInt(fecha[0]))
-                      this.birthDate = persona.birthDate
+                      this.birthDate = this.modeloPersona[0].birthDate
                     }
                   }
-                  if(this.idLegalRegisterSituation !== null && this.idLegalRegisterSituation !== 0){
-                    this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.idLegalRegisterSituation)[0]
+                  if(this.modeloPersona[0].idLegalRegisterSituation !== null && this.modeloPersona[0].idLegalRegisterSituation !== 0){
+                    this.situacionRucInforme = this.situacionRuc.filter(x => x.id === this.modeloPersona[0].idLegalRegisterSituation)[0]
                   }
                 }
               }
@@ -667,7 +743,8 @@ private _filterPais(description: string): Pais[] {
   }
   guardar(){
     this.armarModelo()
-    this.armarModeloPersona();
+    //this.armarModeloPersona();
+    this.modeloPersona[0].idCountry=this.paisNewSeleccionado.id
     if(this.id > 0){
       console.log(this.modeloNuevo[0])
       Swal.fire({
