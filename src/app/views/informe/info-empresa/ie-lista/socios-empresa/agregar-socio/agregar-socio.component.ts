@@ -19,6 +19,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Persona, TPersona } from 'app/models/informes/persona/datos-generales';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { thresholdFreedmanDiaconis } from 'd3';
 
 @Component({
     selector: 'app-agregar-socio',
@@ -294,6 +295,7 @@ export class AgregarSocioComponent implements OnInit {
   }
   nuevo() {
   this.newPerson=true;
+  this.armarModeloPersona();
 }
 private _filterPais(description: string): Pais[] {
   const filterValue = description.toLowerCase();
@@ -501,27 +503,27 @@ private _filterPais(description: string): Pais[] {
       ]
     }
   }
-  /*armarModeloPersona(){
+  armarModeloPersona(){
     this.modeloPersona[0]={
-      id : this.idPerson,
+      id : 0,
       oldCode : '',
-      fullname : this.fullname,
-      lastSearched : this.lastSearched,
-      language : this.language,
-      nationality : this.nationality,
-      birthDate : this.birthDate,
+      fullname :'',
+      lastSearched : '',
+      language : '',
+      nationality : '',
+      birthDate : '',
       birthPlace : '',
-      idDocumentType : this.idDocumentType,
-      codeDocumentType : this.codeDocumentType,
-      taxTypeName : this.taxTypeName,
-      taxTypeCode : this.taxTypeCode,
-      idLegalRegisterSituation : this.idLegalRegisterSituation,
+      idDocumentType : 0,
+      codeDocumentType : '',
+      taxTypeName : '',
+      taxTypeCode : '',
+      idLegalRegisterSituation : 0,
       address : '',
       cp : '',
       city : '',
       otherDirecctions : '',
       tradeName : '',
-      idCountry : this.idPais,
+      idCountry : 0,
       idContinent : 0,
       taxTypeByCountry : '',
       codePhone : '',
@@ -534,7 +536,7 @@ private _filterPais(description: string): Pais[] {
       motherName : '',
       email : '',
       cellphone : '',
-      profession : this.profession,
+      profession : '',
       clubMember : '',
       insurance : '',
       newsCommentary : '',
@@ -544,7 +546,7 @@ private _filterPais(description: string): Pais[] {
       idCreditRisk : 0,
       idPaymentPolicy : 0,
       idReputation : 0,
-      idPersonSituation : this.idPersonSituation,
+      idPersonSituation : 0,
       quality : '',
       traductions : [
         {
@@ -573,7 +575,7 @@ private _filterPais(description: string): Pais[] {
         },
       ]
     }
-  }*/
+  }
   newFormatDate() {
     let value = this.startDate.replace(/[^0-9]/g, '');
 
@@ -744,8 +746,8 @@ private _filterPais(description: string): Pais[] {
   guardar(){
     this.armarModelo()
     //this.armarModeloPersona();
-    this.modeloPersona[0].idCountry=this.paisNewSeleccionado.id
-    if(this.id > 0){
+    this.modeloPersona[0].idCountry=this.paisNewSeleccionado==null?0:this.paisNewSeleccionado.id
+    if(this.idPerson > 0){
       console.log(this.modeloNuevo[0])
       Swal.fire({
         title: '¿Está seguro de guardar los cambios?',
