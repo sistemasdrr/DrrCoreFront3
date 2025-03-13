@@ -185,7 +185,7 @@
                   <div>
                     <mat-form-field class="w-100 form-red" appStopPropagation>
                       <mat-label>Calidad Del Reportero</mat-label>
-                      <mat-select matInput [(ngModel)]="order.quality" placeholder="" (ngModelChange)="order.qualityTranslator = order.quality; order.qualityTypist = order.quality;">
+                      <mat-select matInput [(ngModel)]="order.quality" placeholder="" (ngModelChange)="order.qualityTranslator = order.quality; order.qualityTypist = order.quality;order.hasBalance= order.quality=='A'?true:false">
                         <mat-option [value]="''"></mat-option>
                         <mat-option [value]="'A'">A</mat-option>
                         <mat-option [value]="'B'">B</mat-option>
