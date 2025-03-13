@@ -29,6 +29,7 @@
       "@shared/*": ["app/shared/*"],
       "@config": ["app/config"],
       "@config/*": ["app/config/*"],
+      "@angular/*": ["./node_modules/@angular/*"]
     },
   },
   "angularCompilerOptions": {

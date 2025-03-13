@@ -21,7 +21,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import * as moment from 'moment';
 import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 import { eventDragMutationMassager } from '@fullcalendar/core/internal';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-datos-empresa',
     templateUrl: './datos-empresa.component.html',
@@ -164,6 +164,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private toastr: ToastrService,
     private dialog: MatDialog,
     private paisService: PaisService,
     private router: Router,
@@ -845,20 +846,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
           this.armarModeloModificado()
           if(this.validarGuardado()){
           console.log(this.datosEmpresaModificado)
-          if(this.id > 0){
-            Swal.fire({
-              title: '¿Está seguro de guardar los cambios?',
-              text: "",
-              icon: 'warning',
-              showCancelButton: true,
-              cancelButtonText: 'Cancelar',
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '#3085d6',
-              confirmButtonText: 'Sí',
-              width: '30rem',
-              heightAuto: true
-            }).then((result) => {
-              if (result.value) {
+          if(this.id > 0){          
                 const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
                 if(paginaDetalleEmpresa){
                   paginaDetalleEmpresa.classList.remove('hide-loader');
@@ -868,52 +856,27 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
                   if(paginaDetalleEmpresa){
                     paginaDetalleEmpresa.classList.add('hide-loader');
                   }
-                  Swal.fire({
-                    title: 'Se guardaron los cambios correctamente',
-                    text: "",
-                    icon: 'success',
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok',
-                    width: '30rem',
-                    heightAuto: true
-                  })
+                this.showSuccess("Datos guardados correctamente");
                   this.armarModeloActual();
                 }else{
                   if(paginaDetalleEmpresa){
                     paginaDetalleEmpresa.classList.add('hide-loader');
                   }
-                  Swal.fire({
-                    title: 'Ocurrió un problema.',
-                    text: 'Comunicarse con Sistemas',
-                    icon: 'warning',
-                    confirmButtonColor: 'blue',
-                    confirmButtonText: 'Ok',
-                    width: '30rem',
-                    heightAuto : true
-                  }).then(() => {
-                  })
+                  this.showError("Comunicarse con sistemas");
                 }
                 if(paginaDetalleEmpresa){
                   paginaDetalleEmpresa.classList.add('hide-loader');
                 }
+              },(error)=>{
+                if(paginaDetalleEmpresa){
+                  paginaDetalleEmpresa.classList.add('hide-loader');
+                }
+                this.showError("Comunicarse con sistemas");
+           
               })
-              }
-            });
-          }else{
-            Swal.fire({
-              title: '¿Está seguro de agregar este registro?',
-              text: "",
-              icon: 'warning',
-              showCancelButton: true,
-              cancelButtonText: 'Cancelar',
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '#3085d6',
-              confirmButtonText: 'Sí',
-              width: '30rem',
-              heightAuto: true
-            }).then((result) => {
-              if (result.value) {
+             
+          
+          }else{         
 
                 const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
                 this.datosEmpresaService.AddDatosEmpresa(this.datosEmpresaModificado[0]).subscribe((response) => {
@@ -925,32 +888,14 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
                     if(paginaDetalleEmpresa){
                       paginaDetalleEmpresa.classList.add('hide-loader');
                     }
-                    Swal.fire({
-                      title: 'Se agregó el registro correctamente',
-                      text: "",
-                      icon: 'success',
-                      confirmButtonColor: '#d33',
-                      cancelButtonColor: '#3085d6',
-                      confirmButtonText: 'Ok',
-                      width: '30rem',
-                      heightAuto: true
-                    }).then(() => {
+                      this.showSuccess("Datos guardados correctamente");
                       window.location.reload();
-                    })
+                    
                   }else{
                     if(paginaDetalleEmpresa){
                       paginaDetalleEmpresa.classList.add('hide-loader');
                     }
-                    Swal.fire({
-                      title: 'Ocurrió un problema.',
-                      text: 'Comunicarse con Sistemas',
-                      icon: 'warning',
-                      confirmButtonColor: 'blue',
-                      confirmButtonText: 'Ok',
-                      width: '30rem',
-                      heightAuto : true
-                    }).then(() => {
-                    })
+                    this.showError("Comunicarse con sistemas");
                   }
                   if(paginaDetalleEmpresa){
                     paginaDetalleEmpresa.classList.add('hide-loader');
@@ -960,18 +905,9 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
                   if(paginaDetalleEmpresa){
                     paginaDetalleEmpresa.classList.add('hide-loader');
                   }
-                  Swal.fire({
-                    title: 'Ocurrió un problema. Comunicarse con Sistemas',
-                    text: error,
-                    icon: 'warning',
-                    confirmButtonColor: 'blue',
-                    confirmButtonText: 'Ok',
-                    width: '30rem',
-                    heightAuto : true
-                  }).then(() => {
-                  })
-                })
-              }
+                  this.showError("Comunicarse con sistemas");
+                
+              
             });
           }
         }
@@ -983,19 +919,7 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
       if(this.validarGuardado()){
       console.log(this.datosEmpresaModificado)
       if(this.id > 0){
-        Swal.fire({
-          title: '¿Está seguro de guardar los cambios?',
-          text: "",
-          icon: 'warning',
-          showCancelButton: true,
-          cancelButtonText: 'Cancelar',
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Sí',
-          width: '30rem',
-          heightAuto: true
-        }).then((result) => {
-          if (result.value) {
+       
             const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.remove('hide-loader');
@@ -1005,53 +929,25 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
               }
-              Swal.fire({
-                title: 'Se guardaron los cambios correctamente',
-                text: "",
-                icon: 'success',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto: true
-              })
+              this.showSuccess("Datos guardados correctamente");
               this.armarModeloActual();
             }else{
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
               }
-              Swal.fire({
-                title: 'Ocurrió un problema.',
-                text: 'Comunicarse con Sistemas',
-                icon: 'warning',
-                confirmButtonColor: 'blue',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto : true
-              }).then(() => {
-              })
+              this.showError("Comunicarse con sistemas");
             }
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-          })
+          
+        },(error)=>{
+          if(paginaDetalleEmpresa){
+            paginaDetalleEmpresa.classList.add('hide-loader');
           }
+          this.showError("Comunicarse con sistemas");
         });
       }else{
-        Swal.fire({
-          title: '¿Está seguro de agregar este registro?',
-          text: "",
-          icon: 'warning',
-          showCancelButton: true,
-          cancelButtonText: 'Cancelar',
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Sí',
-          width: '30rem',
-          heightAuto: true
-        }).then((result) => {
-          if (result.value) {
-
             const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
             this.datosEmpresaService.AddDatosEmpresa(this.datosEmpresaModificado[0]).subscribe((response) => {
               if(paginaDetalleEmpresa){
@@ -1062,32 +958,14 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
                 if(paginaDetalleEmpresa){
                   paginaDetalleEmpresa.classList.add('hide-loader');
                 }
-                Swal.fire({
-                  title: 'Se agregó el registro correctamente',
-                  text: "",
-                  icon: 'success',
-                  confirmButtonColor: '#d33',
-                  cancelButtonColor: '#3085d6',
-                  confirmButtonText: 'Ok',
-                  width: '30rem',
-                  heightAuto: true
-                }).then(() => {
+                this.showSuccess("Datos guardados correctamente");
                   window.location.reload();
-                })
+               
               }else{
                 if(paginaDetalleEmpresa){
                   paginaDetalleEmpresa.classList.add('hide-loader');
                 }
-                Swal.fire({
-                  title: 'Ocurrió un problema.',
-                  text: 'Comunicarse con Sistemas',
-                  icon: 'warning',
-                  confirmButtonColor: 'blue',
-                  confirmButtonText: 'Ok',
-                  width: '30rem',
-                  heightAuto : true
-                }).then(() => {
-                })
+                this.showError("Comunicarse con sistemas");
               }
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
@@ -1097,25 +975,21 @@ export class DatosEmpresaComponent implements OnInit, OnDestroy {
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
               }
-              Swal.fire({
-                title: 'Ocurrió un problema. Comunicarse con Sistemas',
-                text: error,
-                icon: 'warning',
-                confirmButtonColor: 'blue',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto : true
-              }).then(() => {
-              })
+              this.showError("Comunicarse con sistemas");
             })
-          }
-        });
+        
       }
     }
 
     }
 
 
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error(message,'Ocurrió un error!!');
   }
   salir() {
     this.armarModeloModificado();

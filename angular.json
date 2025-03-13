@@ -57,7 +57,8 @@
               "src/assets/scss/style.scss",
               "src/assets/scss/theme/all-themes.scss",
               "src/styles.scss",
-              "./node_modules/cropperjs/dist/cropper.css"
+              "./node_modules/cropperjs/dist/cropper.css",
+              "./node_modules/ngx-toastr/toastr.css"
            
             ],
             "scripts": [

@@ -6,6 +6,7 @@ import { ComboService } from 'app/services/combo.service';
 import { ComboData } from 'app/models/combo';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class CapitalPagadoComponent implements OnInit {
   }
 
   constructor(public dialogRef: MatDialogRef<CapitalPagadoComponent>,
+     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any, private comboService : ComboService) {
     this.filteredMoneda = new Observable<ComboData[]>()
     if(data){
@@ -104,14 +106,18 @@ export class CapitalPagadoComponent implements OnInit {
     this.dialogRef.close()
   }
   realizarEnvioCodigo() {
-    console.log(this.idCurrency)
+   if((this.capital!=0 ) && this.idCurrency==0){
+       this.showError('Debe ingresar la moneda del Capital');
+   }else{
     this.dialogRef.close(
-    {
-      idMoneda : this.idCurrency,
-      monto : this.capital,
-      observacion :this.commentary,
-      observacionIng : this.commentaryEng
-    });
+      {
+        idMoneda : this.idCurrency,
+        monto : this.capital,
+        observacion :this.commentary,
+        observacionIng : this.commentaryEng
+      });
+   }
+   
   }
   limpiarSeleccion(){
     this.ctrlMoneda.reset();
@@ -124,5 +130,11 @@ export class CapitalPagadoComponent implements OnInit {
     } else {
       this.idCurrency = moneda.id
     }
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error(message,'Ocurrió un error!!');
   }
 }

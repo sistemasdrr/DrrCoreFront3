@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.0.3",
+    "@angular/animations": "^19.2.2",
     "@angular/cdk": "^16.1.6",
     "@angular/common": "^19.0.3",
     "@angular/compiler": "^19.0.3",
@@ -75,6 +75,7 @@
     "ngx-image-editor": "^1.4.1",
     "ngx-mask": "^16.4.2",
     "ngx-scrollbar": "^13.0.3",
+    "ngx-toastr": "^19.0.0",
     "npm": "^10.8.1",
     "pako": "^2.1.0",
     "rxjs": "~7.8.1",

@@ -21,6 +21,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
+import { ToastrService } from 'ngx-toastr';
+import { formatNumber } from '@angular/common';
 
 export interface data {
   name: string;
@@ -105,6 +107,8 @@ export class AntecedentesComponent implements OnInit, OnDestroy{
 
 constructor(
   public dialog: MatDialog,
+  private toastr: ToastrService,
+
   private empresaRelacionadaService : EmpresaRelacionadaService,
   private activatedRoute: ActivatedRoute,
     private antecedentesLegalesService : AntecedentesLegalesService,
@@ -119,6 +123,7 @@ constructor(
     console.log(this.idCompany)
     this.filteredMoneda = new Observable<ComboData[]>();
     this.dataSource = new MatTableDataSource<CompanyRelationT>
+   
   }
   compararModelosF : any
   ngOnInit() {
@@ -434,14 +439,14 @@ constructor(
       () => {
         if(this.currentPaidCapitalCurrency !== 0) {
           const moneda = this.listaMonedas.filter(x => x.id === this.currentPaidCapitalCurrency)[0]
-          this.capitalPagadoActualInforme = (moneda !== null ? moneda.valor.substring(0,3) + ' | ' : '')  + this.currentPaidCapital + ' | ' + this.currentPaidCapitalComentary
+          this.capitalPagadoActualInforme = (moneda !== null ? moneda.valor.substring(0,3) + ' | ' : '')  + formatNumber(this.currentPaidCapital, 'en-US','.2')+ ' | ' + this.currentPaidCapitalComentary
           console.log(moneda.valor.substring(0,3))
           const input = document.getElementById('input_fecha_constitucion') as HTMLElement | null;
           if(input){
             input.focus()
           }
         }else{
-          this.capitalPagadoActualInforme = this.currentPaidCapital + ' | ' + this.currentPaidCapitalComentary
+          this.capitalPagadoActualInforme =formatNumber(this.currentPaidCapital, 'en-US','.2') + ' | ' + this.currentPaidCapitalComentary
 
         }
 
@@ -673,19 +678,7 @@ constructor(
     this.armarModeloModificado()
     console.log(this.constitutionDate+'cxc')
     if(this.id > 0){
-      Swal.fire({
-        title: '¿Está seguro de guardar los cambios?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí',
-        width: '30rem',
-        heightAuto: true
-      }).then((result) => {
-        if (result.value) {
+     
           const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.remove('hide-loader');
@@ -696,16 +689,7 @@ constructor(
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Se guardaron los cambios correctamente',
-              text: "",
-              icon: 'success',
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '#3085d6',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto: true
-            })
+            this.showSuccess("Datos guardados correctamente");
 
             this.armarModeloActual();
             this.armarModeloModificado();
@@ -713,37 +697,21 @@ constructor(
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Ocurrió un problema.',
-              text: 'Comunicarse con Sistemas',
-              icon: 'warning',
-              confirmButtonColor: 'blue',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto : true
-            }).then(() => {
-            })
+            this.showError("Comunicarse con sistemas");
           }
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.add('hide-loader');
           }
-        })
-        }
+       
+      },(error)=>{
+        if(paginaDetalleEmpresa){
+              paginaDetalleEmpresa.classList.add('hide-loader');
+            }
+            this.showError("Comunicarse con sistemas");
+    
       });
     }else{
-      Swal.fire({
-        title: '¿Está seguro de agregar este registro?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí',
-        width: '30rem',
-        heightAuto: true
-      }).then((result) => {
-        if (result.value) {
+     
           const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.remove('hide-loader');
@@ -760,32 +728,14 @@ constructor(
                 tabAntecedentes.classList.add('tab-con-datos')
               }
 
-              Swal.fire({
-                title: 'Se agregó el registro correctamente',
-                text: "",
-                icon: 'success',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto: true
-              })
+              this.showSuccess("Datos guardados correctamente");
               this.armarModeloActual();
               this.armarModeloModificado();
             }else{
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
               }
-              Swal.fire({
-                title: 'Ocurrió un problema.',
-                text: 'Comunicarse con Sistemas',
-                icon: 'warning',
-                confirmButtonColor: 'blue',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto : true
-              }).then(() => {
-              })
+              this.showError("Comunicarse con sistemas");
             }
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
@@ -796,21 +746,17 @@ constructor(
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Ocurrió un problema. Comunicarse con Sistemas',
-              text: error,
-              icon: 'warning',
-              confirmButtonColor: 'blue',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto : true
-            }).then(() => {
-            })
+            this.showError("Comunicarse con sistemas");
           })
-        }
-      });
+       
     }
   }
   salir(){
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error( message,'Ocurrió un error!!');
   }
 }
