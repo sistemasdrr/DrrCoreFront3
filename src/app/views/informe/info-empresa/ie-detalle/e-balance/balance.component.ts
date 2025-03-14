@@ -15,6 +15,7 @@ import { VerPdfComponent } from '@shared/components/ver-pdf/ver-pdf.component';
 import { state, trigger, style, transition, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-balance',
@@ -104,8 +105,9 @@ export class BalanceComponent implements OnInit {
   debtRatio = 0
   profitabilityRatio = 0
   workingCapital = 0
+  loading: boolean=false;
 
-  constructor(public dialog: MatDialog,private activatedRoute : ActivatedRoute, private balanceService : BalanceFinancieroService, private comboService : ComboService){
+  constructor(public dialog: MatDialog,private activatedRoute : ActivatedRoute, private toastr: ToastrService, private balanceService : BalanceFinancieroService, private comboService : ComboService){
     const id = this.activatedRoute.snapshot.paramMap.get('id');
       if (id?.includes('nuevo')) {
         this.idCompany = 0
@@ -409,13 +411,8 @@ formatDate(date: moment.Moment): string {
         this.balanceService.deleteBalance(this.id).subscribe(
           (response) => {
             if(response.isSuccess === true && response.isWarning === false){
-              Swal.fire({
-                title :'¡Se eliminó el balance correctamente!',
-                text : '',
-                icon : 'success',
-                width: '20rem',
-                heightAuto : true
-              }).then(() => {
+              this.showSuccess('¡Se eliminó el balance correctamente!')
+            
                 this.balanceService.getBalances(this.idCompany, 'GENERAL').subscribe(
                   (response) => {
                     if(response.isSuccess === true && response.isWarning === false){
@@ -427,8 +424,7 @@ formatDate(date: moment.Moment): string {
                       this.agregar = false
                     }
                   }
-                )
-              });
+                )             
             }
           }
         )
@@ -440,29 +436,12 @@ formatDate(date: moment.Moment): string {
     this.armarModelo()
     console.log(this.modeloModificado[0])
     if(this.id === 0){
-      Swal.fire({
-        title: '¿Está seguro de agregar este balance?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText : 'No',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        width: '20rem',
-        heightAuto : true
-      }).then((result) => {
-        if (result.value) {
+         this.loading=true;
           this.balanceService.addOrUpdateBalance(this.modeloModificado[0]).subscribe(
             (response) => {
               if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'¡Se agregó el balance correctamente!',
-                  text : '',
-                  icon : 'success',
-                  width: '20rem',
-                  heightAuto : true
-                }).then(() => {
+                this.loading=false;
+                this.showSuccess('¡Se agregó el balance correctamente!')
                   this.balanceService.getBalances(this.idCompany, 'GENERAL').subscribe(
                     (response) => {
                       if(response.isSuccess === true && response.isWarning === false){
@@ -471,36 +450,20 @@ formatDate(date: moment.Moment): string {
                       }
                     }
                   )
-                });
-              }
-            }
-          )
         }
+      },(error)=>{
+        this.loading=false;
+          this.showError(error.message);
+
       });
     }else if(this.id > 0){
-      Swal.fire({
-        title: '¿Está seguro de modificar este balance?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText : 'No',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        width: '20rem',
-        heightAuto : true
-      }).then((result) => {
-        if (result.value) {
+     
           this.balanceService.addOrUpdateBalance(this.modeloModificado[0]).subscribe(
             (response) => {
               if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'¡Se modificó el balance correctamente!',
-                  text : '',
-                  icon : 'success',
-                  width: '20rem',
-                  heightAuto : true
-                }).then(() => {
+                this.loading=false;
+                this.showSuccess('¡Se modificó el balance correctamente!')
+            
                   this.balanceService.getBalances(this.idCompany, 'GENERAL').subscribe(
                     (response) => {
                       if(response.isSuccess === true && response.isWarning === false){
@@ -509,12 +472,12 @@ formatDate(date: moment.Moment): string {
                       }
                     }
                   )
-                });
-              }
-            }
-          )
         }
-      });
+      },(error)=>{
+        this.loading=false;
+        this.showError(error.message);
+
+    });
     }
 
   }
@@ -524,9 +487,11 @@ formatDate(date: moment.Moment): string {
     this.id = 0
   }
   actualizarBalance(id : number){
+    this.loading=true;
     this.balanceService.getBalanceById(id).subscribe(
       (response) => {
         if(response.isSuccess === true && response.isWarning === false){
+          this.loading=false;
           const balance = response.data
           console.log(response.data)
           if(balance){
@@ -591,5 +556,11 @@ formatDate(date: moment.Moment): string {
 
   pintar(){
     console.log("balance mostrado")
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error( message,'Ocurrió un error!!');
   }
 }

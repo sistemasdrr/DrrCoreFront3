@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { er } from '@fullcalendar/core/internal-common';
 
 @Component({
     selector: 'app-historico-ventas',
@@ -53,7 +55,7 @@ export class HistoricoVentasComponent implements OnInit {
     valor  : '',
   }
 
-  constructor(private finanzasService : FinanzasService, private comboService : ComboService, public dialogRef: MatDialogRef<HistoricoVentasComponent>,
+  constructor(private finanzasService : FinanzasService, private comboService : ComboService,private toastr: ToastrService, public dialogRef: MatDialogRef<HistoricoVentasComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ){
     this.filteredMoneda = new Observable<ComboData[]>()
@@ -158,19 +160,7 @@ export class HistoricoVentasComponent implements OnInit {
     this.armarModelo()
     console.log(this.modelo[0])
     if(this.id > 0){
-      Swal.fire({
-        title: '¿Está seguro de guardar los cambios?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí',
-        width: '30rem',
-        heightAuto: true
-      }).then((result) => {
-        if (result.value) {
+    
           const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.remove('hide-loader');
@@ -180,54 +170,28 @@ export class HistoricoVentasComponent implements OnInit {
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Se guardaron los cambios correctamente',
-              text: "",
-              icon: 'success',
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '#3085d6',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto: true
-            }).then(() => {
+              this.showSuccess('Se guardó con éxito')
               this.dialogRef.close()
-            })
+           
           }else{
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Ocurrió un problema.',
-              text: 'Comunicarse con Sistemas',
-              icon: 'warning',
-              confirmButtonColor: 'blue',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto : true
-            }).then(() => {
+              this.showError('Comunicarse con sistemas')
               this.dialogRef.close()
-            })
+           
           }
           if(paginaDetalleEmpresa){
             paginaDetalleEmpresa.classList.add('hide-loader');
           }
-        })
+       
+      },(error)=>{
+        if(paginaDetalleEmpresa){
+          paginaDetalleEmpresa.classList.add('hide-loader');
         }
+          this.showError('Comunicarse con sistemas')
       });
-    }else{
-      Swal.fire({
-        title: '¿Está seguro de agregar este registro?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí',
-        width: '30rem',
-        heightAuto: true
-      }).then((result) => {
-        if (result.value) {
+    }else{    
 
           const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
           if(paginaDetalleEmpresa){
@@ -235,30 +199,16 @@ export class HistoricoVentasComponent implements OnInit {
           }
           this.finanzasService.addOrUpdateHistoricoVentas(this.modelo[0]).subscribe((response) => {
             if(response.isSuccess === true && response.isWarning === false){
-              Swal.fire({
-                title: 'Se agregó el registro correctamente',
-                text: "",
-                icon: 'success',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto: true
-              }).then(() => {
+              this.showSuccess('Se guardó con éxito')
                 this.dialogRef.close()
-              })
+              
             }else{
-              Swal.fire({
-                title: 'Ocurrió un problema.',
-                text: 'Comunicarse con Sistemas',
-                icon: 'warning',
-                confirmButtonColor: 'blue',
-                confirmButtonText: 'Ok',
-                width: '30rem',
-                heightAuto : true
-              }).then(() => {
+              if(paginaDetalleEmpresa){
+                paginaDetalleEmpresa.classList.add('hide-loader');
+              }
+                this.showError('Comunicarse con sistemas')
                 this.dialogRef.close()
-              })
+             
             }
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
@@ -268,23 +218,20 @@ export class HistoricoVentasComponent implements OnInit {
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            Swal.fire({
-              title: 'Ocurrió un problema. Comunicarse con Sistemas',
-              text: error,
-              icon: 'warning',
-              confirmButtonColor: 'blue',
-              confirmButtonText: 'Ok',
-              width: '30rem',
-              heightAuto : true
-            }).then(() => {
+            this.showError('Comunicarse con sistemas')
               this.dialogRef.close()
-            })
-          })
-        }
+            
+         
       });
     }
   }
   salir(){
     this.dialogRef.close()
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error(message,'Ocurrió un error!!');
   }
 }

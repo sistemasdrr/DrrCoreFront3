@@ -13,6 +13,7 @@ import { state, trigger, style, transition, animate } from '@angular/animations'
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { TraduccionDialogComponent } from '@shared/components/traduccion-dialog/traduccion-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-balance-situacional',
@@ -106,7 +107,7 @@ export class BalanceSituacionalComponent implements OnInit {
   workingCapital = 0
 
 
-  constructor(public dialog: MatDialog,private balanceService : BalanceFinancieroService, private comboService : ComboService,
+  constructor(public dialog: MatDialog,private balanceService : BalanceFinancieroService,  private toastr: ToastrService,private comboService : ComboService,
     public dialogRef: MatDialogRef<BalanceSituacionalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number
    ){
@@ -169,13 +170,7 @@ export class BalanceSituacionalComponent implements OnInit {
         this.balanceService.deleteBalance(this.id).subscribe(
           (response) => {
             if(response.isSuccess === true && response.isWarning === false){
-              Swal.fire({
-                title :'¡Se eliminó el balance correctamente!',
-                text : '',
-                icon : 'success',
-                width: '20rem',
-                heightAuto : true
-              }).then(() => {
+              this.showSuccess('¡Se eliminó el balance correctamente!');
                 this.balanceService.getBalances(this.idCompany, 'SITUACIONAL').subscribe(
                   (response) => {
                     if(response.isSuccess === true && response.isWarning === false){
@@ -188,7 +183,7 @@ export class BalanceSituacionalComponent implements OnInit {
                     }
                   }
                 )
-              });
+              
             }
           }
         )
@@ -246,6 +241,7 @@ export class BalanceSituacionalComponent implements OnInit {
   private _filter(name: string): ComboData[] {
     return this.listaMonedas.filter(option => option.valor.toLowerCase().includes(name.toLowerCase()));
   }
+  
   msgTipoMoneda = ""
   colorMsgTipoMoneda = ""
   seleccionarTipoMoneda(moneda : ComboData){
@@ -442,29 +438,12 @@ export class BalanceSituacionalComponent implements OnInit {
     this.armarModelo()
     console.log(this.modeloModificado[0])
     if(this.id === 0){
-      Swal.fire({
-        title: '¿Está seguro de agregar este balance?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText : 'No',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        width: '20rem',
-        heightAuto : true
-      }).then((result) => {
-        if (result.value) {
+     
           this.balanceService.addOrUpdateBalance(this.modeloModificado[0]).subscribe(
             (response) => {
               if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'¡Se agregó el balance correctamente!',
-                  text : '',
-                  icon : 'success',
-                  width: '20rem',
-                  heightAuto : true
-                }).then(() => {
+                this.showSuccess('¡Se agregó el balance correctamente!');
+               
                   this.balanceService.getBalances(this.idCompany, 'SITUACIONAL').subscribe(
                     (response) => {
                       if(response.isSuccess === true && response.isWarning === false){
@@ -473,36 +452,15 @@ export class BalanceSituacionalComponent implements OnInit {
                       }
                     }
                   )
-                });
-              }
-            }
-          )
         }
       });
     }else if(this.id > 0){
-      Swal.fire({
-        title: '¿Está seguro de modificar este balance?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText : 'No',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        width: '20rem',
-        heightAuto : true
-      }).then((result) => {
-        if (result.value) {
+     
           this.balanceService.addOrUpdateBalance(this.modeloModificado[0]).subscribe(
             (response) => {
               if(response.isSuccess === true && response.isWarning === false){
-                Swal.fire({
-                  title :'¡Se modificó el balance correctamente!',
-                  text : '',
-                  icon : 'success',
-                  width: '20rem',
-                  heightAuto : true
-                }).then(() => {
+                this.showSuccess('¡Se modificó el balance correctamente!');
+               
                   this.balanceService.getBalances(this.idCompany, 'SITUACIONAL').subscribe(
                     (response) => {
                       if(response.isSuccess === true && response.isWarning === false){
@@ -511,14 +469,16 @@ export class BalanceSituacionalComponent implements OnInit {
                       }
                     }
                   )
-                });
-              }
-            }
-          )
         }
       });
     }
 
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message,'Operación Exitosa!!');
+  }
+  showError(message: string) {
+    this.toastr.error(message,'Ocurrió un error!!');
   }
   cancelarAgregarBalance(){
     this.agregar = false

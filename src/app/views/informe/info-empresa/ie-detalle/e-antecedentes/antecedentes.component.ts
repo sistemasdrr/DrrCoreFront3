@@ -86,7 +86,7 @@ export class AntecedentesComponent implements OnInit, OnDestroy{
   backgroundEng = ""
   history = ""
   historyEng = ""
-
+   loading: boolean = false  
 
   modeloActual : Background[] = []
   modeloModificado : Background[] = []
@@ -676,23 +676,24 @@ constructor(
 
   guardar() {
     this.armarModeloModificado()
-    console.log(this.constitutionDate+'cxc')
+    const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
     if(this.id > 0){
      
-          const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
-          if(paginaDetalleEmpresa){
-            paginaDetalleEmpresa.classList.remove('hide-loader');
-          }
-          console.log(this.modeloModificado[0])
+     
+    if(paginaDetalleEmpresa){
+      paginaDetalleEmpresa.classList.remove('hide-loader');
+    }
           this.antecedentesLegalesService.updateAntecedentesLegales(this.modeloModificado[0]).subscribe((response) => {
-          if(response.isSuccess === true && response.isWarning === false){
+           
+            if(response.isSuccess === true && response.isWarning === false){
+             console.log("aqui1")
+            this.showSuccess("Datos guardados correctamente");
+            
+            this.armarModeloActual();
+            this.armarModeloModificado();
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            this.showSuccess("Datos guardados correctamente");
-
-            this.armarModeloActual();
-            this.armarModeloModificado();
           }else{
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
@@ -705,43 +706,46 @@ constructor(
        
       },(error)=>{
         if(paginaDetalleEmpresa){
-              paginaDetalleEmpresa.classList.add('hide-loader');
-            }
+          paginaDetalleEmpresa.classList.add('hide-loader');
+        }
             this.showError("Comunicarse con sistemas");
     
       });
     }else{
      
-          const paginaDetalleEmpresa = document.getElementById('pagina-detalle-empresa') as HTMLElement | null;
-          if(paginaDetalleEmpresa){
-            paginaDetalleEmpresa.classList.remove('hide-loader');
-          }
+      if(paginaDetalleEmpresa){
+        paginaDetalleEmpresa.classList.remove('hide-loader');
+      }
           this.antecedentesLegalesService.updateAntecedentesLegales(this.modeloModificado[0]).subscribe((response) => {
-
+           
             if(response.isSuccess === true && response.isWarning === false){
-              if(paginaDetalleEmpresa){
-                paginaDetalleEmpresa.classList.add('hide-loader');
-              }
+             
 
               const tabAntecedentes = document.getElementById('tab-antecedentes') as HTMLElement | null;
               if (tabAntecedentes) {
                 tabAntecedentes.classList.add('tab-con-datos')
               }
-
+             
               this.showSuccess("Datos guardados correctamente");
+            
               this.armarModeloActual();
               this.armarModeloModificado();
-            }else{
               if(paginaDetalleEmpresa){
                 paginaDetalleEmpresa.classList.add('hide-loader');
               }
+            }else{
+             
               this.showError("Comunicarse con sistemas");
+              if(paginaDetalleEmpresa){
+                paginaDetalleEmpresa.classList.add('hide-loader');
+              }
             }
+           
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
             }
-            this.id = response.data
-            console.log(response)
+             this.id = response.data
+            
           }, (error) => {
             if(paginaDetalleEmpresa){
               paginaDetalleEmpresa.classList.add('hide-loader');
